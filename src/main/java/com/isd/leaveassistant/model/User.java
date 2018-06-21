@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "user")
 public class User {
 
     @Id
@@ -13,24 +12,21 @@ public class User {
 
     private String name;
     private String surname;
-    private String password;
     private String email;
+    private String password;
     private Date employment_date;
+    private int active;
 
     public User() {
     }
 
-    public User(String email, String password) {
-        this.password = password;
-        this.email = email;
-    }
-
-    public User(String name, String surname, String password, String email, Date employment_date) {
+    public User(String name, String surname, String email, String password, Date employment_date, int active) {
         this.name = name;
         this.surname = surname;
-        this.password = password;
         this.email = email;
+        this.password = password;
         this.employment_date = employment_date;
+        this.active = active;
     }
 
     public long getId() {
@@ -57,20 +53,20 @@ public class User {
         this.surname = surname;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getEmployment_date() {
@@ -80,4 +76,13 @@ public class User {
     public void setEmployment_date(Date employment_date) {
         this.employment_date = employment_date;
     }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
 }
+
