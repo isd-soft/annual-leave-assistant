@@ -51,7 +51,7 @@ public class UserController {
         }
 
 
-        return "redirect:/user/login";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/profilepage/{id}", method = RequestMethod.GET)
