@@ -1,7 +1,7 @@
 package com.isd.leaveassistant.controller;
 
-import com.isd.annual_leave_assistant.model.Group;
-import com.isd.annual_leave_assistant.service.GroupService;
+import com.isd.leaveassistant.model.Group;
+import com.isd.leaveassistant.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

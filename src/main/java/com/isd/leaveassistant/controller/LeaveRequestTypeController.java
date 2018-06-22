@@ -1,8 +1,8 @@
 package com.isd.leaveassistant.controller;
 
 
-import com.isd.annual_leave_assistant.model.LeaveRequestType;
-import com.isd.annual_leave_assistant.service.LeaveRequestTypeService;
+import com.isd.leaveassistant.model.LeaveRequestType;
+import com.isd.leaveassistant.service.LeaveRequestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

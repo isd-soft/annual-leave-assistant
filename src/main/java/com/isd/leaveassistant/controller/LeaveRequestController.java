@@ -1,11 +1,12 @@
 package com.isd.leaveassistant.controller;
 
-import com.isd.annual_leave_assistant.model.LeaveRequest;
-import com.isd.annual_leave_assistant.service.LeaveRequestService;
+import com.isd.leaveassistant.model.LeaveRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.isd.leaveassistant.service.LeaveRequestService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/leaveRequests")
@@ -16,6 +17,16 @@ public class LeaveRequestController {
 
     public LeaveRequestController(LeaveRequestService leaveRequestService) {
         this.leaveRequestService = leaveRequestService;
+    }
+
+    @RequestMapping(value = "/all/{id}", method = RequestMethod.GET)
+    public List<LeaveRequest> getAllPending(@PathVariable(name = "id") Integer id) {
+        return leaveRequestService.findAllPending(id);
+    }
+
+    @RequestMapping(value = "/all/{id}/{statusId}", method = RequestMethod.GET)
+    public List<LeaveRequest> getAllPendingByUserId(@PathVariable(name = "id") Integer id, @PathVariable(name = "statusId") Integer statusId) {
+        return leaveRequestService.findAllPendingByUserId(id, statusId);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
