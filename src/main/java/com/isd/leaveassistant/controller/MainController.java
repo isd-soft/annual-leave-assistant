@@ -21,6 +21,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(authentication.getName());
         model.addAttribute("username", "Welcome " + user.getSurname() + " " + user.getName());
+        model.addAttribute("user", userService.getUserById(user.getId()));
 
         return "index";
     }
