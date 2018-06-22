@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -76,30 +78,36 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
     }
 
     public Integer DateDiff (Date startDate, Date endDate) {
-        Date daysDiff = new Date(startDate.getTime()- endDate.getTime());
-        Integer totalDaysOff = Integer.parseInt(daysDiff.toString())/24/60/60/1000 + 1;
-        return totalDaysOff;
+        LocalDate dateFrom = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dateTo = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        Period intervalPeriod = Period.between(dateFrom, dateTo);
+        if(intervalPeriod.getMonths()==0 && intervalPeriod.getYears()==0) {
+            return intervalPeriod.getDays()+1;
+        }else {
+            return 0;
+        }
     }
 
     public boolean CheckAvailableDays (LeaveRequest leaveRequest) {
         List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUserId(), 2);
         Integer totalDaysOff = 0;
         Integer MaximumDays = LeaveRequestMaximumDays.MaximumDaysAvailable;
-        DateTime date = new DateTime();
         LocalDate dateNow = LocalDate.now();
-        //LocalDate date = LocalDate.of(dateNow.getYear(), 1, 1);
+        LocalDate date = LocalDate.of(dateNow.getYear()-1, 12, 31);
         for (LeaveRequest item :totalLeaveRequests) {
-            if(item.getStartDate().getTime() > date. )
-            totalDaysOff += DateDiff(item.getStartDate(),item.getEndDate());
+            if(item.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(date)) {
+                totalDaysOff += DateDiff(item.getStartDate(), item.getEndDate());
+            }
         }
-        Integer currentDaysOff = DateDiff(leaveRequest.getStartDate(), leaveRequest.getEndDate())
-        if (totalDaysOff<MaximumDays && MaximumDays - totalDaysOff <=currentDaysOff) {
+        Integer currentDaysOff = DateDiff(leaveRequest.getStartDate(), leaveRequest.getEndDate());
+        if (totalDaysOff<MaximumDays && MaximumDays - totalDaysOff >=currentDaysOff) {
             return true;
         } else {
             return false;
         }
     }
-    public boolean CheckFourTeenDays (LeaveRequest leaveRequest) {
+    /*public boolean CheckFourTeenDays (LeaveRequest leaveRequest) {
         List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUserId(), 2);
         Integer totalDaysOff = 0;
         Integer MaximumDays = LeaveRequestMaximumDays.MaximumDaysAvailable;
@@ -115,7 +123,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         } else {
             return false;
         }
-    }
+    }*/
 
 
 }
