@@ -1,0 +1,93 @@
+2018-06-20 09:52:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 09:54:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 09:54:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 09:56:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:01:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:04:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:06:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:07:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:08:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:10:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:11:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:11:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:12:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:12:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:15:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:15:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:32:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:32:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+insert into user (email, emp_date, group, name, password, surname, id) values (?, ?, ?, ?, ?, ?, ?) [42102-197]
+2018-06-20 10:38:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:39:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+insert into user (email, emp_date, group, name, password, surname, id) values (?, ?, ?, ?, ?, ?, ?) [42102-197]
+2018-06-20 10:39:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:41:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 10:41:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+insert into user (email, emp_date, group, name, password, surname, id) values (?, ?, ?, ?, ?, ?, ?) [42102-197]
+2018-06-20 11:11:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 11:11:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+insert into user (email, emp_date, group, name, password, surname, id) values (?, ?, ?, ?, ?, ?, ?) [42102-197]
+2018-06-20 11:12:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 11:12:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+insert into user (email, emp_date, group, name, password, surname, id) values (?, ?, ?, ?, ?, ?, ?) [42102-197]
+2018-06-20 11:14:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 11:14:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+insert into user (email, emp_date, group, name, password, surname, id) values (?, ?, ?, ?, ?, ?, ?) [42102-197]
+2018-06-20 11:16:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER (ID BIGINT NOT NULL, EMAIL VARCHAR(255), EMP_DATE VARCHAR(255), GROUP[*] CHAR(255), NAME VARCHAR(255), PASSWORD VARCHAR(255), SURNAME VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), emp_date varchar(255), group char(255), name varchar(255), password varchar(255), surname varchar(255), primary key (id)) [42001-197]
+2018-06-20 11:16:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+insert into user (email, emp_date, group, name, password, surname, id) values (?, ?, ?, ?, ?, ?, ?) [42102-197]
