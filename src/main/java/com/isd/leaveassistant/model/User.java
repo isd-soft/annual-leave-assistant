@@ -35,22 +35,22 @@ public class User {
     private int active;
 
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ROLE_FK")
+    private Role role;
 
     public User() {
     }
 
 
-    public User(String name, String surname, String email, String password, Date employment_date, int active, Set<Role> roles) {
+    public User(String name, String surname, String email, String password, Date employment_date, int active, Role role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.employment_date = employment_date;
         this.active = active;
-        this.roles = roles;
+        this.role = role;
     }
 
     public long getId() {
@@ -109,12 +109,12 @@ public class User {
         this.active = active;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRoles() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Role role) {
+        this.role = role;
     }
 }
 
