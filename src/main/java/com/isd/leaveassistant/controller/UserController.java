@@ -1,7 +1,11 @@
 package com.isd.leaveassistant.controller;
 
+import com.isd.leaveassistant.model.Role;
 import com.isd.leaveassistant.model.User;
+import com.isd.leaveassistant.repositories.RoleRepository;
 import com.isd.leaveassistant.services.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 @Controller
 public class UserController {
 
     private UserService userService;
+    private RoleRepository roleRepository;
+
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -54,7 +61,7 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/profilepage/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/profilepage/{id}/", method = RequestMethod.GET)
     public String profilePage(Model model,@PathVariable("id") int id) {
 
         model.addAttribute("user", userService.getUserById(id));

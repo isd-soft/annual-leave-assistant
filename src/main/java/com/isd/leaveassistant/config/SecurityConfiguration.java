@@ -13,20 +13,19 @@ import javax.sql.DataSource;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final String USER_QUERY = "select email, password, active from user where email=?";
+    // private final String ROLE_QUERY = "select email, 'ROLE_USER' from user where email=?"; In case I dont need roles
+    private final String ROLES_QUERY = "select u.email, r.role from user u inner join user_role ur on (u.id = ur.user_id) inner join role r on (ur.role_id=r.id) where u.email=?";
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Autowired
     private DataSource dataSource;
-
-    private final String USER_QUERY = "select email, password, active from user where email=?";
-    private final String ROLE_QUERY = "select email, 'ROLE_USER' from user where email=?";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .usersByUsernameQuery(USER_QUERY)
-                .authoritiesByUsernameQuery(ROLE_QUERY)
+                .authoritiesByUsernameQuery(ROLES_QUERY)
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
@@ -34,9 +33,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "index").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
+                .antMatchers("/", "index").hasAuthority("USER")
                 .anyRequest()
                 .authenticated().and().csrf().disable()
                 .formLogin().loginPage("/login").failureUrl("/login/error=true")

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -42,6 +44,12 @@
                     <label class="col-sm-2 control-label">User employment :</label>
                     <div class="col-sm-10">
                         <p class="form-control-static" th:text="${user.employment_date}">User emplyment date</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">User group :</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" sec:authentication="principal.authorities">User group</p>
                     </div>
                 </div>
             </form>
