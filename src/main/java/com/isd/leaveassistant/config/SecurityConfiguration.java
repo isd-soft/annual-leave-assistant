@@ -15,7 +15,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final String USER_QUERY = "select email, password, active from users where email=?";
     // private final String ROLE_QUERY = "select email, 'ROLE_USER' from user where email=?"; In case I dont need roles
-    private final String ROLES_QUERY = "select u.email, r.role from users u inner join roles ur on (u.id = ur.user_id) inner join role r on (ur.role_id=r.id) where u.email=?";
+    private final String ROLES_QUERY = "select u.email, r.role from users u inner join roles r on (u.role = r.id) where u.email=?";
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
