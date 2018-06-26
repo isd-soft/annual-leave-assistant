@@ -2,7 +2,6 @@ package com.isd.leaveassistant.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,11 +16,14 @@ public class LeaveRequest {
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "LEAVE_REQUEST_TYPE_ID")
-    private Integer leaveRequestTypeId;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "LEAVE_REQUEST_TYPE_FK")
+    private LeaveRequestType leaveRequestType;
 
-    @Column(name = "USER_ID")
-    private Integer userId;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "USER_FK")
+    private User user;
 
     @Column(name = "START_DATE")
     private Date startDate;
@@ -29,46 +31,25 @@ public class LeaveRequest {
     @Column(name = "END_DATE")
     private Date endDate;
 
-    @Column(name = "STATUS_ID")
-    private Integer statusId;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "STATUS_FK", nullable = false)
+    private Status status;
 
     @Column(name = "REQUEST_DATE")
     private Date requestDate;
 
-
-
     public LeaveRequest() {
     }
 
-    public LeaveRequest(Integer leaveRequestTypeId, Integer userId, Date startDate, Date endDate, Integer statusId, Date requestDate) {
-        this.leaveRequestTypeId = leaveRequestTypeId;
-        this.userId = userId;
+    public LeaveRequest(LeaveRequestType leaveRequestType, User user, Date startDate, Date endDate, Status status, Date requestDate) {
+        this.leaveRequestType = leaveRequestType;
+        this.user = user;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.statusId = statusId;
+        this.status = status;
         this.requestDate = requestDate;
     }
 
-    /*@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "LEAVE_REQUESTS_TYPES",
-            joinColumns = { @JoinColumn(name = "LEAVE_REQUESTS_TYPE_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID") })
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "USERS",
-            joinColumns = { @JoinColumn(name = "USER_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID") })
-
-    /*@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "USERS",
-            joinColumns = { @JoinColumn(name = "USER_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID") })
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "STATUSES",
-            joinColumns = { @JoinColumn(name = "STATUS_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID") })
-    */
     public Integer getId() {
         return id;
     }
@@ -77,20 +58,20 @@ public class LeaveRequest {
         this.id = id;
     }
 
-    public Integer getLeaveRequestTypeId() {
-        return leaveRequestTypeId;
+    public LeaveRequestType getLeaveRequestType() {
+        return leaveRequestType;
     }
 
-    public void setLeaveRequestTypeId(Integer leaveRequestTypeId) {
-        this.leaveRequestTypeId = leaveRequestTypeId;
+    public void setLeaveRequestType(LeaveRequestType leaveRequestType) {
+        this.leaveRequestType = leaveRequestType;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getStartDate() {
@@ -109,12 +90,12 @@ public class LeaveRequest {
         this.endDate = endDate;
     }
 
-    public Integer getStatusId() {
-        return statusId;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatusId(Integer statusId) {
-        this.statusId = statusId;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Date getRequestDate() {

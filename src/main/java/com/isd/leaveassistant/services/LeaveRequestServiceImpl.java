@@ -2,7 +2,10 @@ package com.isd.leaveassistant.services;
 
 import com.isd.leaveassistant.LeaveRequestMaximumDays;
 import com.isd.leaveassistant.model.LeaveRequest;
+import com.isd.leaveassistant.model.Status;
+import com.isd.leaveassistant.model.User;
 import com.isd.leaveassistant.repositories.LeaveRequestRepository;
+import com.isd.leaveassistant.repositories.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
 
     @Autowired
     private LeaveRequestRepository leaveRequestRepository;
+    private StatusRepository statusRepository;
 
     @Override
     public List<LeaveRequest> getAll() {
@@ -26,18 +30,18 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     }
 
     @Override
-    public List<LeaveRequest> findAllByUserId(Integer id) {
+    public List<LeaveRequest> findAllByUserId(User id) {
         return leaveRequestRepository.findAllByUserIdEqualsOrderByRequestDate(id);
     }
 
     @Override
-    public List<LeaveRequest> findAllPending(Integer statusId) {
+    public List<LeaveRequest> findAllPending(Status statusId) {
         return leaveRequestRepository.findAllByStatusIdEqualsOrderByRequestDate(statusId);
     }
 
     @Override
-    public List<LeaveRequest> findAllPendingByUserId(Integer userId, Integer statusId) {
-        return leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(userId, statusId);
+    public List<LeaveRequest> findAllPendingByUserId(User userId, Status statusId) {
+        return leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(userId, statusRepository.getOne(1));
     }
 
     @Override
@@ -56,12 +60,12 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     @Override
     public LeaveRequest update(LeaveRequest leaveRequest, Integer id) {
         LeaveRequest leaveRequestNew = leaveRequestRepository.getOne(id);
-        leaveRequestNew.setLeaveRequestTypeId(leaveRequest.getLeaveRequestTypeId());
-        leaveRequestNew.setUserId(leaveRequest.getUserId());
+        leaveRequestNew.setLeaveRequestType(leaveRequest.getLeaveRequestType());
+        leaveRequestNew.setUser(leaveRequest.getUser());
         leaveRequestNew.setRequestDate(leaveRequest.getRequestDate());
         leaveRequestNew.setStartDate(leaveRequest.getStartDate());
         leaveRequestNew.setEndDate(leaveRequest.getEndDate());
-        leaveRequestNew.setStatusId(leaveRequest.getStatusId());
+        leaveRequestNew.setStatus(leaveRequest.getStatus());
         leaveRequestRepository.save(leaveRequestNew);
         return leaveRequestNew;
     }
@@ -89,7 +93,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     }
 
     public boolean CheckAvailableDays (LeaveRequest leaveRequest) {
-        List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUserId(), 2);
+        List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUser(),statusRepository.getOne(2));
         Integer totalDaysOff = 0;
         Integer MaximumDays = MaximumDaysAvailable;
         LocalDate dateNow = LocalDate.now();
@@ -107,7 +111,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
         }
     }
     public boolean CheckFourTeenDays (LeaveRequest leaveRequest) {
-        List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUserId(), 2);
+        List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUser(), statusRepository.getOne(2));
         Integer totalDaysOff = 0;
         Integer MaximumDays = MaximumDaysAvailable;
         LocalDate dateNow = LocalDate.now();

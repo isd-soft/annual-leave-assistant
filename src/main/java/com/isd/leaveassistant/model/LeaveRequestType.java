@@ -3,6 +3,7 @@ package com.isd.leaveassistant.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "LEAVE_REQUEST_TYPES")
@@ -16,6 +17,9 @@ public class LeaveRequestType {
 
     @Column(name = "NAME")
     private String name;
+
+    //@OneToMany(mappedBy="leaverequesttype")
+    //public Set<LeaveRequest> getLeaveRequests(){ return null; };
 
     public LeaveRequestType() {
     }
