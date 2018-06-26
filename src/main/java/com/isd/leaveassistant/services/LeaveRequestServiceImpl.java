@@ -95,7 +95,6 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     public boolean CheckAvailableDays (LeaveRequest leaveRequest) {
         List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUser(),statusRepository.getOne(2));
         Integer totalDaysOff = 0;
-        Integer MaximumDays = MaximumDaysAvailable;
         LocalDate dateNow = LocalDate.now();
         LocalDate date = LocalDate.of(dateNow.getYear()-1, 12, 31);
         for (LeaveRequest item :totalLeaveRequests) {
@@ -104,7 +103,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
             }
         }
         Integer currentDaysOff = DateDiff(leaveRequest.getStartDate(), leaveRequest.getEndDate());
-        if (totalDaysOff<MaximumDays && MaximumDays - totalDaysOff >=currentDaysOff) {
+        if (totalDaysOff<MaximumDaysAvailable && MaximumDaysAvailable - totalDaysOff >=currentDaysOff) {
             return true;
         } else {
             return false;
@@ -113,7 +112,6 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     public boolean CheckFourTeenDays (LeaveRequest leaveRequest) {
         List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUser(), statusRepository.getOne(2));
         Integer totalDaysOff = 0;
-        Integer MaximumDays = MaximumDaysAvailable;
         LocalDate dateNow = LocalDate.now();
         LocalDate date = LocalDate.of(dateNow.getYear()-1, 12, 31);
 
@@ -124,7 +122,6 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                 leaves.add(DateDiff(item.getStartDate(),item.getEndDate())+1);
             }
         }
-
 
         boolean moreThan14 = Fourteen <= leaves.stream().filter(v-> v>14).findAny().get();
         if (moreThan14){
