@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="input-field col s6">
+    <i class="material-icons prefix">email</i>
+    <input [(ngModel)]="email" type="text" >
+    <label for="email">Email</label>
+  </div>
+
+  <div class="input-field col s6">
+    <i class="material-icons prefix">vpn_key</i>
+    <input [(ngModel)]="password" type="password" >
+    <label for="email">password</label>
+  </div>
+
+  <div class="right">
+    <button class="waves-effect waves-light btn" type="button" (click)="login()">LogIn</button>
+    <button class="waves-effect waves-teal btn-flat">Register</button>
+  </div>
+</div>
+<h3>Hello {{email}}!</h3>
