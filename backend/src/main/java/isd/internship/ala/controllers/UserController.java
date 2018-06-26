@@ -1,7 +1,6 @@
 package isd.internship.ala.controllers;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.ServletException;
 
@@ -9,13 +8,14 @@ import isd.internship.ala.models.User;
 import isd.internship.ala.security.JwtGenerator;
 import isd.internship.ala.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-@CrossOrigin(origins = "http://localhost", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/")
 public class UserController {
@@ -35,22 +35,28 @@ public class UserController {
     }
 
     // LogIn and get a token [checked]
-    @PostMapping("/login")
-    public String generate(@RequestBody final User user) {
-        return jwtGenerator.generate(user);
+    @PostMapping(value = "/login", produces = "application/json")
+    public ResponseEntity<HashMap<String, String>> generate(@RequestBody final User user) {
+        return ResponseEntity.status(200).body((jwtGenerator.generate(user)));
     }
 
     // Register a new user [checked]
-    @PostMapping(value = "/register")
-    public String registerUser(@RequestBody User user) {
-        List<User> users = userService.findAll();
-        for(User u : users){
-            if(u.getEmail().equals(user.getEmail()))
-                return "User with this email exists";
+    @PostMapping(value = "/register", produces = "application/json")
+    public ResponseEntity<HashMap<String, String>> registerUser(@RequestBody User user) {
+        HashMap<String, String> result = new HashMap<>();
+        try{
+            userService.findByEmail(user.getEmail()).get();
+            System.out.println("[ ! ]   User with this email already exists!");
+            result.put("message","User with this email already exists!");
+            return ResponseEntity.status(409).body(result);
+        } catch (NoSuchElementException e){
+            System.out.println("[ R ]   User " + user.getEmail() + " registered successfully!");
+            userService.save(user);
+            result.put("message","Registration success.");
         }
-        userService.save(user);
-        return "Registration success.";
+            return ResponseEntity.status(201).body(result);
     }
+
 
     @RequestMapping(value = "/ala/users", method = RequestMethod.GET)
     public List<User> getAll(){

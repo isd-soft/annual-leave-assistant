@@ -20,6 +20,7 @@ public class AlaApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		// Populating database to test stuff
 		LocalDate date = LocalDate.of(2018,12,12);
 		userRepository.save(new User("root","root", "root", "root", date, "admin"));
 		userRepository.save(new User("fiona@mail.md","aa", "Fiona", "Hij", date, "user"));

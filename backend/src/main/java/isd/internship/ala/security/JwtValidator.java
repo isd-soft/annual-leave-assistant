@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.UserRepository;
+import isd.internship.ala.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,11 +28,7 @@ public class JwtValidator {
             String password = (String) body.get("password");
             String role = (String) body.get("role");
 
-            user = new User();
-            user.setEmail(username);
-            user.setPassword(password);
-            user.setRole(role);
-
+            user = new User(username, password, role);
         }
         catch (Exception e) {
             System.out.println(e);

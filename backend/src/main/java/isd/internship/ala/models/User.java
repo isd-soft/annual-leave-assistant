@@ -1,9 +1,12 @@
 package isd.internship.ala.models;
 
+import isd.internship.ala.services.UserService;
 import org.apache.tomcat.jni.Local;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,6 +27,7 @@ public class User {
     public User(String email, String password){
         this.email = email;
         this.password = password;
+        this.role = "user"; //default
     }
 
     public User(String email, String password, String name, String surname, LocalDate empDate, String role){

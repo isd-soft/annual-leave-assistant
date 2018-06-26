@@ -5,40 +5,47 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.UserRepository;
+import isd.internship.ala.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Component
 public class JwtGenerator {
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    public String generate(User user) {
-        List<User> users = userRepository.findAll();
+    public HashMap<String, String> generate(User user) {
+        HashMap<String, String> result = new HashMap<>();
+        try {
+            User usr = userService.findByEmail(user.getEmail()).get();
 
-        for(User u : users){
-            System.out.println(u.getEmail() + " <--> " + user.getEmail());
-            System.out.println(u.getPassword() + " <--> " + user.getPassword());
-            System.out.println(u.getRole() + " <--> " + user.getRole());
-            System.out.println();
-            if(u.getEmail().equals(user.getEmail()) && u.getPassword().equals(user.getPassword()) && u.getRole().equals(user.getRole())){
+            if (usr.getPassword().equals(user.getPassword())) {
                 System.out.println("User Found. Generating token . . .");
 
                 Claims claims = Jwts.claims()
                         .setSubject(user.getEmail());
-                //claims.put("password", user.getPassword());
+                claims.put("password", user.getPassword());
                 claims.put("role", user.getRole());
 
-
-                return Jwts.builder()
+                String token = Jwts.builder()
                         .setClaims(claims)
                         .signWith(SignatureAlgorithm.HS512, "inther")
                         .compact();
-                }
-        }
-        System.out.println("User Not Found ! ! !");
-        return "No such user";
+
+
+                result.put("token",token);
+
+                return result;
+            }
+        } catch(NoSuchElementException e) {
+            result.put("message", "Invalid credentials!");
+            System.out.println("User Not Found ! ! !");
+            }
+        return result;
     }
+
 }
