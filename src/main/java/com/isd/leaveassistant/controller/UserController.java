@@ -65,6 +65,7 @@ public class UserController {
     public String profilePage(Model model,@PathVariable("id") int id) {
 
         model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("role", new Role());
 
         return "user/profilepage";
     }
