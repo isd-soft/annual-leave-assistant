@@ -20,17 +20,20 @@ public class User {
     @Column(name = "email") private String email;
     @Column(name = "password") private String password;
     @Column(name = "empDate") private LocalDate empDate;
-    @Column(name = "role") private String role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROLE_ID")
+    private Role role;
 
     public User(){}
 
     public User(String email, String password){
         this.email = email;
         this.password = password;
-        this.role = "user"; //default
+        // add default role
     }
 
-    public User(String email, String password, String name, String surname, LocalDate empDate, String role){
+    public User(String email, String password, String name, String surname, LocalDate empDate, Role role){
         this.email = email;
         this.password = password;
         this.name = name;
@@ -39,7 +42,7 @@ public class User {
         this.role = role;
     }
 
-    public User(String email, String password, String role){
+    public User(String email, String password, Role role){
         this.email = email;
         this.password = password;
         this.role = role;
@@ -78,7 +81,7 @@ public class User {
         return surname;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -106,7 +109,7 @@ public class User {
         this.surname = surname;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

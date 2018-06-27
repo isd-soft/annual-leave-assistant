@@ -7,13 +7,20 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { UserComponent } from './user/user.component';
+import { LoginGuard } from './guards/login.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { TopbarComponent } from './topbar/topbar.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    UserComponent,
+    TopbarComponent
   ],
   imports: [
     BrowserModule,
@@ -22,10 +29,12 @@ import { HomeComponent } from './home/home.component';
     RouterModule.forRoot([
       {
         path: '',
+        canActivate: [AuthGuard],
         component: HomeComponent
       },
       {
         path: 'login',
+        canActivate: [LoginGuard],
         component: LoginComponent
       }
     ])

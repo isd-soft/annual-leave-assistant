@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http'
-import { environment } from '../../environments/environment'
-import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { global } from '../globals';
+//import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import 'rxjs/add/operator/map';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
   }
@@ -28,19 +29,23 @@ export class LoginComponent implements OnInit {
 
     this.http.post(environment.rootUrl + "/login", { "email": this.email, "password": this.password })
     .toPromise()
-            .then(res =>
+            .then(res => {
                   if(res.token != null){
                     console.log(res.token);
                     this.result = res.token;
                     console.log("-----------------------------");
                     console.log(this.result);
+                    localStorage.setItem(environment.userToken, JSON.stringify({token: this.result}));
+                    // store other user info]
+                    this.router.navigate(['/']);
                   } else {
                     console.log(res.message);
                     this.result = res.message;
                     console.log("-----------------------------");
                     console.log(this.result);
-                  })
-            .catch(err => console.log('error' + err.message);
-
+                    window.alert(this.result);
+                }
+                })
+            .catch(err => console.log('error' + err));
   }
 }

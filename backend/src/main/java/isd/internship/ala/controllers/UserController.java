@@ -57,6 +57,23 @@ public class UserController {
             return ResponseEntity.status(201).body(result);
     }
 
+    @PostMapping(value = "/users/{id}/update", produces = "application/json")
+    public ResponseEntity<HashMap<String, String>> updateUser(@RequestBody User user) {
+        HashMap<String, String> result = new HashMap<>();
+        try{
+            userService.findByEmail(user.getEmail()).get();
+            System.out.println("[ U ]   User found. Data updated.");
+            result.put("message","Data updated.");
+            userService.save(user);
+            return ResponseEntity.status(200).body(result);
+        } catch (NoSuchElementException e){
+            System.out.println("[ ! ]   User " + user.getEmail() + " not found!");
+            result.put("message","User not found.");
+        }
+        return ResponseEntity.status(201).body(result);
+    }
+
+
 
     @RequestMapping(value = "/ala/users", method = RequestMethod.GET)
     public List<User> getAll(){

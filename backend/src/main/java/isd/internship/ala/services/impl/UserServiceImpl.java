@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return (List<User>) userRepository.findAll();
     }
 }
