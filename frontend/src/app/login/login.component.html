@@ -1,18 +1,20 @@
-<div class="container">
-  <div class="input-field col s6">
+<div class="blue-grey lighten-5">
+<form class="container" ngNativeValidate (ngSubmit)="login()">
+  <div class="input-field">
     <i class="material-icons prefix">email</i>
-    <input [(ngModel)]="email" type="text" required>
+    <input type="email" [(ngModel)]="email" name="email" required>
     <label for="email">Email</label>
   </div>
 
-  <div class="input-field col s6">
+  <div class="input-field">
     <i class="material-icons prefix">vpn_key</i>
-    <input [(ngModel)]="password" type="password" required>
+    <input type="password" [(ngModel)]="password" name="password" required>
     <label for="email">Password</label>
   </div>
 
   <div class="right">
-    <button class="waves-effect waves-light btn" type="button" (click)="login()">LogIn</button>
-    <button class="waves-effect waves-teal btn-flat">Register</button>
+    <button type="submit" class="waves-effect waves-light btn">LogIn</button>
+    <button class="btn-flat">Register</button>
   </div>
+</form>
 </div>

@@ -16,12 +16,12 @@ export class TopbarComponent implements OnInit {
   ngOnInit() {
     if(localStorage.getItem(environment.userToken))
       this.isLogged = true;
-
   }
 
   logout() {
     localStorage.clear();
     this.isLogged = false;
-    console.log("Logged out.")
+    console.log("Logged out.");
+    location.reload();
   }
 }

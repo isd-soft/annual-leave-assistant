@@ -1,8 +1,14 @@
 package isd.internship.ala.models;
 
+import isd.internship.ala.repositories.RoleRepository;
+import isd.internship.ala.services.RoleService;
 import isd.internship.ala.services.UserService;
+import isd.internship.ala.services.impl.RoleServiceImpl;
+import isd.internship.ala.services.impl.UserServiceImpl;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -28,14 +34,15 @@ public class User {
     public User(){}
 
     public User(String email, String password){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.email = email;
-        this.password = password;
-        // add default role
+        this.password = encoder.encode(password);
     }
 
     public User(String email, String password, String name, String surname, LocalDate empDate, Role role){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.email = email;
-        this.password = password;
+        this.password =  encoder.encode(password);
         this.name = name;
         this.surname = surname;
         this.empDate = empDate;
@@ -43,8 +50,9 @@ public class User {
     }
 
     public User(String email, String password, Role role){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.email = email;
-        this.password = password;
+        this.password =  encoder.encode(password);
         this.role = role;
     }
 
@@ -102,7 +110,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password =  password;
     }
 
     public void setSurname(String surname) {

@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.ServletException;
 
 import isd.internship.ala.models.User;
+import isd.internship.ala.repositories.RoleRepository;
 import isd.internship.ala.security.JwtGenerator;
 import isd.internship.ala.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     private JwtGenerator jwtGenerator;
 
@@ -51,6 +55,7 @@ public class UserController {
             return ResponseEntity.status(409).body(result);
         } catch (NoSuchElementException e){
             System.out.println("[ R ]   User " + user.getEmail() + " registered successfully!");
+            user.setRole(roleRepository.findByRole("USER")); // Add new user to group USER
             userService.save(user);
             result.put("message","Registration success.");
         }

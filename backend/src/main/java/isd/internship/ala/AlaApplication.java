@@ -40,7 +40,8 @@ public class AlaApplication implements CommandLineRunner{
 
 		// Populating database to test stuff
 		LocalDate date = LocalDate.of(2018,12,12);
-		userRepository.save(new User("root","root", "root", "root", date, adminRole));
+		User root = new User("root", "root");
+		userRepository.save(root);
 		userRepository.save(new User("fiona@mail.md","aa", "Fiona", "Hij", date, userRole));
 		userRepository.save(new User("nu_fiona@mail.md","aa", "NuFiona", "Helvetica", date, userRole));
 		userRepository.save(new User("george@mail.md","aa", "George", "Porumbescu", date, userRole));

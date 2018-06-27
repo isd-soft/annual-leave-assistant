@@ -24,11 +24,6 @@ import java.util.Collections;
 @Configuration
 public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     @Autowired
     private JwtAuthenticationProvider authenticationProvider;
     @Autowired
