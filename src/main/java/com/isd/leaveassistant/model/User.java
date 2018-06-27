@@ -13,7 +13,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long id;
+    private Integer id;
 
     @Column(name = "NAME")
     private String name;
@@ -31,7 +31,7 @@ public class User {
     private Date employment_date;
 
     @Column(name = "ACTIVE")
-    private int active;
+    private Integer active;
 
 
     @ManyToOne(fetch=FetchType.LAZY)
@@ -42,7 +42,7 @@ public class User {
     }
 
 
-    public User(String name, String surname, String email, String password, Date employment_date, int active, Role role) {
+    public User(String name, String surname, String email, String password, Date employment_date, Integer active, Role role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -52,11 +52,11 @@ public class User {
         this.role = role;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -100,11 +100,11 @@ public class User {
         this.employment_date = employment_date;
     }
 
-    public int getActive() {
+    public Integer getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(Integer active) {
         this.active = active;
     }
 

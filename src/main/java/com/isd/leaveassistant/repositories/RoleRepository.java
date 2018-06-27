@@ -4,9 +4,9 @@ import com.isd.leaveassistant.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 
     Role findByRole(String role);
-    Role findRoleById(int id);
+    Role findRoleById(Integer id);
 
 }

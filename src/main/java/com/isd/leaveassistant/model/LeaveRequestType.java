@@ -18,9 +18,6 @@ public class LeaveRequestType {
     @Column(name = "NAME")
     private String name;
 
-    //@OneToMany(mappedBy="leaverequesttype")
-    //public Set<LeaveRequest> getLeaveRequests(){ return null; };
-
     public LeaveRequestType() {
     }
 
