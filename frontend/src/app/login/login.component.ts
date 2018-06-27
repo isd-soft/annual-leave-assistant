@@ -3,7 +3,6 @@ import { FormsModule, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { global } from '../globals';
 //import 'rxjs/add/operator/map';
 
 @Component({

@@ -10,6 +10,8 @@ import isd.internship.ala.security.JwtGenerator;
 import isd.internship.ala.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -56,8 +58,10 @@ public class UserController {
         } catch (NoSuchElementException e){
             System.out.println("[ R ]   User " + user.getEmail() + " registered successfully!");
             user.setRole(roleRepository.findByRole("USER")); // Add new user to group USER
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(user.getPassword()));
             userService.save(user);
-            result.put("message","Registration success.");
+            result.put("message","Registration success");
         }
             return ResponseEntity.status(201).body(result);
     }
@@ -68,12 +72,12 @@ public class UserController {
         try{
             userService.findByEmail(user.getEmail()).get();
             System.out.println("[ U ]   User found. Data updated.");
-            result.put("message","Data updated.");
+            result.put("message","Data updated");
             userService.save(user);
             return ResponseEntity.status(200).body(result);
         } catch (NoSuchElementException e){
             System.out.println("[ ! ]   User " + user.getEmail() + " not found!");
-            result.put("message","User not found.");
+            result.put("message","User not found");
         }
         return ResponseEntity.status(201).body(result);
     }

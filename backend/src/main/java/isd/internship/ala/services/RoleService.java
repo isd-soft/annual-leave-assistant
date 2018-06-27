@@ -11,5 +11,4 @@ public interface RoleService {
     Role update(Role status, Integer id);
     void deleteById(Integer id);
     void deleteAll();
-
 }

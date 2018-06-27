@@ -1,0 +1,13 @@
+form {
+  width: 40%;
+  height: 560px;
+  padding-top: 1%;
+}
+
+#empDate{
+  width: 150px;
+}
+
+div.right{
+  padding-top: 4%;
+}
