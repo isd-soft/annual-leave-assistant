@@ -33,16 +33,10 @@ public class JwtGenerator {
             if (encoder.matches(user.getPassword(), usr.getPassword())) {
                 System.out.println("User Found. Generating token . . .");
 
-<<<<<<< HEAD
-                Claims claims = Jwts.claims().setSubject(user.getEmail());
-//                claims.put("password", user.getPassword());
-//                claims.put("role", user.getRole());
-=======
                 Claims claims = Jwts.claims()
                         .setSubject(user.getEmail());
                 claims.put("password", user.getPassword());
                 claims.put("role", user.getRole());
->>>>>>> jwtImpl
 
                 String token = Jwts.builder()
                         .setClaims(claims)
@@ -60,7 +54,7 @@ public class JwtGenerator {
         } catch(NoSuchElementException e) {
             result.put("message", "Invalid credentials!");
             System.out.println("Incorrect Email !");
-            }
+        }
         return result;
     }
 

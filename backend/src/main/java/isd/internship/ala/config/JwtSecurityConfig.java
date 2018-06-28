@@ -1,10 +1,7 @@
 package isd.internship.ala.config;
 
-<<<<<<< HEAD
-=======
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
->>>>>>> jwtImpl
 import isd.internship.ala.security.JwtAuthenticationEntryPoint;
 import isd.internship.ala.security.JwtAuthenticationProvider;
 import isd.internship.ala.security.JwtAuthenticationTokenFilter;
@@ -12,10 +9,7 @@ import isd.internship.ala.security.JwtSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-<<<<<<< HEAD
-=======
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
->>>>>>> jwtImpl
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -38,8 +32,6 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationEntryPoint entryPoint;
 
-<<<<<<< HEAD
-=======
 
 
     @Bean
@@ -54,7 +46,6 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
->>>>>>> jwtImpl
     @Bean
     public AuthenticationManager authenticationManager() {
         return new ProviderManager(Collections.singletonList(authenticationProvider));

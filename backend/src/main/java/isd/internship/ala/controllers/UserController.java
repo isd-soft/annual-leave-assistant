@@ -4,13 +4,6 @@ import java.util.*;
 
 import javax.servlet.ServletException;
 
-<<<<<<< HEAD
-import isd.internship.ala.models.User;
-import isd.internship.ala.repositories.RoleRepository;
-import isd.internship.ala.security.JwtGenerator;
-import isd.internship.ala.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 import io.jsonwebtoken.Claims;
 import isd.internship.ala.models.JwtAuthenticationToken;
 import isd.internship.ala.models.Role;
@@ -22,7 +15,6 @@ import isd.internship.ala.services.UserService;
 import isd.internship.ala.services.impl.TokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
->>>>>>> jwtImpl
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,18 +35,12 @@ public class UserController {
     @Autowired
     private RoleRepository roleRepository;
 
-<<<<<<< HEAD
-    private JwtGenerator jwtGenerator;
-
-    public UserController(JwtGenerator jwtGenerator) {
-=======
     @Autowired
     private TokenService tokenService;
 
     private JwtGenerator jwtGenerator;
 
     public UserController(JwtGenerator jwtGenerator, TokenServiceImpl tokenServiceImpl) {
->>>>>>> jwtImpl
         this.jwtGenerator = jwtGenerator;
     }
 
@@ -86,16 +72,11 @@ public class UserController {
             userService.save(user);
             result.put("message","Registration success");
         }
-            return ResponseEntity.status(201).body(result);
+        return ResponseEntity.status(201).body(result);
     }
 
-<<<<<<< HEAD
-    // UPDATE USER INFO
-    @PostMapping(value = "/users/{id}/update", produces = "application/json")
-=======
     // UPDATE USER INFO [not checked]
     @PutMapping(value = "/users/{id}", produces = "application/json")
->>>>>>> jwtImpl
     public ResponseEntity<HashMap<String, String>> updateUser(@RequestBody User user, Long id) {
         HashMap<String, String> result = new HashMap<>();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -118,12 +99,6 @@ public class UserController {
     }
 
 
-<<<<<<< HEAD
-
-    @RequestMapping(value = "/ala/users", method = RequestMethod.GET)
-    public List<User> getAll(){
-        return userService.findAll();
-=======
     // GET user list
     @GetMapping(value = "/ala/users", produces = "application/json")
     public ResponseEntity<List<User>> getAll(@RequestHeader(value = "Authorization") String header) {
@@ -137,6 +112,5 @@ public class UserController {
     @DeleteMapping(value = "/ala/users/{id}", produces = "application/json")
     public ResponseEntity<HashMap<String, String>> deleteUser(Long id){
         return null;
->>>>>>> jwtImpl
     }
 }
