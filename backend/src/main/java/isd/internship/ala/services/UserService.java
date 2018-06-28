@@ -9,4 +9,6 @@ public interface UserService {
     User save(User user);
     Optional<User> findByEmail(String email);
     List<User> findAll();
+    List<User> findAllwoRole();
+    User findById(Long id);
 }

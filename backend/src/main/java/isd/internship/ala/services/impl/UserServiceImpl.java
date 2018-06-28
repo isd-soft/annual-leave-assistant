@@ -6,6 +6,7 @@ import isd.internship.ala.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,5 +25,16 @@ public class UserServiceImpl implements UserService {
 
     public List<User> findAll() {
         return (List<User>) userRepository.findAll();
+    }
+
+    @Override
+    public List<User> findAllwoRole() {
+        HashMap<String, String> result = new HashMap<>();
+        return null;
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).get();
     }
 }
