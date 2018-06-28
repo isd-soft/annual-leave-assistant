@@ -1,0 +1,21 @@
+form {
+  width: 40%;
+  height: 440px;
+}
+
+div{
+  padding-top: 1%;
+}
+
+h4{
+  padding-left: 20%;
+}
+
+#empDate{
+  width: 150px;
+  padding-top: 3%;
+}
+
+div.right{
+  padding-top: 4%;
+}

@@ -1,0 +1,21 @@
+<div class="blue-grey lighten-5">
+  <h4>> User Page</h4>
+  <form class="container">
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname">
+      </div>
+      <div class="input-field col s6">
+        <input type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name">
+      </div>
+    </div>
+      <input type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email">
+      <input type="password" [disabled]='disableTextbox' [(ngModel)]="email" name="password">
+      <input type="date" [disabled]='disableTextbox' [(ngModel)]="empDate" name="empDate" id="empDate">
+    <div class="right">
+      <button class="waves-effect waves-light btn" *ngIf="disableTextbox" (click)="toggleDisable()">Edit</button>
+      <button type="submit" class="waves-effect waves-light btn" *ngIf="!disableTextbox" (click)="update()">Save</button>
+      <a class="btn-flat" *ngIf="!disableTextbox" (click)="toggleDisable()">Cancel</a>
+    </div>
+  </form>
+</div>
