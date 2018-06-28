@@ -26,12 +26,12 @@ export class LoginComponent implements OnInit {
     console.log('Email: ' + this.email);
     console.log('Password: ' + this.password);
 
-    this.http.post(environment.rootUrl + "/login", { "email": this.email, "password": this.password }, {observe: 'response'})
+    this.http.post(environment.rootUrl + "/login", { "email": this.email, "password": this.password })
     .toPromise()
             .then(res => {
-                  if(res.body.status == 200){
-                    console.log(res.body.token);
-                    this.result = res.body.token;
+                  if(res.token != null){
+                    console.log(res.token);
+                    this.result = res.token;
                     // console.log("-----------------------------");
                     // console.log(this.result);
                     localStorage.setItem(environment.userToken, JSON.stringify({token: this.result}));
@@ -39,17 +39,14 @@ export class LoginComponent implements OnInit {
                     location.reload();
                     this.router.navigate(['/']);
                   } else {
-                    console.log(res.body.message);
-                    this.result = res.body.message;
+                    console.log(res.message);
+                    this.result = res.message;
                     // console.log("-----------------------------");
                     // console.log(this.result);
+                    window.alert(this.result);
+                    location.reload();
                 }
                 })
-            .catch(err => {
-                            console.log('error' + err)
-                            window.alert(this.result);
-                            location.reload();
-                          });
-            }
+            .catch(err => console.log('error' + err));
   }
 }

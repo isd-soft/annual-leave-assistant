@@ -41,6 +41,7 @@ public class AlaApplication implements CommandLineRunner{
 		// Populating database to test stuff
 		LocalDate date = LocalDate.of(2018,12,12);
 		User root = new User("root", "root");
+		root.setRole(adminRole);
 		userRepository.save(root);
 		userRepository.save(new User("fiona@mail.md","aa", "Fiona", "Hij", date, userRole));
 		userRepository.save(new User("nu_fiona@mail.md","aa", "NuFiona", "Helvetica", date, userRole));

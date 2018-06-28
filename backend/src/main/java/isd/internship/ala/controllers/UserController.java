@@ -4,11 +4,17 @@ import java.util.*;
 
 import javax.servlet.ServletException;
 
+import io.jsonwebtoken.Claims;
+import isd.internship.ala.models.JwtAuthenticationToken;
+import isd.internship.ala.models.Role;
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.RoleRepository;
 import isd.internship.ala.security.JwtGenerator;
+import isd.internship.ala.services.TokenService;
 import isd.internship.ala.services.UserService;
+import isd.internship.ala.services.impl.TokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,9 +35,12 @@ public class UserController {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private TokenService tokenService;
+
     private JwtGenerator jwtGenerator;
 
-    public UserController(JwtGenerator jwtGenerator) {
+    public UserController(JwtGenerator jwtGenerator, TokenServiceImpl tokenServiceImpl) {
         this.jwtGenerator = jwtGenerator;
     }
 
@@ -66,8 +75,8 @@ public class UserController {
             return ResponseEntity.status(201).body(result);
     }
 
-    // UPDATE USER INFO
-    @PostMapping(value = "/users/{id}/update", produces = "application/json")
+    // UPDATE USER INFO [not checked]
+    @PutMapping(value = "/users/{id}", produces = "application/json")
     public ResponseEntity<HashMap<String, String>> updateUser(@RequestBody User user, Long id) {
         HashMap<String, String> result = new HashMap<>();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -90,9 +99,18 @@ public class UserController {
     }
 
 
+    // GET user list
+    @GetMapping(value = "/ala/users", produces = "application/json")
+    public ResponseEntity<List<User>> getAll(@RequestHeader(value = "Authorization") String header) {
+        if(tokenService.isAdmin(header))
+            return ResponseEntity.status(200).body(userService.findAll());
+        else
+            return ResponseEntity.status(403).body(null);
+    }
 
-    @RequestMapping(value = "/ala/users", method = RequestMethod.GET)
-    public List<User> getAll(){
-        return userService.findAll();
+
+    @DeleteMapping(value = "/ala/users/{id}", produces = "application/json")
+    public ResponseEntity<HashMap<String, String>> deleteUser(Long id){
+        return null;
     }
 }
