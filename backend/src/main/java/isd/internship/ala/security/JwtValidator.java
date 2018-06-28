@@ -2,6 +2,10 @@ package isd.internship.ala.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+<<<<<<< HEAD
+=======
+import io.jsonwebtoken.SignatureException;
+>>>>>>> jwtImpl
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.UserRepository;
 import isd.internship.ala.services.UserService;
@@ -29,7 +33,11 @@ public class JwtValidator {
 
             user = new User(username, password);
         }
+<<<<<<< HEAD
         catch (Exception e) {
+=======
+        catch (SignatureException e) {
+>>>>>>> jwtImpl
             System.out.println(e);
         }
 
