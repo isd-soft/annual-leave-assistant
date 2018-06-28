@@ -1,52 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router'
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { LoginGuard } from './guards/login.guard';
-import { AuthGuard } from './guards/auth.guard';
-import { TopbarComponent } from './topbar/topbar.component';
-import { RegisterComponent } from './register/register.component';
-import { UserPageComponent } from './user-page/user-page.component';
-
-
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { PostsComponent } from './posts/posts.component';
+import { UsersComponent } from './users/users.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    HomeComponent,
-    TopbarComponent,
-    RegisterComponent,
-    UserPageComponent
+    SidebarComponent,
+    PostsComponent,
+    UsersComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        canActivate: [AuthGuard],
-        component: HomeComponent
-      },
-      {
-        path: 'login',
-        canActivate: [LoginGuard],
-        component: LoginComponent
-      },
-      {
-        path: 'register',
-
-        component: RegisterComponent
-      }
-    ])
+    BrowserAnimationsModule
   ],
-  providers: [ ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

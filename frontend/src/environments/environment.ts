@@ -3,11 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  remove_console_log: false,
-  remove_console_warning: true,
-  rootUrl: 'http://localhost:8080',
-  userToken: 'userToken'
+  production: false
 };
 
 /*
