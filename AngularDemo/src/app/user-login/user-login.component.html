@@ -1,0 +1,19 @@
+<div class = "col-sm-6 offset-sm-3">
+  <h2 class = "text-center"> Login </h2>
+  <form ngNativeValidate>
+    <div class = "form-group">
+      <label for = "email"> Email: </label>
+      <input type = "email" [(ngModel)] = "email" placeholder="Email" name = "email" class="form-control" id="email" required>
+    </div>
+
+    <div class = "form-group">
+      <label for = "password"> Password: </label>
+      <input type = "password" [(ngModel)] = "password"  placeholder="Password" name = "email" class="form-control" id="password" required>
+    </div>
+
+    <button class="btn btn-success" (click)="loginUser()">Login</button>
+  </form>
+  <p> {{request_message}} </p>
+  <p> Not a member yet? </p>
+  <button class = "btn btn-primary" (click)="registrate()"> Sign up </button>
+</div>

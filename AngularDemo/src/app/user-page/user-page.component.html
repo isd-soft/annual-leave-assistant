@@ -1,0 +1,47 @@
+
+<div class = "col-sm-3">
+  <h2 class = "text-center"> User Information:</h2>
+  <form name="myForm" role="form" novalidate (ngSubmit)="editData(editForm)" #editForm="ngForm">
+  <div class = "form-group">
+    <label for = "name"> Name: </label>
+    <input type = "text" [(ngModel)] = "user.name" placeholder = "Name" name = "name" class = "form-control" id="name" [readonly] = "edit">
+  </div>
+
+  <div class = "form-group">
+    <label for = "surname"> Surname: </label>
+    <input type = "text" [(ngModel)] = "user.surname" placeholder="Surname" name = "name" class = "form-control" id="surname" [readonly] = "edit">
+  </div>
+
+  <div class = "form-group">
+    <label for = "email"> Email: </label>
+    <input type = "email" [(ngModel)] = "user.email" #email2="ngModel" placeholder="Email" name = "email" class="form-control" id="email" [readonly] = "edit" required [email]="email !== ''">
+    <p> {{emailValidationMessage}}</p>
+    <span class = "help-block" *ngIf="email2.errors?.required && email2.touched"> Email is required </span>
+    <span class = "help-block" *ngIf="email2.errors?.email && email2.touched"> Email is invalid </span>
+  </div>
+
+  <div class = "form-group">
+    <label for = "password"> Password: </label>
+    <input type = "password" [(ngModel)] = "user.password"  placeholder="Password" name = "password" class="form-control" id="password" [readonly] = "edit">
+  </div>
+
+  <div class = "form-group">
+    <label for = "employment_date"> Employment date: </label>
+    <input type = "date" [(ngModel)] = "user.employment_date"  placeholder="Employment Date" name = "employment_date" class="form-control" id="employment_date" [readonly] = "edit">
+  </div>
+
+  <div class = "form-group">
+    <label for = "role"> Role: </label>
+    <input type = "text" [(ngModel)] = "role" placeholder="Role" name = "role" class = "form-control" id = "role" [readonly] = "true">
+  </div>
+
+    <button class="btn btn-success" type = "submit" *ngIf="hideProperty"> Save changes </button>
+  </form>
+
+<div>
+  <button class="btn btn-success" (click)="enableEdit()">{{editButton}}</button>
+</div>
+<div>
+  <button class="btn btn-primary" (click)="logout()"> Log out </button>
+</div>
+</div>
