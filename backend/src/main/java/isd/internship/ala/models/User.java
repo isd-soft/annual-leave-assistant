@@ -1,5 +1,10 @@
 package isd.internship.ala.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import isd.internship.ala.repositories.RoleRepository;
 import isd.internship.ala.services.RoleService;
 import isd.internship.ala.services.UserService;
@@ -25,7 +30,10 @@ public class User {
     @Column(name = "surname") private String surname;
     @Column(name = "email") private String email;
     @Column(name = "password") private String password;
-    @Column(name = "empDate") private LocalDate empDate;
+    @Column(name = "empDate")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate empDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ROLE_ID")

@@ -21,9 +21,11 @@ export class RegisterComponent implements OnInit {
   name: string;
   email: string;
   password: string;
-  empDate: Date;
+  empDate: string;
 
   register(){
+    console.log(this.empDate);
+
     this.http.post(environment.rootUrl + "/register",
         { "surname": this.surname,
           "name": this.name,
