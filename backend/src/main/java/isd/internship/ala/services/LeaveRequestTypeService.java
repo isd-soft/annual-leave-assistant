@@ -11,4 +11,5 @@ public interface LeaveRequestTypeService {
     LeaveRequestType update(LeaveRequestType leaveRequestType, Integer id);
     void deleteById(Integer id);
     void deleteAll();
+    LeaveRequestType findByName(String name);
 }

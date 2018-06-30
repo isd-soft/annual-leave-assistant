@@ -1,5 +1,6 @@
 package isd.internship.ala.services.impl;
 
+import isd.internship.ala.models.LeaveRequest;
 import isd.internship.ala.models.LeaveRequestType;
 import isd.internship.ala.repositories.LeaveRequestTypeRepository;
 import isd.internship.ala.services.LeaveRequestTypeService;
@@ -43,5 +44,15 @@ public class LeaveRequestTypeServiceImpl implements LeaveRequestTypeService {
     @Override
     public void deleteAll() {
         leaveRequestTypeRepository.deleteAll();
+    }
+
+    @Override
+    public LeaveRequestType findByName(String name) {
+        List<LeaveRequestType> leaveRequestTypes = leaveRequestTypeRepository.findAll();
+        for(LeaveRequestType leaveRequestType : leaveRequestTypes){
+            if(leaveRequestType.getName().equals(name))
+                return leaveRequestType;
+        }
+        return null;
     }
 }
