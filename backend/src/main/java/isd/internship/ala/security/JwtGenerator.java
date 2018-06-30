@@ -25,24 +25,27 @@ public class JwtGenerator {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         try {
-            User usr = userService.findByEmail(user.getEmail()).get();
+            User foundUser = userService.findByEmail(user.getEmail()).get();
             System.out.println(user.getPassword() + "   <=>    " + user.getEmail());
-            System.out.println(usr.getPassword() + "   <=>    " + usr.getEmail());
-            System.out.println("RESULT:  " + encoder.matches(user.getPassword(), usr.getPassword()));
+            System.out.println(foundUser.getPassword() + "   <=>    " + foundUser.getEmail());
+            System.out.println("RESULT:  " + encoder.matches(user.getPassword(), foundUser.getPassword()));
 
-            if (encoder.matches(user.getPassword(), usr.getPassword())) {
+            if (encoder.matches(user.getPassword(), foundUser.getPassword())) {
                 System.out.println("User Found. Generating token . . .");
 
+                // Token content
                 Claims claims = Jwts.claims()
-                        .setSubject(user.getEmail());
-                claims.put("password", user.getPassword());
-                claims.put("role", user.getRole());
+                        .setSubject(String.valueOf(foundUser.getId()));
+                claims.put("surname", foundUser.getSurname());
+                claims.put("name", foundUser.getName());
+                claims.put("email", foundUser.getEmail());
+                claims.put("empDate", foundUser.getEmpDate());
+                claims.put("role", (foundUser.getRole()).getRole());
 
                 String token = Jwts.builder()
                         .setClaims(claims)
                         .signWith(SignatureAlgorithm.HS512, "inther")
                         .compact();
-
 
                 result.put("token",token);
 

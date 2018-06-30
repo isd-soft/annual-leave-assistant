@@ -75,24 +75,48 @@ public class UserController {
         return ResponseEntity.status(201).body(result);
     }
 
-    // UPDATE USER INFO [not checked]
-    @PutMapping(value = "/users/{id}", produces = "application/json")
-    public ResponseEntity<HashMap<String, String>> updateUser(@RequestBody User user, Long id) {
+    // UPDATE USER INFO [checked]
+    @PutMapping(value = "/ala/users/{id}", produces = "application/json")
+    public ResponseEntity<HashMap<String, String>> updateUser(@RequestHeader(value = "Authorization") String header,
+                                                              @RequestBody User user,
+                                                              @PathVariable(name = "id") Long id) {
         HashMap<String, String> result = new HashMap<>();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        boolean isAdmin = tokenService.isAdmin(header);
+
         try{
-            User usr = userService.findById(id);
-            usr.setSurname(user.getSurname());
-            usr.setName(user.getName());
-            usr.setEmail(user.getEmail());
-            usr.setPassword(encoder.encode(user.getPassword()));
-            usr.setEmpDate(user.getEmpDate());
-            userService.save(usr);
-            System.out.println("[ U ]   User found. Data updated.");
-            result.put("message","Data updated");
-            return ResponseEntity.status(200).body(result);
+            User foundUser = userService.findById(id);
+            if(tokenService.getId(header) == foundUser.getId() || isAdmin){
+                if(user.getSurname() != null)
+                    foundUser.setSurname(user.getSurname());
+
+                if(user.getName() != null)
+                    foundUser.setName(user.getName());
+
+                if(user.getEmail() != null)
+                    foundUser.setEmail(user.getEmail());
+
+                if(user.getPassword() != null)
+                    foundUser.setPassword(encoder.encode(user.getPassword()));
+
+                if(user.getEmpDate()  != null)
+                    foundUser.setEmpDate(user.getEmpDate());
+
+                if(user.getRole() != null && isAdmin)
+                    foundUser.setRole(user.getRole());
+
+                userService.save(foundUser);
+                System.out.println("[ U ]   Data for " + foundUser.getEmail() + " updated.");
+                result.put("message","Data updated");
+                return ResponseEntity.status(200).body(result);
+            } else {
+                System.out.println("[ ! ]   Attempt to change other user's data!");
+                result.put("message","Forbidden: you have no rights!");
+                return ResponseEntity.status(403).body(result);
+            }
+
         } catch (NoSuchElementException e){
-            System.out.println("[ ! ]   User " + user.getEmail() + " not found!");
+            System.out.println("[ ! ]   User " + user.getId() + " not found!");
             result.put("message","User not found");
         }
         return ResponseEntity.status(201).body(result);

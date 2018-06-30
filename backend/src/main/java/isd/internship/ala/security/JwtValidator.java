@@ -4,12 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 import isd.internship.ala.models.User;
-import isd.internship.ala.repositories.UserRepository;
-import isd.internship.ala.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class JwtValidator {
@@ -25,12 +20,11 @@ public class JwtValidator {
                     .parseClaimsJws(token)
                     .getBody();
 
-            String username = body.getSubject();
-            String password = (String) body.get("password");
+            String email = (String) body.get("email");
 
-            user = new User(username, password);
-        }
-        catch (SignatureException e) {
+            user = new User(email, "pass");
+
+        } catch(SignatureException e) {
             System.out.println(e);
         }
 

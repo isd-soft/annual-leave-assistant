@@ -24,19 +24,16 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public boolean isAdmin(String header) {
-        String token = header.substring(6);
-        Claims body = Jwts.parser()
-                .setSigningKey("inther")
-                .parseClaimsJws(token)
-                .getBody();
 
-        String subject = body.getSubject();
+        Claims body = parseToken(header);
 
-        System.out.println("Subject: " + subject);
+        Long id = Long.parseLong(body.getSubject());
+
+        System.out.println("Subject: " + id);
 
         try {
             Role adminRole = roleRepository.findByRole("ADMIN");
-            User user = userService.findByEmail(subject).get();
+            User user = userService.findById(id);
 
             System.out.println("Role: " + adminRole.getRole());
 
@@ -51,5 +48,20 @@ public class TokenServiceImpl implements TokenService {
             System.out.println("No such element exception !");
             return false;
         }
+    }
+
+    @Override
+    public long getId(String header) {
+        return Long.parseLong(parseToken(header).getSubject());
+    }
+
+    @Override
+    public Claims parseToken(String header) {
+        String token = header.substring(6);
+        Claims body = Jwts.parser()
+                .setSigningKey("inther")
+                .parseClaimsJws(token)
+                .getBody();
+        return body;
     }
 }

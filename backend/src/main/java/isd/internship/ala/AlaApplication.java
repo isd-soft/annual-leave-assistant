@@ -38,11 +38,14 @@ public class AlaApplication implements CommandLineRunner{
 		if(userRole == null)
 			userRole = roleRepository.save(new Role("USER"));
 
-		// Populating database to test stuff
+
 		LocalDate date = LocalDate.of(2018,12,12);
-		User root = new User("root", "root");
-		root.setRole(adminRole);
+
+		// Root user
+		User root = new User("root@isd", "root","root", "root", date, adminRole);
 		userRepository.save(root);
+
+		// Populating database to test stuff
 		userRepository.save(new User("fiona@mail.md","aa", "Fiona", "Hij", date, userRole));
 		userRepository.save(new User("nu_fiona@mail.md","aa", "NuFiona", "Helvetica", date, userRole));
 		userRepository.save(new User("george@mail.md","aa", "George", "Porumbescu", date, userRole));
