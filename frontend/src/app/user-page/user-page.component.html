@@ -3,19 +3,33 @@
   <form class="container">
     <div class="row">
       <div class="input-field col s6">
-        <input type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname">
+        <input type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname" id="surname">
+        <label for="surname">Surname</label>
       </div>
+
       <div class="input-field col s6">
-        <input type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name">
+        <input type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name" id="name">
+        <label for="name">Name</label>
       </div>
     </div>
-      <input type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email">
-      <input type="password" [disabled]='disableTextbox' [(ngModel)]="email" name="password">
-      <input type="date" [disabled]='disableTextbox' [(ngModel)]="empDate" name="empDate" id="empDate">
+
+      <div class="input-field col s6">
+        <input type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email" id="email">
+        <label for="email">Email</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input type="text" [disabled]='disableTextbox' [(ngModel)]="password" name="password" id="password">
+        <label for="password">Password</label>
+      </div>
+
+        <input type="date" [disabled]='disableTextbox' [(ngModel)]="empDate" name="empDate" id="empDate">
+        <label for="empDate">Employment date</label>
+
     <div class="right">
       <button class="waves-effect waves-light btn" *ngIf="disableTextbox" (click)="toggleDisable()">Edit</button>
       <button type="submit" class="waves-effect waves-light btn" *ngIf="!disableTextbox" (click)="update()">Save</button>
-      <a class="btn-flat" *ngIf="!disableTextbox" (click)="toggleDisable()">Cancel</a>
+      <a class="btn-flat" *ngIf="!disableTextbox" (click)="cancel()">Cancel</a>
     </div>
   </form>
 </div>

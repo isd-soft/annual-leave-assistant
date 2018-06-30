@@ -11,7 +11,7 @@ export class UserService {
   constructor() { }
 
   isLogged(): boolean {
-    if(localStorage.getItem(environment.userToken))
+    if(localStorage.getItem("token"))
       return true;
     else
       return false;

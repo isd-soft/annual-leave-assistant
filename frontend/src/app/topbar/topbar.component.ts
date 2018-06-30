@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment'
-
 
 @Component({
   selector: 'app-topbar',
@@ -14,7 +12,7 @@ export class TopbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if(localStorage.getItem(environment.userToken))
+    if(localStorage.getItem("token"))
       this.isLogged = true;
   }
 

@@ -7,7 +7,6 @@ export const environment = {
   remove_console_log: false,
   remove_console_warning: true,
   rootUrl: 'http://localhost:8080',
-  userToken: 'userToken'
 };
 
 /*

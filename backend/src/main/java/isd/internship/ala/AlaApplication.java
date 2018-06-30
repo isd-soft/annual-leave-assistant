@@ -84,7 +84,7 @@ public class AlaApplication implements CommandLineRunner{
 		leaveRequestTypeService.create(personal);
 		leaveRequestTypeService.create(maternity);
 		leaveRequestTypeService.create(paternity);
-		leaveRequestTypeService.create(maternity);
+		leaveRequestTypeService.create(marriage);
 
 		// Populating database to test stuff
 		userRepository.save(new User("fiona@mail.md","aa", "Fiona", "Hij", date, userRole));

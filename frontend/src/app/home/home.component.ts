@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem(environment.userToken))
+    if(localStorage.getItem("token"))
       this.router.navigate(['login']);
   }
 

@@ -12,6 +12,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { TopbarComponent } from './topbar/topbar.component';
 import { RegisterComponent } from './register/register.component';
 import { UserPageComponent } from './user-page/user-page.component';
+import { Interceptors } from "./models/interceptors";
 
 
 @NgModule({
@@ -50,7 +51,9 @@ import { UserPageComponent } from './user-page/user-page.component';
       }
     ])
   ],
-  providers: [ ],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: Interceptors, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
