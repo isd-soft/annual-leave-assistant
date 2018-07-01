@@ -17,7 +17,18 @@ public class LeaveRequestType {
     @Column(name = "NAME")
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
     public LeaveRequestType() {
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public LeaveRequestType(String name) {

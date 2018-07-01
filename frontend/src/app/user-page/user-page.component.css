@@ -18,3 +18,25 @@ div.right{
 span{
   padding-bottom: 10%;
 }
+
+input:focus{
+  color: #008080;
+  font-weight: bold;
+}
+
+input[type="text"]:disabled {
+  color:black;
+
+}
+
+input[type="date"]:disabled {
+  color:black;
+}
+
+input[type="email"]:disabled {
+  color:black;
+}
+
+select:disabled {
+  color:green;
+}

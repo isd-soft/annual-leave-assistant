@@ -3,6 +3,7 @@ package isd.internship.ala.controllers;
 import isd.internship.ala.models.LeaveRequestType;
 import isd.internship.ala.services.LeaveRequestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,14 +15,13 @@ public class LeaveRequestTypeController {
     @Autowired
     private LeaveRequestTypeService leaveRequestTypeService;
 
-    public LeaveRequestTypeController(LeaveRequestTypeService leaveRequestTypeService) {
-        this.leaveRequestTypeService = leaveRequestTypeService;
+    @GetMapping
+    public ResponseEntity<List<LeaveRequestType>> getAll() {
+        return ResponseEntity.status(200).body(leaveRequestTypeService.getAll());
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<LeaveRequestType> getAll() {
-        return leaveRequestTypeService.getAll();
-    }
+
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public LeaveRequestType getById(@PathVariable(name = "id") Integer id) {

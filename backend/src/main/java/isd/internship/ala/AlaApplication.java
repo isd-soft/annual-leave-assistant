@@ -46,23 +46,35 @@ public class AlaApplication implements CommandLineRunner{
 		LeaveRequestType marriage = leaveRequestTypeService.findByName("Marriage");
 
 
-		if(annual == null)
+		if(annual == null) {
 			annual = new LeaveRequestType("Annual");
+			annual.setDescription("Annual leave is paid time off work granted by employers to employees to be used for whatever the employee wishes.");
+		}
 
-		if(studies == null)
+		if(studies == null) {
 			studies = new LeaveRequestType("Studies");
+			studies.setDescription("In connection with exams it is possible to request leave for up to 21 work days.\n" + "This type of absence can only be used for entire days.");
+		}
 
-		if(personal == null)
+		if(personal == null) {
 			personal = new LeaveRequestType("Personal");
+			personal.setDescription("Personal leave refers to short-term absences for reasons other than illness, such as taking a child to a physician, school appointments, time to run errands, etc.");
+		}
 
-		if(maternity == null)
+		if(maternity == null) {
 			maternity = new LeaveRequestType("Maternity");
+			maternity.setDescription("To be used if self-certified sick leave is due to pregnancy-related problems.");
+		}
 
-		if(paternity == null)
+		if(paternity == null) {
 			paternity = new LeaveRequestType("Paternity");
+			paternity.setDescription("Paternity leave is a period of either one or two consecutive weeks that fathers or partners can take off from work to care for their baby or child.");
+		}
 
-		if(marriage == null)
+		if(marriage == null) {
 			marriage = new LeaveRequestType("Marriage");
+			marriage.setDescription("Marriage Leave is usually fully paid leave; but you may decide for it to be part-paid or unpaid if the leave you granted is for an extended period of time.");
+		}
 
 
 

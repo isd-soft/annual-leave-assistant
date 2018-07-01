@@ -13,6 +13,7 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { RegisterComponent } from './register/register.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { Interceptors } from "./models/interceptors";
+import { LeaveRequestTypesComponent } from './leave-request-types/leave-request-types.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { Interceptors } from "./models/interceptors";
     TopbarComponent,
     RegisterComponent,
     UserPageComponent,
+    LeaveRequestTypesComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,12 +43,12 @@ import { Interceptors } from "./models/interceptors";
       },
       {
         path: 'register',
-
+        canActivate: [LoginGuard],
         component: RegisterComponent
       },
       {
         path: 'user-page',
-
+        canActivate: [AuthGuard],
         component: UserPageComponent
       }
     ])
