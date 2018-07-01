@@ -9,13 +9,13 @@ import {environment} from "../../environments/environment";
 })
 export class LeaveRequestTypesComponent implements OnInit {
 
-  private list: Array<any>;
+  private list: any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.http.get(environment.rootUrl+"/ala/leaveRequestTypes", {observe: "response"}).toPromise()
-      .then(res => this.list = res.body).catch(err => console.log());
+      .then(res => { this.list = res.body } ).catch(err => console.log());
   }
 
 }
