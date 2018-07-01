@@ -87,23 +87,39 @@ public class UserController {
         try{
             User foundUser = userService.findById(id);
             if(tokenService.getId(header) == foundUser.getId() || isAdmin){
-                if(user.getSurname() != null)
+                if(user.getSurname() != null && !user.getSurname().equals(foundUser.getSurname())) {
                     foundUser.setSurname(user.getSurname());
+                    System.out.println("Surame changed");
+                }
 
-                if(user.getName() != null)
+                if(user.getName() != null && !user.getName().equals(foundUser.getName())) {
                     foundUser.setName(user.getName());
+                    System.out.println("Name changed");
+                }
 
-                if(user.getEmail() != null)
+                if(user.getEmail() != null && !user.getEmail().equals(foundUser.getEmail())){
                     foundUser.setEmail(user.getEmail());
+                    System.out.println("Email changed");
+                }
 
-                if(user.getPassword() != null)
+
+                if(user.getPassword() != null){
                     foundUser.setPassword(encoder.encode(user.getPassword()));
+                    System.out.println("Password changed");
+                }
 
-                if(user.getEmpDate()  != null)
+
+                if(user.getEmpDate()  != null && !user.getEmpDate().equals(foundUser.getEmpDate())){
                     foundUser.setEmpDate(user.getEmpDate());
+                    System.out.println("EmpDate changed");
+                }
 
-                if(user.getRole() != null && isAdmin)
+
+                if(user.getRole() != null && isAdmin){
                     foundUser.setRole(user.getRole());
+                    System.out.println("Role changed");
+                }
+
 
                 userService.save(foundUser);
                 System.out.println("[ U ]   Data for " + foundUser.getEmail() + " updated.");
@@ -120,6 +136,15 @@ public class UserController {
             result.put("message","User not found");
         }
         return ResponseEntity.status(201).body(result);
+    }
+
+
+    @GetMapping(value = "/ala/users/{id}", produces = "application/json")
+    public ResponseEntity<HashMap<String, String>> findUser(@RequestHeader(value = "Authorization") String header,
+                                                              @RequestBody User user,
+                                                              @PathVariable(name = "id") Long id) {
+
+        return null;
     }
 
 

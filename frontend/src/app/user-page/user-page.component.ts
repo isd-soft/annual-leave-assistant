@@ -25,7 +25,7 @@ export class UserPageComponent implements OnInit {
   ngOnInit() {
     this.completeFields();
     this.token = "Token " + localStorage.getItem("token");
-    console.log(this.token);
+    //console.log(this.token);
   }
 
   disableTextbox =  true;
@@ -51,20 +51,50 @@ export class UserPageComponent implements OnInit {
   }
 
   update() {
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type':  'application/json',
-    //     'Authorization': this.token,
-    //     'responseType': 'text'
-    //   })
-    // };
+    var body: any;
+    if(this.surname != localStorage.getItem("surname")){
+      console.log("SURNAME");
+    }
 
-      this.http.put(environment.rootUrl + "/ala/users/" + this.id, {
+    if(this.name != localStorage.getItem("name")){
+      console.log("NAME");
+    }
+
+    if(this.email != localStorage.getItem("email")){
+      console.log("EMAIL");
+    }
+
+    if(this.empDate != localStorage.getItem("empDate")){
+      console.log("EMPDATE");
+    }
+
+    if(this.password != ""){
+      body = {
         "surname": this.surname,
         "name": this.name,
         "email": this.email,
-        "password": this.password
-        //"empDate": this.empDate
-      });
+        "password": this.password,
+        "empDate": this.empDate
+      };
+      console.log("PASSWORD");
+    } else {
+      body = {
+        "surname": this.surname,
+        "name": this.name,
+        "email": this.email,
+        "empDate": this.empDate
+      };
+    }
+
+     this.http.put(environment.rootUrl + "/ala/users/" + this.id, body).toPromise()
+            .then(res => {
+              console.log(res);
+              localStorage.setItem("surname", this.surname);
+              localStorage.setItem("name", this.name);
+              localStorage.setItem("email", this.email);
+              localStorage.setItem("empDate", this.empDate);
+              this.toggleDisable();
+            })
+            .catch(err => console.log(err));
     }
 }

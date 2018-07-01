@@ -1,35 +1,50 @@
 <div class="blue-grey lighten-5">
   <h4>> User Page</h4>
-  <form class="container">
-    <div class="row">
-      <div class="input-field col s6">
-        <input type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname" id="surname">
-        <label for="surname">Surname</label>
-      </div>
+  <form class="container" (ngSubmit)="update()">
+    <table class="striped">
+      <tbody>
+        <tr>
+          <td>
+            <input type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname" id="surname">
+            <label for="surname">Surname</label>
+          </td>
+          <td>
+            <input type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name" id="name">
+            <label for="name">Name</label>
+          </td>
+        </tr>
 
-      <div class="input-field col s6">
-        <input type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name" id="name">
-        <label for="name">Name</label>
-      </div>
-    </div>
+        <tr>
+          <td>
+            <input type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email" id="email">
+            <label for="email">Email</label>
+          </td>
+          <td>
+            <input type="text" disabled [(ngModel)]="role" name="role" id="role">
+            <label for="role">Group</label>
+          </td>
+        </tr>
 
-      <div class="input-field col s6">
-        <input type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email" id="email">
-        <label for="email">Email</label>
-      </div>
+        <tr>
+          <td colspan="2">
+            <input type="text" [disabled]='disableTextbox' [(ngModel)]="password" name="password" id="password">
+            <label for="password">Password</label>
+          </td>
+        </tr>
 
-      <div class="input-field col s6">
-        <input type="text" [disabled]='disableTextbox' [(ngModel)]="password" name="password" id="password">
-        <label for="password">Password</label>
-      </div>
-
-        <input type="date" [disabled]='disableTextbox' [(ngModel)]="empDate" name="empDate" id="empDate">
-        <label for="empDate">Employment date</label>
-
-    <div class="right">
-      <button class="waves-effect waves-light btn" *ngIf="disableTextbox" (click)="toggleDisable()">Edit</button>
-      <button type="submit" class="waves-effect waves-light btn" *ngIf="!disableTextbox" (click)="update()">Save</button>
-      <a class="btn-flat" *ngIf="!disableTextbox" (click)="cancel()">Cancel</a>
-    </div>
+      <tr>
+        <td>
+          <input type="date" [disabled]='disableTextbox' [(ngModel)]="empDate" name="empDate" id="empDate">
+          <label for="empDate">Employment date</label>
+        </td>
+        <td class="right">
+          <button class="waves-effect waves-light btn" *ngIf="disableTextbox" (click)="toggleDisable()">Edit</button>
+          <button type="submit" class="waves-effect waves-light btn" *ngIf="!disableTextbox">Save</button>
+          <a class="btn-flat" *ngIf="!disableTextbox" (click)="cancel()">Cancel</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </form>
 </div>
+
