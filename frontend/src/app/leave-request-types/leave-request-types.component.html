@@ -1,13 +1,13 @@
-<h4>> Leave request types</h4>
-<div class="container">
-  <ul class="collection">
-    <li class="collection-item avatar" *ngFor="let lr of list">
+<div class="blue-grey lighten-5">
+  <h4>> Leave request types</h4>
+  <ul class="collection container">
+    <li class="collection-item avatar blue-grey lighten-5" *ngFor="let lr of list">
       <i class="material-icons circle blue-grey">fiber_manual_record</i>
       <span class="title">{{lr["name"]}}</span>
       <p>
         {{lr["description"]}}
       </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">add_circle</i></a>
+      <a href="#!" class="secondary-content" title="Click to create a request of this type"><i class="material-icons">add_circle</i></a>
     </li>
-</ul>
+  </ul>
 </div>
