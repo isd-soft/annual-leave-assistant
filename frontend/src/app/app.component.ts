@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ALA - Annual Leave Assistant';
+  title = 'Annual Leave Assistant';
 }

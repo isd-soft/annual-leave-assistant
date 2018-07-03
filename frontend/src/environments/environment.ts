@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   remove_console_log: false,
   remove_console_warning: true,
-  rootUrl: 'http://localhost:8080',
+  rootUrl: 'http://localhost:8088',
 };
 
 /*

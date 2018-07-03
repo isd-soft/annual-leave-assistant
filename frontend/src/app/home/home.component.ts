@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import { environment } from "../../environments/environment";
+import {Router} from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem("token"))
+    if(localStorage.getItem('token'))
       this.router.navigate(['login']);
   }
 

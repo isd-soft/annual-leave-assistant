@@ -7,19 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopbarComponent implements OnInit {
 
-  private isLogged: boolean = false;
-  private user: string = ' [ Annual Leave Assistant ] ';
+  isLogged: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
-    if(localStorage.getItem("token")) {
+    if(localStorage.getItem("token"))
       this.isLogged = true;
-      this.user = ' [ ' + localStorage.getItem("surname") + ' ' + localStorage.getItem("name") + ' ] ';
-    } else {
-      this.isLogged = false;
-      this.user = ' [ Annual Leave Assistant ] ';
-    }
   }
 
   logout() {

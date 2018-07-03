@@ -12,21 +12,29 @@ import { AuthGuard } from './guards/auth.guard';
 import { TopbarComponent } from './topbar/topbar.component';
 import { RegisterComponent } from './register/register.component';
 import { UserPageComponent } from './user-page/user-page.component';
-import { Interceptors } from "./models/interceptors";
+import { Interceptors } from './models/interceptors';
 import { LeaveRequestTypesComponent } from './leave-request-types/leave-request-types.component';
-import { CreateLeaveRequestComponent } from './create-leave-request/create-leave-request.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {UsersComponent} from './users/users.component';
+import {AddUserComponent} from './users/add-user/add-user.component';
+import {ListUserComponent} from './users/list-user/list-user.component';
+import {EditUserComponent} from './users/edit-user/edit-user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    SidebarComponent,
+    UsersComponent,
     HomeComponent,
     TopbarComponent,
     RegisterComponent,
     UserPageComponent,
     LeaveRequestTypesComponent,
-    CreateLeaveRequestComponent,
+    // AddUserComponent,
+    ListUserComponent,
+    // EditUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,9 +42,9 @@ import { CreateLeaveRequestComponent } from './create-leave-request/create-leave
     FormsModule,
     RouterModule.forRoot([
       {
-        path: '',
+        path: 'leaveRequestTypes',
         canActivate: [AuthGuard],
-        component: HomeComponent
+        component: LeaveRequestTypesComponent
       },
       {
         path: 'login',
@@ -54,9 +62,16 @@ import { CreateLeaveRequestComponent } from './create-leave-request/create-leave
         component: UserPageComponent
       },
       {
-        path: 'create-leave-request',
-        canActivate: [AuthGuard],
-        component: CreateLeaveRequestComponent
+         path: 'users',
+         component: ListUserComponent
+      },
+      // {
+      //   path: 'edit-user',
+      //   component: EditUserComponent
+      // },
+      {
+        path: 'leaveRequests',
+        component: ListUserComponent
       }
     ])
   ],

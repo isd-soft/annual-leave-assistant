@@ -1,0 +1,29 @@
+<div class="col-md-12">
+  <h4>>Employees list</h4>
+  <a class="waves-effect waves-light btn-small isd-btn" (click)="addUser()">Add user</a>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Email</th>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.id}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.surname}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.date}}</td>
+      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateUser(user)">Edit</a></td>
+      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="deleteUser(user)">Delete</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <a class="waves-effect waves-light btn-small isd-btn" (click)="deleteAllUsers()">Remove all</a>
+</div>

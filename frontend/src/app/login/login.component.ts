@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("empDate", dateString);
 
           location.reload();
-          this.router.navigate(['/']);
+          this.router.navigate(['/users']);
         } else {
           console.log(res.body["message"]);
           window.alert(res.body["message"]);

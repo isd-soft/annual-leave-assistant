@@ -1,0 +1,19 @@
+nav {
+  background: #2d2e2e;
+  height: 100%;
+  background-color: #f30;
+}
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: #f30;
+}
+nav ul li a {
+  color: #fff;
+  padding: 20px;
+  display: block;
+}
+nav ul li .activated {
+  background-color: #dd1f02;
+}
