@@ -9,7 +9,6 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { LoginGuard } from './guards/login.guard';
 import { AuthGuard } from './guards/auth.guard';
-import { TopbarComponent } from './topbar/topbar.component';
 import { RegisterComponent } from './register/register.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { Interceptors } from './models/interceptors';
@@ -28,7 +27,6 @@ import {EditUserComponent} from './users/edit-user/edit-user.component';
     SidebarComponent,
     UsersComponent,
     HomeComponent,
-    TopbarComponent,
     RegisterComponent,
     UserPageComponent,
     LeaveRequestTypesComponent,
