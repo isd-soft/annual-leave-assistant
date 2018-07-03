@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'app-create-leave-request',
@@ -33,7 +33,7 @@ export class CreateLeaveRequestComponent implements OnInit {
     if(this.startDate != null && this.endDate != null){
       let d1 = new Date(this.startDate);
       let d2 = new Date(this.endDate);
-      this.datesDiff =  Math.round((d1-d2)/(86400000));
+      this.datesDiff =  Number(Math.round((d1.getTime()-d2.getTime())/(86400000)));
     } else {
       this.datesDiff = 0;
     }
