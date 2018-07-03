@@ -2,14 +2,23 @@ package isd.internship.ala.controllers;
 
 
 import isd.internship.ala.models.LeaveRequest;
+import isd.internship.ala.models.LeaveRequestType;
 import isd.internship.ala.models.Status;
 import isd.internship.ala.models.User;
-import isd.internship.ala.services.LeaveRequestService;
+import isd.internship.ala.repositories.LeaveRequestRepository;
+import isd.internship.ala.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/ala/leaveRequests")
 public class LeaveRequestController {
@@ -17,42 +26,106 @@ public class LeaveRequestController {
     @Autowired
     private LeaveRequestService leaveRequestService;
 
-    public LeaveRequestController(LeaveRequestService leaveRequestService) {
-        this.leaveRequestService = leaveRequestService;
-    }
+    @Autowired
+    private TokenService tokenService;
 
-    @RequestMapping(value = "/all/{statusId}", method = RequestMethod.GET)
-    public List<LeaveRequest> getAllPending(@PathVariable(name = "statusId") Status statusId) {
-        return leaveRequestService.findAllPending(statusId);
-    }
+    @Autowired
+    private UserService userService;
 
-    @RequestMapping(value = "/all/{userId}/{statusId}", method = RequestMethod.GET)
-    public List<LeaveRequest> getAllPendingByUserId(@PathVariable(name = "userId") User userId, @PathVariable(name = "statusId") Status statusId) {
-        return leaveRequestService.findAllPendingByUserId(userId, statusId);
-    }
+    @Autowired
+    private LeaveRequestTypeService leaveRequestTypeService;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<LeaveRequest> getAll() {
-        return leaveRequestService.getAll();
-    }
+    @Autowired
+    private StatusService statusService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public LeaveRequest getById(@PathVariable(name = "id") Integer id) {
-        return leaveRequestService.getById(id);
-    }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteById(@PathVariable(name = "id") Integer id) {
-        leaveRequestService.deleteById(id);
-    }
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
-    public LeaveRequest create (@RequestBody LeaveRequest leaveRequest) {
-        return leaveRequestService.create(leaveRequest);
-    }
+//    @RequestMapping(value = "/all/{statusId}", method = RequestMethod.GET)
+//    public List<LeaveRequest> getAllPending(@PathVariable(name = "statusId") Status statusId) {
+//        return leaveRequestService.findAllPending(statusId);
+//    }
+//
+//    @RequestMapping(value = "/all/{userId}/{statusId}", method = RequestMethod.GET)
+//    public List<LeaveRequest> getAllPendingByUserId(@PathVariable(name = "userId") User userId, @PathVariable(name = "statusId") Status statusId) {
+//        return leaveRequestService.findAllPendingByUserId(userId, statusId);
+//    }
+//
+//    @RequestMapping(value = "/all", method = RequestMethod.GET)
+//    public List<LeaveRequest> getAll() {
+//        return leaveRequestService.getAll();
+//    }
+//
+//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//    public LeaveRequest getById(@PathVariable(name = "id") Integer id) {
+//        return leaveRequestService.getById(id);
+//    }
+//
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    public void deleteById(@PathVariable(name = "id") Integer id) {
+//        leaveRequestService.deleteById(id);
+//    }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@RequestBody LeaveRequest leaveRequest, @PathVariable(name = "id") Integer id) {
-        leaveRequestService.update(leaveRequest, id);
+
+
+
+    @PostMapping(produces = "application/json")
+    public ResponseEntity<HashMap<String, String>>create (@RequestHeader(value = "Authorization") String header,
+                                                          @RequestBody LeaveRequest leaveRequest) {
+        HashMap<String, String> result = new HashMap<>();
+        Status pending = statusService.getByName("pending");
+        try {
+            User foundUser = userService.findById(tokenService.getId(header));
+            leaveRequest.setUser(foundUser);
+            LeaveRequestType type = leaveRequestTypeService.getById(leaveRequest.getLeaveRequestType().getId());
+            leaveRequest.setLeaveRequestType(type);
+            leaveRequest.setStatus(pending);
+
+            System.out.println("HHHEEEEEEEERRRRRRRRRRRRREEEEEEEEEE");
+
+            System.out.println("--------------------");
+            System.out.println(leaveRequest.getLeaveRequestType().getName());
+            System.out.println(leaveRequest.getStartDate());
+            System.out.println(leaveRequest.getEndDate());
+            System.out.println(leaveRequest.getRequestDate());
+            System.out.println(leaveRequest.getStatus().getName());
+            System.out.println(leaveRequest.getUser().getEmail());
+            System.out.println("--------------------");
+
+
+            Period period = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate());
+            System.out.println(period.getDays());
+
+
+
+            int totalDays = leaveRequestService.getTotalDays(foundUser.getId());
+            boolean hasFourteenDays = leaveRequestService.has14days(foundUser.getId());
+            int requestDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays();
+
+
+            System.out.println("Has 14:" + hasFourteenDays + " / totalDays = " + totalDays + " / reqDays = " + requestDays);
+
+            if(totalDays + requestDays > 28){
+                result.put("message", "You request too many days, man!");
+                return ResponseEntity.status(200).body(result);
+            }
+
+            if(requestDays == 14)
+                hasFourteenDays = true;
+
+            if(!hasFourteenDays && (totalDays + requestDays > 14)){
+                result.put("message", "You should request 14 days!");
+                return ResponseEntity.status(200).body(result);
+            }
+
+            leaveRequestService.create(leaveRequest);
+            result.put("message", "LeaveRequest creation success!");
+            return ResponseEntity.status(201).body(result);
+
+        } catch(NoSuchElementException e) {
+
+            System.out.println("User not found!");
+            result.put("message", "User not found!");
+            return ResponseEntity.status(404).body(result);
+        }
     }
 }

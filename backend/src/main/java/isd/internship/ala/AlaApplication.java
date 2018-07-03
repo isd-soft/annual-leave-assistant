@@ -1,15 +1,10 @@
 package isd.internship.ala;
 
-import isd.internship.ala.models.LeaveRequest;
-import isd.internship.ala.models.LeaveRequestType;
-import isd.internship.ala.models.Role;
-import isd.internship.ala.models.User;
-import isd.internship.ala.repositories.LeaveRequestRepository;
-import isd.internship.ala.repositories.LeaveRequestTypeRepository;
-import isd.internship.ala.repositories.RoleRepository;
-import isd.internship.ala.repositories.UserRepository;
+import isd.internship.ala.models.*;
+import isd.internship.ala.repositories.*;
 import isd.internship.ala.services.LeaveRequestTypeService;
 import isd.internship.ala.services.RoleService;
+import isd.internship.ala.services.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -33,6 +28,9 @@ public class AlaApplication implements CommandLineRunner{
 	@Autowired
 	private LeaveRequestTypeService leaveRequestTypeService;
 
+	@Autowired
+	private StatusService statusService;
+
 	@Override
 	public void run(String... args) throws Exception {
 		Role adminRole = roleRepository.findByRole("ADMIN");
@@ -44,6 +42,20 @@ public class AlaApplication implements CommandLineRunner{
 		LeaveRequestType maternity = leaveRequestTypeService.findByName("Maternity");
 		LeaveRequestType paternity = leaveRequestTypeService.findByName("Paternity");
 		LeaveRequestType marriage = leaveRequestTypeService.findByName("Marriage");
+
+		Status approved = statusService.getByName("approved");
+		Status pending  = statusService.getByName("pending");
+
+
+
+		if(approved == null){
+			approved = new Status("approved");
+		}
+
+		if(pending == null){
+			pending  = new Status("pending");
+		}
+
 
 
 		if(annual == null) {
@@ -90,6 +102,12 @@ public class AlaApplication implements CommandLineRunner{
 		// Root user
 		User root = new User("root@isd", "root","root", "root", date, adminRole);
 		userRepository.save(root);
+
+
+		// Leave request statuses
+		statusService.create(approved);
+		statusService.create(pending);
+
 
 		// Leave request types
 		leaveRequestTypeService.create(annual);

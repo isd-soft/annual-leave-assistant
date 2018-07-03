@@ -10,6 +10,7 @@ import isd.internship.ala.models.Role;
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.RoleRepository;
 import isd.internship.ala.security.JwtGenerator;
+import isd.internship.ala.services.LeaveRequestService;
 import isd.internship.ala.services.TokenService;
 import isd.internship.ala.services.UserService;
 import isd.internship.ala.services.impl.TokenServiceImpl;
@@ -34,6 +35,10 @@ public class UserController {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private LeaveRequestService leaveRequestService;
+
 
     @Autowired
     private TokenService tokenService;
@@ -75,6 +80,8 @@ public class UserController {
         return ResponseEntity.status(201).body(result);
     }
 
+
+
     // UPDATE USER INFO [checked]
     @PutMapping(value = "/ala/users/{id}", produces = "application/json")
     public ResponseEntity<HashMap<String, String>> updateUser(@RequestHeader(value = "Authorization") String header,
@@ -89,7 +96,7 @@ public class UserController {
             if(tokenService.getId(header) == foundUser.getId() || isAdmin){
                 if(user.getSurname() != null && !user.getSurname().equals(foundUser.getSurname())) {
                     foundUser.setSurname(user.getSurname());
-                    System.out.println("Surame changed");
+                    System.out.println("Surname changed");
                 }
 
                 if(user.getName() != null && !user.getName().equals(foundUser.getName())) {
@@ -139,13 +146,37 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/ala/users/{id}", produces = "application/json")
-    public ResponseEntity<HashMap<String, String>> findUser(@RequestHeader(value = "Authorization") String header,
-                                                              @RequestBody User user,
-                                                              @PathVariable(name = "id") Long id) {
 
-        return null;
+    @GetMapping(value = "/ala/users/{id}", produces = "application/json")
+    public ResponseEntity<User> findUser(@RequestHeader(value = "Authorization") String header,
+                                         @PathVariable(name = "id") Long id) {
+
+        boolean isAdmin = tokenService.isAdmin(header);
+
+        if (tokenService.getId(header) == id || isAdmin) {
+            return ResponseEntity.status(200).body(userService.findById(id));
+        } else {
+            return ResponseEntity.status(200).body(null);
+        }
     }
+
+
+
+    @GetMapping(value = "/ala/users/{id}/days", produces = "application/json")
+    public ResponseEntity<HashMap<String, Integer>> getDays(@RequestHeader(value = "Authorization") String header,
+                                                            @PathVariable(name = "id") Long id) {
+
+        HashMap<String, Integer> result = new HashMap<>();
+        boolean isAdmin = tokenService.isAdmin(header);
+
+        if (tokenService.getId(header) == id || isAdmin) {
+            result.put("days", leaveRequestService.getTotalDays(id));
+            return ResponseEntity.status(200).body(result);
+        } else {
+            return ResponseEntity.status(403).body(null);
+        }
+    }
+
 
 
     // GET user list

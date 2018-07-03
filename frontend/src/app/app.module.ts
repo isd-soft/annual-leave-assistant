@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { Interceptors } from "./models/interceptors";
 import { LeaveRequestTypesComponent } from './leave-request-types/leave-request-types.component';
+import { CreateLeaveRequestComponent } from './create-leave-request/create-leave-request.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { LeaveRequestTypesComponent } from './leave-request-types/leave-request-
     RegisterComponent,
     UserPageComponent,
     LeaveRequestTypesComponent,
+    CreateLeaveRequestComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,11 @@ import { LeaveRequestTypesComponent } from './leave-request-types/leave-request-
         path: 'user-page',
         canActivate: [AuthGuard],
         component: UserPageComponent
+      },
+      {
+        path: 'create-leave-request',
+        canActivate: [AuthGuard],
+        component: CreateLeaveRequestComponent
       }
     ])
   ],

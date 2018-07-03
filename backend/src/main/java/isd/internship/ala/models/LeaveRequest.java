@@ -1,8 +1,13 @@
 package isd.internship.ala.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -26,10 +31,15 @@ public class LeaveRequest {
     private User user;
 
     @Column(name = "START_DATE")
-    private Date startDate;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate startDate;
+
 
     @Column(name = "END_DATE")
-    private Date endDate;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate endDate;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "STATUS_FK", nullable = false)
@@ -41,7 +51,7 @@ public class LeaveRequest {
     public LeaveRequest() {
     }
 
-    public LeaveRequest(LeaveRequestType leaveRequestType, User user, Date startDate, Date endDate, Status status, Date requestDate) {
+    public LeaveRequest(LeaveRequestType leaveRequestType, User user, LocalDate startDate, LocalDate endDate, Status status, Date requestDate) {
         this.leaveRequestType = leaveRequestType;
         this.user = user;
         this.startDate = startDate;
@@ -74,19 +84,19 @@ public class LeaveRequest {
         this.user = user;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

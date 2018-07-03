@@ -20,6 +20,17 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
+    public Status getByName(String name) {
+        List<Status> statuses = statusRepository.findAll();
+        for(Status status : statuses){
+            if(status.getName().equals(name))
+                return status;
+        }
+
+        return null;
+    }
+
+    @Override
     public Status getById(Integer id) { return statusRepository.getOne(id); }
 
     @Override

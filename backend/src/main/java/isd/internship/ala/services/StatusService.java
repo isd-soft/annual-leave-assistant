@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface StatusService {
     List<Status> getAll();
+    Status getByName(String name);
     Status getById(Integer id);
     Status create(Status status);
     Status update(Status status, Integer id);
