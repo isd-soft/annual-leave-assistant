@@ -5,11 +5,11 @@ import {map} from 'rxjs/operators';
 import {toPromise} from 'rxjs-compat/operator/toPromise';
 
 @Component({
-  selector: 'app-user-page',
-  templateUrl: './user-page.component.html',
-  styleUrls: ['./user-page.component.css']
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.css']
 })
-export class UserPageComponent implements OnInit {
+export class EditUserComponent implements OnInit {
 
   private id: string;
   private surname: string;

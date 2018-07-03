@@ -34,7 +34,7 @@ import {CreateLeaveRequestComponent} from "./leave-request/create-leave-request/
     LeaveRequestTypesComponent,
     // AddUserComponent,
     ListUserComponent,
-    // EditUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
@@ -65,10 +65,10 @@ import {CreateLeaveRequestComponent} from "./leave-request/create-leave-request/
          path: 'users',
          component: ListUserComponent
       },
-      // {
-      //   path: 'edit-user',
-      //   component: EditUserComponent
-      // },
+      {
+        path: 'edit-user',
+        component: EditUserComponent
+      },
       {
         path: 'leaveRequests',
         component: ListUserComponent
