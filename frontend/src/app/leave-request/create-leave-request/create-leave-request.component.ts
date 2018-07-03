@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import { environment } from "../../../environments/environment";
+import {HttpClient} from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import DateTimeFormat = Intl.DateTimeFormat;
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-create-leave-request',
@@ -20,12 +22,12 @@ export class CreateLeaveRequestComponent implements OnInit {
 
 
   ngOnInit() {
-    this.http.get(environment.rootUrl+"/ala/leaveRequestTypes", {observe: "response"}).toPromise()
-      .then(res => { this.leaveRequestTypes = res.body } ).catch(err => console.log());
+    this.http.get(environment.rootUrl+'/ala/leaveRequestTypes', {observe: 'response'}).toPromise()
+      .then(res => { this.leaveRequestTypes = res.body; } ).catch(err => console.log());
 
     // Get number of available days
-    this.http.get(environment.rootUrl+"/ala/users/"+localStorage.getItem("id")+"/days", {observe: "response"})
-      .toPromise().then(res => { this.daysOff = 28 - res.body["days"] } ).catch(err => console.log());
+    this.http.get(environment.rootUrl+'/ala/users/'+localStorage.getItem('id')+'/days', {observe: 'response'})
+      .toPromise().then(res => { this.daysOff = 28 - res.body['days']; } ).catch(err => console.log());
   }
 
 
@@ -33,7 +35,7 @@ export class CreateLeaveRequestComponent implements OnInit {
     if(this.startDate != null && this.endDate != null){
       let d1 = new Date(this.startDate);
       let d2 = new Date(this.endDate);
-      this.datesDiff =  Number(Math.round((d1.getTime()-d2.getTime())/(86400000)));
+      this.datesDiff =  Number(Math.round((d2.getTime()-d1.getTime())/(86400000)));
     } else {
       this.datesDiff = 0;
     }
@@ -41,35 +43,38 @@ export class CreateLeaveRequestComponent implements OnInit {
 
 
   create(){
-    let date = new Date();
-    console.log(date);
-    if(this.startDate > this.endDate) {
-      window.alert("Wrong dates!");
+    var d1 = new DatePipe (this.startDate);
+    var d2 = new DatePipe (this.endDate);
+    console.log(d1);
+    console.log(d2);
+    console.log(d1 > d2);
+    if (d1 > d2) {
+      window.alert('Wrong dates!');
       this.startDate = null;
       this.endDate = null;
       return;
     }
 
 
-    this.http.post(environment.rootUrl+"/ala/leaveRequests", {
-      "leaveRequestType":{
-        "id": this.reqType
+    this.http.post(environment.rootUrl+'/ala/leaveRequests', {
+      'leaveRequestType':{
+        'id': this.reqType
       },
-      "startDate": this.startDate,
-      "endDate": this.endDate,
-      "requestDate": date
-    },{observe: "response"}).toPromise()
+      'startDate': this.startDate,
+      'endDate': this.endDate,
+      'requestDate': new Date()
+    },{observe: 'response'}).toPromise()
       .then(res =>{
         if(res.status == 201) {
-          window.alert(res.body["message"])
+          window.alert(res.body['message']);
           this.reqType = null;
           this.startDate = null;
           this.endDate = null;
           location.reload();
         } else {
-          window.alert(res.body["message"]);
+          window.alert(res.body['message']);
         }
-      }).catch(err => window.alert(err["message"]))
+      }).catch(err => window.alert(err['message']));
   }
 
 }

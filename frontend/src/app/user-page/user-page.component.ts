@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {map} from "rxjs/operators";
-import {toPromise} from "rxjs-compat/operator/toPromise";
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {map} from 'rxjs/operators';
+import {toPromise} from 'rxjs-compat/operator/toPromise';
 
 @Component({
   selector: 'app-user-page',

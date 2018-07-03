@@ -1,12 +1,14 @@
-<h4>>Employees list</h4>
+<div class="blue-grey lighten-5">
+  <h4>>Employees list</h4>
 
-<ul [@listStagger]="users$">
-  <li *ngFor="let user of users$">
-    <a routerLink="/details/{{user.id}}">{{user.name}}</a>
+  <ul [@listStagger]="users$">
+    <li *ngFor="let user of users$">
+      <a routerLink="/details/{{user.id}}">{{user.name}}</a>
 
-    <ul>
-      <li>{{ user.email }} {{ user.phone }}</li>
-      <li><a href="http://{{ user.website }}">{{ user.website}}</a></li>
-    </ul>
-  </li>
-</ul>
+      <ul>
+        <li>{{ user.email }} {{ user.phone }}</li>
+        <li><a href="http://{{ user.website }}">{{ user.website}}</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
