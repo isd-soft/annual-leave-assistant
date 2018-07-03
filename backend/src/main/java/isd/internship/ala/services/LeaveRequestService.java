@@ -13,8 +13,9 @@ public interface LeaveRequestService {
 //    List<LeaveRequest> findAllPendingByUserId (User userId, Status statusId );
 //    LeaveRequest getById(Integer id);
     LeaveRequest create(LeaveRequest leaveRequest);
-    int getTotalDays(Long user_id);
-    boolean has14days(Long user_id);
+//    int getTotalDays(Long user_id, Integer year);
+    boolean taked14days(Long user_id, Integer year);
+    boolean alreadyRequested(LeaveRequest leaveRequest);
 //    LeaveRequest update(LeaveRequest leaveRequest, Integer id);
 //    void deleteById(Integer id);
 //    void deleteAll();

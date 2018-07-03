@@ -39,6 +39,15 @@ public class User {
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 
+    @Column(name = "availDays")
+    private Integer availDays = 28;
+
+    @Column(name = "function")
+    private String function;
+
+    @Column(name = "department")
+    private String department;
+
     public User(){}
 
     public User(String email, String password){
@@ -71,6 +80,31 @@ public class User {
         this.surname = user.getSurname();
         this.empDate = user.getEmpDate();
         this.role = user.getRole();
+    }
+
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setFunction(String function) {
+        this.function = function;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public String getFunction() {
+        return function;
+    }
+
+    public void setAvailDays(Integer availDays) {
+        this.availDays = availDays;
+    }
+
+    public Integer getAvailDays() {
+        return availDays;
     }
 
     public Long getId() {

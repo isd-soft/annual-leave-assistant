@@ -33,25 +33,42 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
         return leaveRequestRepository.save(leaveRequest);
     }
 
+//
+//    @Override
+//    public int getTotalDays(Long user_id, Integer year){
+//        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
+//        int totalDays = 0;
+//        for (LeaveRequest leaveRequest : leaveRequests) {
+//            if (leaveRequest.getUser().getId().equals(user_id) &&
+//                    (leaveRequest.getStartDate().getYear() == leaveRequest.getEndDate().getYear()) &&
+//                    (leaveRequest.getStartDate().getYear() == year))
+//                totalDays += Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays();
+//        }
+//        return totalDays;
+//    }
 
     @Override
-    public int getTotalDays(Long user_id){
-        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
-        int totalDays = 0;
-        for (LeaveRequest leaveRequest : leaveRequests) {
-            if (leaveRequest.getUser().getId().equals(user_id))
-                totalDays += Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays();
-        }
-        return totalDays;
-    }
-
-    @Override
-    public boolean has14days(Long user_id){
+    public boolean taked14days(Long user_id, Integer year){
         List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
         for (LeaveRequest leaveRequest : leaveRequests) {
             if (leaveRequest.getUser().getId().equals(user_id) &&
+                    (leaveRequest.getStartDate().getYear() == leaveRequest.getEndDate().getYear()) &&
+                    (leaveRequest.getStartDate().getYear() == year) &&
                     (Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() == 14))
                 return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean alreadyRequested(LeaveRequest leaveRequest){
+        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
+        for(LeaveRequest lr: leaveRequests) {
+            if(lr.getUser().equals(leaveRequest.getUser()) && ( lr.getStartDate().equals(leaveRequest.getStartDate()) ||
+                                                                lr.getEndDate().equals(leaveRequest.getEndDate()) )){
+                    System.out.println("FOUND!!!!!!!!!!!!");
+                return true;
+            }
         }
         return false;
     }

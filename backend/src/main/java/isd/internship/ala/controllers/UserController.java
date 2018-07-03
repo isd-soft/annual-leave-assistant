@@ -162,23 +162,6 @@ public class UserController {
 
 
 
-    @GetMapping(value = "/ala/users/{id}/days", produces = "application/json")
-    public ResponseEntity<HashMap<String, Integer>> getDays(@RequestHeader(value = "Authorization") String header,
-                                                            @PathVariable(name = "id") Long id) {
-
-        HashMap<String, Integer> result = new HashMap<>();
-        boolean isAdmin = tokenService.isAdmin(header);
-
-        if (tokenService.getId(header) == id || isAdmin) {
-            result.put("days", leaveRequestService.getTotalDays(id));
-            return ResponseEntity.status(200).body(result);
-        } else {
-            return ResponseEntity.status(403).body(null);
-        }
-    }
-
-
-
     // GET user list
     @GetMapping(value = "/ala/users", produces = "application/json")
     public ResponseEntity<List<User>> getAll(@RequestHeader(value = "Authorization") String header) {

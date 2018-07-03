@@ -13,12 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping(value = "/ala/leaveRequests")
 public class LeaveRequestController {
@@ -73,59 +70,64 @@ public class LeaveRequestController {
                                                           @RequestBody LeaveRequest leaveRequest) {
         HashMap<String, String> result = new HashMap<>();
         Status pending = statusService.getByName("pending");
-        try {
-            User foundUser = userService.findById(tokenService.getId(header));
-            leaveRequest.setUser(foundUser);
-            LeaveRequestType type = leaveRequestTypeService.getById(leaveRequest.getLeaveRequestType().getId());
-            leaveRequest.setLeaveRequestType(type);
-            leaveRequest.setStatus(pending);
+            try {
+                User foundUser = userService.findById(tokenService.getId(header));
+                leaveRequest.setUser(foundUser);
+                if(!leaveRequestService.alreadyRequested(leaveRequest) || foundUser.getAvailDays() !=  0) {
+                    LeaveRequestType type = leaveRequestTypeService.getById(leaveRequest.getLeaveRequestType().getId());
+                    leaveRequest.setLeaveRequestType(type);
+                    leaveRequest.setStatus(pending);
 
-            System.out.println("HHHEEEEEEEERRRRRRRRRRRRREEEEEEEEEE");
+//                    System.out.println("--------------------");
+//                    System.out.println(leaveRequest.getLeaveRequestType().getName());
+//                    System.out.println(leaveRequest.getStartDate());
+//                    System.out.println(leaveRequest.getEndDate());
+//                    System.out.println(leaveRequest.getRequestDate());
+//                    System.out.println(leaveRequest.getStatus().getName());
+//                    System.out.println(leaveRequest.getUser().getEmail());
+//                    System.out.println("--------------------");
 
-            System.out.println("--------------------");
-            System.out.println(leaveRequest.getLeaveRequestType().getName());
-            System.out.println(leaveRequest.getStartDate());
-            System.out.println(leaveRequest.getEndDate());
-            System.out.println(leaveRequest.getRequestDate());
-            System.out.println(leaveRequest.getStatus().getName());
-            System.out.println(leaveRequest.getUser().getEmail());
-            System.out.println("--------------------");
-
-
-            Period period = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate());
-            System.out.println(period.getDays());
+                    Period period = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate());
+                    System.out.println(period.getDays());
 
 
+                    int year = Calendar.getInstance().get(Calendar.YEAR);
 
-            int totalDays = leaveRequestService.getTotalDays(foundUser.getId());
-            boolean hasFourteenDays = leaveRequestService.has14days(foundUser.getId());
-            int requestDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays();
+                    int availDays = foundUser.getAvailDays();
+                    int takenDays = 28 - availDays;
+                    boolean hasFourteenDays = leaveRequestService.taked14days(foundUser.getId(), year);
+                    int requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays();
 
 
-            System.out.println("Has 14:" + hasFourteenDays + " / totalDays = " + totalDays + " / reqDays = " + requestDays);
+                    System.out.println("AvailableDays: " + availDays + " / Has14:" + hasFourteenDays + " / takenDays = " + takenDays + " / reqDays = " + requestedDays);
 
-            if(totalDays + requestDays > 28){
-                result.put("message", "You request too many days, man!");
-                return ResponseEntity.status(200).body(result);
+                    if (requestedDays > availDays) {
+                        result.put("message", "You request too many days, man!");
+                        return ResponseEntity.status(200).body(result);
+                    }
+
+                    if (requestedDays == 14)
+                        hasFourteenDays = true;
+
+                    if (!hasFourteenDays && (takenDays + requestedDays > 14)) {
+                        result.put("message", "You should request 14 days!");
+                        return ResponseEntity.status(200).body(result);
+                    }
+
+                    foundUser.setAvailDays(foundUser.getAvailDays() - requestedDays);
+                    leaveRequestService.create(leaveRequest);
+                    result.put("message", "LeaveRequest creation success!");
+                    return ResponseEntity.status(201).body(result);
+                } else {
+                    result.put("message", "You've already requested these days or there are no available days left for you!");
+                    return ResponseEntity.status(404).body(result);
+                }
+
+            } catch(NoSuchElementException e) {
+
+                System.out.println("User not found!");
+                result.put("message", "User not found!");
+                return ResponseEntity.status(404).body(result);
             }
-
-            if(requestDays == 14)
-                hasFourteenDays = true;
-
-            if(!hasFourteenDays && (totalDays + requestDays > 14)){
-                result.put("message", "You should request 14 days!");
-                return ResponseEntity.status(200).body(result);
-            }
-
-            leaveRequestService.create(leaveRequest);
-            result.put("message", "LeaveRequest creation success!");
-            return ResponseEntity.status(201).body(result);
-
-        } catch(NoSuchElementException e) {
-
-            System.out.println("User not found!");
-            result.put("message", "User not found!");
-            return ResponseEntity.status(404).body(result);
-        }
     }
 }
