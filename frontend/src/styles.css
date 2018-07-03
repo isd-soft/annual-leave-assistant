@@ -4,10 +4,13 @@ body {
   background: #f2f2f2;
   font-family: 'Montserrat', sans-serif;
   height: 100vh;
-  color: #f30;
+  color: #2d2e2e;
+}
+.isd-input{
+
 }
 .isd-btn {
-  background-color: #f30;
+  background-color: #2d2e2e;
   border: 0px !important;
   font-weight: bold;
 }
@@ -15,20 +18,30 @@ body {
   background-color: #ff7400;
 }
 
+.isd-btn-danger {
+  background-color: #2d2e2e;
+  border: 0px !important;
+  font-weight: bold;
+}
+.isd-btn-danger:hover {
+  background-color: red;
+}
+
 .isd-lbl {
-  color: #ff3300 !important;
-  border-bottom-color: #ff3300 !important;
+  color: #2d2e2e !important;
+  border-bottom-color: #2d2e2e !important;
   -webkit-box-shadow: unset !important;
 }
 .isd-lbl:focus{
   font-weight: bold;
+  color: #dd1f02 !important;
 }
 #container {
   display: grid;
   grid-template-columns: 70px auto;
   height: 100%;
   font-weight: bold;
-  color: #f30;
+  color: #2d2e2e;
 }
 #container #content {
   padding: 30px 50px;
@@ -48,7 +61,7 @@ body {
   font-size: 1.5em;
   text-decoration: none;
   font-weight: bold;
-  color: #f30;
+  color: #2d2e2e;
 }
 #container #content ul li ul {
   margin-top: 20px;
@@ -59,5 +72,11 @@ body {
 #container #content ul li ul li a {
   font-size: 1em;
   font-weight: 300;
-  color: #f30;
+  color: #2d2e2e;
+}
+
+.divider{
+  width: 5px;
+  height: auto;
+  display: inline-block;
 }

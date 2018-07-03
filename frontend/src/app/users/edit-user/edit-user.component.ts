@@ -1,56 +1,100 @@
-///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
-import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../user.service';
-import {Router} from '@angular/router';
-import {User} from '../../user';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {first} from 'rxjs/operators';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { Component, OnInit } from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {map} from 'rxjs/operators';
+import {toPromise} from 'rxjs-compat/operator/toPromise';
 
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.css']
+  selector: 'app-user-page',
+  templateUrl: './user-page.component.html',
+  styleUrls: ['./user-page.component.css']
 })
-export class EditUserComponent implements OnInit {
+export class UserPageComponent implements OnInit {
 
-  user: User;
-  editForm: FormGroup;
+  private id: string;
+  private surname: string;
+  private name: string;
+  private email: string;
+  private password: string;
+  private role: string;
+  private empDate: string;
+  private token: string;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
-  }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    const userId = localStorage.getItem('updateUserId');
-    if (!userId) {
-      alert('Invalid action');
-      this.router.navigate(['list-user']);
-      return;
-    }
-    this.editForm = this.formBuilder.group({
-      id: [],
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      date: ['', Validators.required]
-    });
-    this.userService.getUserById(+userId)
-      .subscribe(data => {
-        this.editForm.setValue(data);
-      });
+    this.completeFields();
+    this.token = 'Token ' + localStorage.getItem('token');
+    //console.log(this.token);
   }
 
-  onSubmit() {
-    this.userService.updateUser(this.editForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['list-user']);
-        },
-        error => {
-          alert(error);
-        });
+  disableTextbox =  true;
+
+  completeFields(){
+    this.id = localStorage.getItem('id');
+    this.surname = localStorage.getItem('surname');
+    this.password = "";
+    this.name = localStorage.getItem('name');
+    this.email = localStorage.getItem('email');
+    this.empDate = localStorage.getItem('empDate');
+    this.role = localStorage.getItem('role');
+  }
+
+  toggleDisable() {
+    this.disableTextbox = !this.disableTextbox;
+  }
+
+  cancel() {
+    this.completeFields();
+    this.toggleDisable();
+
+  }
+
+  update() {
+    var body: any;
+    if(this.surname != localStorage.getItem("surname")){
+      console.log("SURNAME");
+    }
+
+    if(this.name != localStorage.getItem("name")){
+      console.log("NAME");
+    }
+
+    if(this.email != localStorage.getItem("email")){
+      console.log("EMAIL");
+    }
+
+    if(this.empDate != localStorage.getItem("empDate")){
+      console.log("EMPDATE");
+    }
+
+    if(this.password != ""){
+      body = {
+        "surname": this.surname,
+        "name": this.name,
+        "email": this.email,
+        "password": this.password,
+        "empDate": this.empDate
+      };
+      console.log("PASSWORD");
+    } else {
+      body = {
+        "surname": this.surname,
+        "name": this.name,
+        "email": this.email,
+        "empDate": this.empDate
+      };
+    }
+
+    this.http.put(environment.rootUrl + "/ala/users/" + this.id, body).toPromise()
+      .then(res => {
+        console.log(res);
+        localStorage.setItem("surname", this.surname);
+        localStorage.setItem("name", this.name);
+        localStorage.setItem("email", this.email);
+        localStorage.setItem("empDate", this.empDate);
+        this.toggleDisable();
+      })
+      .catch(err => console.log(err));
   }
 }

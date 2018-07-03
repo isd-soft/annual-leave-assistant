@@ -1,37 +1,50 @@
-<div class="col-md-6">
-  <h2 class="text-center">Edit user</h2>
-  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+<div>
+  <h4>> User Page</h4>
+  <form class="container" (ngSubmit)="update()">
+    <table class="striped">
+      <tbody>
+      <tr>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname" id="surname">
+          <label class="isd-lbl" for="surname">Surname</label>
+        </td>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name" id="name">
+          <label class="isd-lbl" for="name">Name</label>
+        </td>
+      </tr>
 
-    <div class="form-group">
-      <label for="name">Id:</label>
-      <input type="number" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
-    </div>
+      <tr>
+        <td>
+          <input class="isd-lbl" type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email" id="email">
+          <label class="isd-lbl" for="email">Email</label>
+        </td>
+        <td>
+          <input class="isd-lbl" type="text" disabled [(ngModel)]="role" name="role" id="role">
+          <label class="isd-lbl" for="role">Group</label>
+        </td>
+      </tr>
 
-    <div class="form-group">
-      <label for="name">Name:</label>
-      <input type="text" formControlName="name" placeholder="name" name="name" class="form-control" id="name">
-    </div>
+      <tr>
+        <td colspan="2">
+          <input class="isd-lbl" type="password" placeholder="Choose a new password" [disabled]='disableTextbox' [(ngModel)]="password" name="password" id="password">
+          <label class="isd-lbl" for="password">Password</label>
+        </td>
+      </tr>
 
-    <div class="form-group">
-      <label for="surname">Surname:</label>
-      <input type="text" formControlName="surname" placeholder="surname" name="surname" class="form-control" id="surname">
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" formControlName="email" placeholder="email" name="email" class="form-control" id="email">
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" formControlName="password" placeholder="password" name="password" class="form-control" id="password">
-    </div>
-
-    <div class="form-group">
-      <label for="date">Date:</label>
-      <input type="date" formControlName="date" placeholder="date" name="date" class="form-control" id="date">
-    </div>
-    <button class="btn btn-success">Update</button>
-
+      <tr>
+        <td>
+          <input class="isd-lbl" type="date" [disabled]='disableTextbox' [(ngModel)]="empDate" name="empDate" id="empDate">
+          <label class="isd-lbl" for="empDate">Employment date</label>
+        </td>
+        <td class="right">
+          <a class="waves-effect waves-light btn isd-btn" *ngIf="disableTextbox" (click)="toggleDisable()">Edit</a>
+          <button type="submit" class="waves-effect waves-light btn isd-btn" *ngIf="!disableTextbox">Save</button>
+          <a class="waves-effect waves-light btn isd-btn" *ngIf="!disableTextbox" (click)="cancel()">Cancel</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </form>
 </div>
+

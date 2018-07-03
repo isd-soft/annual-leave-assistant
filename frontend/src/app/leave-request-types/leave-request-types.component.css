@@ -8,10 +8,14 @@ h4{
 
 ul{
   width: 50%;
-  border:1px solid darkgrey;
-  border-radius: 16px;
+  border:none;
+  /*border-radius: 16px;*/
 }
 
 span{
   font-weight: bold;
+}
+
+p{
+  font-weight: normal;
 }
