@@ -79,30 +79,33 @@ public class LeaveRequestController {
                     Period period = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate());
                     System.out.println(period.getDays());
 
+                    System.out.println("TYPE: " + type.getName() + " = " + type.getName().equals("Annual"));
 
-                    int year = Calendar.getInstance().get(Calendar.YEAR);
+                    if(type.getName().equals("Annual")) {
+                        int year = Calendar.getInstance().get(Calendar.YEAR);
 
-                    int availDays = foundUser.getAvailDays();
-                    boolean hasFourteenDays = leaveRequestService.taked14days(foundUser.getId(), year);
-                    int requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 1;
+                        int availDays = foundUser.getAvailDays();
+                        boolean hasFourteenDays = leaveRequestService.taked14days(foundUser.getId(), year);
+                        int requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 1;
 
 
-                    System.out.println("AvailableDays: " + availDays + " / Has14:" + hasFourteenDays + " / reqDays = " + requestedDays);
+                        System.out.println("AvailableDays: " + availDays + " / Has14:" + hasFourteenDays + " / reqDays = " + requestedDays);
 
-                    if (requestedDays > availDays) {
-                        result.put("message", "You request too many days, man!");
-                        return ResponseEntity.status(200).body(result);
+                        if (requestedDays > availDays) {
+                            result.put("message", "You request too many days, man!");
+                            return ResponseEntity.status(200).body(result);
+                        }
+
+                        if (requestedDays == 14)
+                            hasFourteenDays = true;
+
+                        if (!hasFourteenDays && (availDays - requestedDays < 14)) {
+                            result.put("message", "You should request 14 days!");
+                            return ResponseEntity.status(200).body(result);
+                        }
+                        foundUser.setAvailDays(foundUser.getAvailDays() - requestedDays);
                     }
 
-                    if (requestedDays == 14)
-                        hasFourteenDays = true;
-
-                    if (!hasFourteenDays && (availDays - requestedDays < 14)) {
-                        result.put("message", "You should request 14 days!");
-                        return ResponseEntity.status(200).body(result);
-                    }
-
-                    foundUser.setAvailDays(foundUser.getAvailDays() - requestedDays);
                     leaveRequestService.create(leaveRequest);
                     result.put("message", "LeaveRequest creation success!");
                     return ResponseEntity.status(201).body(result);

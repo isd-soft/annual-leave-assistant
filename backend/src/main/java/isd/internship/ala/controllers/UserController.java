@@ -128,8 +128,13 @@ public class UserController {
 
 
                 if(user.getFunction() != null){
-                    foundUser.setDepartment(user.getFunction());
+                    foundUser.setFunction(user.getFunction());
                     System.out.println("Function changed");
+                }
+
+                if(user.getAvailDays() != null){
+                    foundUser.setAvailDays(user.getAvailDays());
+                    System.out.println("AvailDays changed");
                 }
 
                 userService.save(foundUser);
