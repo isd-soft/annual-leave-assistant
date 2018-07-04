@@ -84,7 +84,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
         for(LeaveRequest leaveRequest: leaveRequests){
             if(leaveRequest.getUser().getId().equals(id)){
                 element.put("leaveRequestType", leaveRequest.getLeaveRequestType().getName());
-                element.put("user", leaveRequest.getUser().getId().toString());
+                element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
                 element.put("startDate", leaveRequest.getStartDate().toString());
                 element.put("endDate", leaveRequest.getEndDate().toString());
                 element.put("status", leaveRequest.getStatus().getName());
