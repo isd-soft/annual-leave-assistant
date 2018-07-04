@@ -167,7 +167,7 @@ public class UserController {
                 response.put("id", foundUser.getId().toString());
                 response.put("surname", foundUser.getSurname());
                 response.put("name", foundUser.getName());
-                response.put("email", foundUser.getSurname());
+                response.put("email", foundUser.getEmail());
                 response.put("empDate", foundUser.getEmpDate().toString());
                 response.put("role", foundUser.getRole().getRole());
                 response.put("availDays", foundUser.getAvailDays().toString());
