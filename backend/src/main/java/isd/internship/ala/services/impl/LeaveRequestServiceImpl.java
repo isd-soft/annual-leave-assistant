@@ -96,113 +96,22 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
         return result;
     }
 
+    @Override
+    public List<HashMap<String, String>> getAll(){
+        List<HashMap<String, String>> result = new ArrayList<>();
+        HashMap<String, String> element = new HashMap<>();
+        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
 
-//    @Override
-//    public List<LeaveRequest> getAll() {
-//        return leaveRequestRepository.findAll();
-//    }
-//
-//    @Override
-//    public List<LeaveRequest> findAllByUserId(User id) {
-//        return leaveRequestRepository.findAllByUserIdEqualsOrderByRequestDate(id);
-//    }
-//
-//    @Override
-//    public List<LeaveRequest> findAllPending(Status statusId) {
-//        return leaveRequestRepository.findAllByStatusIdEqualsOrderByRequestDate(statusId);
-//    }
-//
-//    @Override
-//    public List<LeaveRequest> findAllPendingByUserId(User userId, Status statusId) {
-//        return leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(userId, statusRepository.getOne(1));
-//    }
-//
-//    @Override
-//    public LeaveRequest getById(Integer id) { return leaveRequestRepository.getOne(id); }
-//
-//    @Override
-//    public LeaveRequest create(LeaveRequest leaveRequest) {
-//
-//        if (CheckAvailableDays(leaveRequest)){
-//            return leaveRequestRepository.save(leaveRequest);
-//        } else {
-//            return null;
-//        }
-//    }
-//
-//    @Override
-//    public LeaveRequest update(LeaveRequest leaveRequest, Integer id) {
-//        LeaveRequest leaveRequestNew = leaveRequestRepository.getOne(id);
-//        leaveRequestNew.setLeaveRequestType(leaveRequest.getLeaveRequestType());
-//        leaveRequestNew.setUser(leaveRequest.getUser());
-//        leaveRequestNew.setRequestDate(leaveRequest.getRequestDate());
-//        leaveRequestNew.setStartDate(leaveRequest.getStartDate());
-//        leaveRequestNew.setEndDate(leaveRequest.getEndDate());
-//        leaveRequestNew.setStatus(leaveRequest.getStatus());
-//        leaveRequestRepository.save(leaveRequestNew);
-//        return leaveRequestNew;
-//    }
-//
-//    @Override
-//    public void deleteById(Integer id) {
-//        leaveRequestRepository.deleteById(id);
-//    }
-//
-//    @Override
-//    public void deleteAll() {
-//        leaveRequestRepository.deleteAll();
-//    }
-//
-//    public Integer DateDiff (Date startDate, Date endDate) {
-//        LocalDate dateFrom = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//        LocalDate dateTo = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//
-//        Period intervalPeriod = Period.between(dateFrom, dateTo);
-//        if(intervalPeriod.getMonths()==0 && intervalPeriod.getYears()==0) {
-//            return intervalPeriod.getDays()+1;
-//        }else {
-//            return 0;
-//        }
-//    }
-//
-//    public boolean CheckAvailableDays (LeaveRequest leaveRequest) {
-//        List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUser(),statusRepository.getOne(2));
-//        Integer totalDaysOff = 0;
-//        LocalDate dateNow = LocalDate.now();
-//        LocalDate date = LocalDate.of(dateNow.getYear()-1, 12, 31);
-//        for (LeaveRequest item :totalLeaveRequests) {
-//            if(item.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(date)) {
-//                totalDaysOff += DateDiff(item.getStartDate(), item.getEndDate());
-//            }
-//        }
-//        Integer currentDaysOff = DateDiff(leaveRequest.getStartDate(), leaveRequest.getEndDate());
-//        if (totalDaysOff<MaximumDaysAvailable && MaximumDaysAvailable - totalDaysOff >=currentDaysOff) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//    public boolean CheckFourTeenDays (LeaveRequest leaveRequest) {
-//        List<LeaveRequest> totalLeaveRequests = leaveRequestRepository.findAllByUserIdEqualsAndStatusIdEquals(leaveRequest.getUser(), statusRepository.getOne(2));
-//        Integer totalDaysOff = 0;
-//        LocalDate dateNow = LocalDate.now();
-//        LocalDate date = LocalDate.of(dateNow.getYear()-1, 12, 31);
-//
-//        List <Integer> leaves = new ArrayList<>();
-//
-//        for (LeaveRequest item :totalLeaveRequests) {
-//            if(item.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(date)) {
-//                leaves.add(DateDiff(item.getStartDate(),item.getEndDate())+1);
-//            }
-//        }
-//
-//        boolean moreThan14 = Fourteen <= leaves.stream().filter(v-> v>14).findAny().get();
-//        if (moreThan14){
-//            return true;
-//        }else{
-//            return false;
-//        }
-//    }
-
+        for(LeaveRequest leaveRequest: leaveRequests){
+                element.put("leaveRequestType", leaveRequest.getLeaveRequestType().getName());
+                element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
+                element.put("startDate", leaveRequest.getStartDate().toString());
+                element.put("endDate", leaveRequest.getEndDate().toString());
+                element.put("status", leaveRequest.getStatus().getName());
+                element.put("requestDate", leaveRequest.getRequestDate().toString());
+                result.add(element);
+        }
+        return result;
+    }
 
 }

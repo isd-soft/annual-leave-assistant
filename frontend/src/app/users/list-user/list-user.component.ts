@@ -13,7 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ListUserComponent implements OnInit {
 
-  users: User[];
+  users: any;
 
   constructor(private router: Router, private userService: UserService) {
   }

@@ -18,6 +18,7 @@ public interface LeaveRequestService {
     boolean taked14days(Long user_id, Integer year);
     boolean alreadyRequested(LeaveRequest leaveRequest);
     List<HashMap<String, String>> getByUserId(Long id);
+    List<HashMap<String, String>> getAll();
 //    LeaveRequest update(LeaveRequest leaveRequest, Integer id);
 //    void deleteById(Integer id);
 //    void deleteAll();
