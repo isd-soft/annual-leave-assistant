@@ -47,7 +47,10 @@ public class LeaveRequestController {
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<HashMap<String, String>>> getLeaveRequests(@RequestHeader(value = "Authorization") String header){
         Long id = tokenService.getId(header);
-        return ResponseEntity.status(200).body(leaveRequestService.getByUserId(id));
+        if(tokenService.isAdmin(header))
+            return ResponseEntity.status(200).body(leaveRequestService.getAll());
+        else
+            return ResponseEntity.status(200).body(leaveRequestService.getByUserId(id));
     }
 
 
@@ -105,5 +108,14 @@ public class LeaveRequestController {
                 result.put("message", "User not found!");
                 return ResponseEntity.status(404).body(result);
             }
+    }
+
+
+    @PutMapping(value = "/{id}", produces = "application/json")
+    public HashMap<String, String> updateLeaveRequest(@RequestHeader(value = "Authorization") String header,
+                                                      @RequestBody LeaveRequest leaveRequest,
+                                                      @PathVariable(name = "id") Long id){
+        return null;
+
     }
 }
