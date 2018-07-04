@@ -6,15 +6,15 @@ body {
   height: 100vh;
   color: #2d2e2e;
 }
-.isd-input{
-
-}
 .isd-btn {
   background-color: #2d2e2e;
   border: 0px !important;
   font-weight: bold;
 }
 .isd-btn:hover {
+  background-color: #ff7400;
+}
+.isd-btn:after{
   background-color: #ff7400;
 }
 
@@ -32,9 +32,36 @@ body {
   border-bottom-color: #2d2e2e !important;
   -webkit-box-shadow: unset !important;
 }
+.isd-lbl:hover{
+  color: #ff3300;
+}
 .isd-lbl:focus{
   font-weight: bold;
   color: #dd1f02 !important;
+}
+.isd-lbl-login:focus {
+  color: #ff7400 !important;
+  border-bottom-color: #ff7400 !important;
+  -webkit-box-shadow: unset !important;
+}
+.isd-lbl-login:read-only {
+  color: #2d2e2e !important;
+  border-bottom-color: #2d2e2e !important;
+  -webkit-box-shadow: unset !important;
+}
+.isd-lbl-login:focus{
+  font-weight: bold;
+  color: #dd1f02 !important;
+}
+/*.isd-lbl-login:active {*/
+  /*color: #ff3300 !important;*/
+  /*border-bottom-color: #ff3300 !important;*/
+  /*-webkit-box-shadow: unset !important;*/
+/*}*/
+.isd-lbl-login:hover {
+  color: #ff3300 !important;
+  border-bottom-color: #ff3300 !important;
+  -webkit-box-shadow: unset !important;
 }
 #container {
   display: grid;

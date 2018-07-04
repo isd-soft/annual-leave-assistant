@@ -1,22 +1,23 @@
 <div class="blue-grey lighten-5">
   <h4>> Authentication</h4>
-  <form class="container" ngNativeValidate (ngSubmit)="login()">
+  <form class="container isd-lbl-login" ngNativeValidate (ngSubmit)="login()">
 
-    <div class="input-field">
-      <i class="material-icons prefix">email</i>
-      <input type="email" [(ngModel)]="email" name="email" id="email" required>
-      <label for="email">Email</label>
+    <div class="input-field isd-lbl-login">
+      <i class="material-icons prefix isd-lbl-login">email</i>
+      <input class="isd-lbl-login" type="email" [(ngModel)]="email" name="email" id="email" required>
+      <label class="isd-lbl-login" for="email">Email</label>
     </div>
 
-    <div class="input-field">
-      <i class="material-icons prefix">vpn_key</i>
-      <input type="password" [(ngModel)]="password" name="password" id="password" required>
-      <label for="password">Password</label>
+    <div class="input-field isd-lbl-login">
+      <i class="material-icons prefix isd-lbl-login">vpn_key</i>
+      <input class="isd-lbl-login" type="password" [(ngModel)]="password" name="password" id="password" required>
+      <label class="isd-lbl-login" for="password">Password</label>
     </div>
 
     <div class="right">
-      <button type="submit" class="waves-effect waves-light isd-btn">LogIn</button>
-      <a [routerLink]="['/register']" class="btn-flat isd-btn">Register</a>
+      <button type="submit" class="waves-effect waves-light btn isd-btn">LogIn</button>
+      <div class="divider"></div>
+      <a [routerLink]="['/register']" class="waves-effect waves-light btn isd-btn">Register</a>
     </div>
   </form>
 </div>

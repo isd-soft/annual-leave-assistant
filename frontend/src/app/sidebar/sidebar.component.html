@@ -1,7 +1,8 @@
 <nav>
   <ul>
     <li class="input-field inline">
-      <a href="./login" *ngIf="!isLogged"><i class="material-icons">portrait</i></a>
+      <a href="./login" *ngIf="!isLogged" [class.activated]="currentUrl == '/login'">
+        <i class="material-icons">portrait</i></a>
     </li>
 
 
