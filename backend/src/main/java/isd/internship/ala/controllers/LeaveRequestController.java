@@ -6,6 +6,7 @@ import isd.internship.ala.models.LeaveRequestType;
 import isd.internship.ala.models.Status;
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.LeaveRequestRepository;
+import isd.internship.ala.repositories.UserRepository;
 import isd.internship.ala.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -30,39 +31,24 @@ public class LeaveRequestController {
     private UserService userService;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private LeaveRequestTypeService leaveRequestTypeService;
+
+    @Autowired
+    private LeaveRequestRepository leaveRequestRepository;
 
     @Autowired
     private StatusService statusService;
 
 
 
-//    @RequestMapping(value = "/all/{statusId}", method = RequestMethod.GET)
-//    public List<LeaveRequest> getAllPending(@PathVariable(name = "statusId") Status statusId) {
-//        return leaveRequestService.findAllPending(statusId);
-//    }
-//
-//    @RequestMapping(value = "/all/{userId}/{statusId}", method = RequestMethod.GET)
-//    public List<LeaveRequest> getAllPendingByUserId(@PathVariable(name = "userId") User userId, @PathVariable(name = "statusId") Status statusId) {
-//        return leaveRequestService.findAllPendingByUserId(userId, statusId);
-//    }
-//
-//    @RequestMapping(value = "/all", method = RequestMethod.GET)
-//    public List<LeaveRequest> getAll() {
-//        return leaveRequestService.getAll();
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-//    public LeaveRequest getById(@PathVariable(name = "id") Integer id) {
-//        return leaveRequestService.getById(id);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public void deleteById(@PathVariable(name = "id") Integer id) {
-//        leaveRequestService.deleteById(id);
-//    }
-
-
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<HashMap<String, String>>> getLeaveRequests(@RequestHeader(value = "Authorization") String header){
+        Long id = tokenService.getId(header);
+        return ResponseEntity.status(200).body(leaveRequestService.getByUserId(id));
+    }
 
 
     @PostMapping(produces = "application/json")
@@ -71,21 +57,12 @@ public class LeaveRequestController {
         HashMap<String, String> result = new HashMap<>();
         Status pending = statusService.getByName("pending");
             try {
-                User foundUser = userService.findById(tokenService.getId(header));
+                User foundUser = userRepository.findById(tokenService.getId(header)).get();
                 leaveRequest.setUser(foundUser);
-                if(!leaveRequestService.alreadyRequested(leaveRequest) || foundUser.getAvailDays() !=  0) {
+                if(!leaveRequestService.alreadyRequested(leaveRequest) && (foundUser.getAvailDays() !=  0)) {
                     LeaveRequestType type = leaveRequestTypeService.getById(leaveRequest.getLeaveRequestType().getId());
                     leaveRequest.setLeaveRequestType(type);
                     leaveRequest.setStatus(pending);
-
-//                    System.out.println("--------------------");
-//                    System.out.println(leaveRequest.getLeaveRequestType().getName());
-//                    System.out.println(leaveRequest.getStartDate());
-//                    System.out.println(leaveRequest.getEndDate());
-//                    System.out.println(leaveRequest.getRequestDate());
-//                    System.out.println(leaveRequest.getStatus().getName());
-//                    System.out.println(leaveRequest.getUser().getEmail());
-//                    System.out.println("--------------------");
 
                     Period period = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate());
                     System.out.println(period.getDays());
@@ -94,12 +71,11 @@ public class LeaveRequestController {
                     int year = Calendar.getInstance().get(Calendar.YEAR);
 
                     int availDays = foundUser.getAvailDays();
-                    int takenDays = 28 - availDays;
                     boolean hasFourteenDays = leaveRequestService.taked14days(foundUser.getId(), year);
-                    int requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays();
+                    int requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 1;
 
 
-                    System.out.println("AvailableDays: " + availDays + " / Has14:" + hasFourteenDays + " / takenDays = " + takenDays + " / reqDays = " + requestedDays);
+                    System.out.println("AvailableDays: " + availDays + " / Has14:" + hasFourteenDays + " / reqDays = " + requestedDays);
 
                     if (requestedDays > availDays) {
                         result.put("message", "You request too many days, man!");
@@ -109,7 +85,7 @@ public class LeaveRequestController {
                     if (requestedDays == 14)
                         hasFourteenDays = true;
 
-                    if (!hasFourteenDays && (takenDays + requestedDays > 14)) {
+                    if (!hasFourteenDays && (availDays - requestedDays < 14)) {
                         result.put("message", "You should request 14 days!");
                         return ResponseEntity.status(200).body(result);
                     }

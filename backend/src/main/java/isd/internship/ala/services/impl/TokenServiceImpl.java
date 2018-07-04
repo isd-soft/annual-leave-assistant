@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import isd.internship.ala.models.Role;
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.RoleRepository;
+import isd.internship.ala.repositories.UserRepository;
 import isd.internship.ala.services.TokenService;
 import isd.internship.ala.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.NoSuchElementException;
 public class TokenServiceImpl implements TokenService {
 
     @Autowired
-    UserService userService;
+    UserRepository userRepository;
 
     @Autowired
     RoleRepository roleRepository;
@@ -33,7 +34,7 @@ public class TokenServiceImpl implements TokenService {
 
         try {
             Role adminRole = roleRepository.findByRole("ADMIN");
-            User user = userService.findById(id);
+            User user = userRepository.findById(id).get();
 
             System.out.println("Role: " + adminRole.getRole());
 
@@ -51,7 +52,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public long getId(String header) {
+    public Long getId(String header) {
         return Long.parseLong(parseToken(header).getSubject());
     }
 
