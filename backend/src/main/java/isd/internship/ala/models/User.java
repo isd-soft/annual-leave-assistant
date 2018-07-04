@@ -35,7 +35,7 @@ public class User {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate empDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 

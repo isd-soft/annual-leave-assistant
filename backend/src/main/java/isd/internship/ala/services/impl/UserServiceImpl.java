@@ -4,9 +4,9 @@ import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.UserRepository;
 import isd.internship.ala.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -50,4 +50,18 @@ public class UserServiceImpl implements UserService {
     public User findById(Long id) {
         return userRepository.findById(id).get();
     }
+
+    @Override
+    public ResponseEntity<String> deleteUser(long id) {
+        userRepository.deleteById(id);
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<String> deleteAllUsers() {
+        userRepository.deleteAll();
+        return null;
+    }
+
+
 }

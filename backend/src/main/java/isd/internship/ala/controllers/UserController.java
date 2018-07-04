@@ -2,11 +2,6 @@ package isd.internship.ala.controllers;
 
 import java.util.*;
 
-import javax.servlet.ServletException;
-
-import io.jsonwebtoken.Claims;
-import isd.internship.ala.models.JwtAuthenticationToken;
-import isd.internship.ala.models.Role;
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.RoleRepository;
 import isd.internship.ala.security.JwtGenerator;
@@ -15,15 +10,10 @@ import isd.internship.ala.services.TokenService;
 import isd.internship.ala.services.UserService;
 import isd.internship.ala.services.impl.TokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -67,7 +57,7 @@ public class UserController {
         try {
             userService.findByEmail(user.getEmail()).get();
             System.out.println("[ ! ]   User with this email already exists!");
-            result.put("message","User with this email already exists!");
+            result.put("message", "User with this email already exists!");
             return ResponseEntity.status(409).body(result);
         } catch (NoSuchElementException e) {
             System.out.println("[ R ]   User " + user.getEmail() + " registered successfully!");
@@ -75,11 +65,10 @@ public class UserController {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
             userService.save(user);
-            result.put("message","Registration success");
+            result.put("message", "Registration success");
         }
         return ResponseEntity.status(201).body(result);
     }
-
 
 
     // UPDATE USER INFO [checked]
@@ -91,38 +80,38 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean isAdmin = tokenService.isAdmin(header);
 
-        try{
+        try {
             User foundUser = userService.findById(id);
-            if(tokenService.getId(header) == foundUser.getId() || isAdmin){
-                if(user.getSurname() != null && !user.getSurname().equals(foundUser.getSurname())) {
+            if (tokenService.getId(header) == foundUser.getId() || isAdmin) {
+                if (user.getSurname() != null && !user.getSurname().equals(foundUser.getSurname())) {
                     foundUser.setSurname(user.getSurname());
                     System.out.println("Surname changed");
                 }
 
-                if(user.getName() != null && !user.getName().equals(foundUser.getName())) {
+                if (user.getName() != null && !user.getName().equals(foundUser.getName())) {
                     foundUser.setName(user.getName());
                     System.out.println("Name changed");
                 }
 
-                if(user.getEmail() != null && !user.getEmail().equals(foundUser.getEmail())){
+                if (user.getEmail() != null && !user.getEmail().equals(foundUser.getEmail())) {
                     foundUser.setEmail(user.getEmail());
                     System.out.println("Email changed");
                 }
 
 
-                if(user.getPassword() != null){
+                if (user.getPassword() != null) {
                     foundUser.setPassword(encoder.encode(user.getPassword()));
                     System.out.println("Password changed");
                 }
 
 
-                if(user.getEmpDate()  != null && !user.getEmpDate().equals(foundUser.getEmpDate())){
+                if (user.getEmpDate() != null && !user.getEmpDate().equals(foundUser.getEmpDate())) {
                     foundUser.setEmpDate(user.getEmpDate());
                     System.out.println("EmpDate changed");
                 }
 
 
-                if(user.getRole() != null && isAdmin){
+                if (user.getRole() != null && isAdmin) {
                     foundUser.setRole(user.getRole());
                     System.out.println("Role changed");
                 }
@@ -130,21 +119,20 @@ public class UserController {
 
                 userService.save(foundUser);
                 System.out.println("[ U ]   Data for " + foundUser.getEmail() + " updated.");
-                result.put("message","Data updated");
+                result.put("message", "Data updated");
                 return ResponseEntity.status(200).body(result);
             } else {
                 System.out.println("[ ! ]   Attempt to change other user's data!");
-                result.put("message","Forbidden: you have no rights!");
+                result.put("message", "Forbidden: you have no rights!");
                 return ResponseEntity.status(403).body(result);
             }
 
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.out.println("[ ! ]   User " + user.getId() + " not found!");
-            result.put("message","User not found");
+            result.put("message", "User not found");
         }
         return ResponseEntity.status(201).body(result);
     }
-
 
 
     @GetMapping(value = "/ala/users/{id}", produces = "application/json")
@@ -161,19 +149,42 @@ public class UserController {
     }
 
 
-
     // GET user list
     @GetMapping(value = "/ala/users", produces = "application/json")
     public ResponseEntity<List<User>> getAll(@RequestHeader(value = "Authorization") String header) {
-        if(tokenService.isAdmin(header))
+        if (tokenService.isAdmin(header))
             return ResponseEntity.status(200).body(userService.findAll());
         else
             return ResponseEntity.status(403).body(null);
     }
 
+    @DeleteMapping("ala/users/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") long id, @RequestHeader(value = "Authorization") String header) {
+        System.out.println("Delete User with ID = " + id + "...");
 
-    @DeleteMapping(value = "/ala/users/{id}", produces = "application/json")
-    public ResponseEntity<HashMap<String, String>> deleteUser(Long id){
-        return null;
+        if (tokenService.isAdmin(header)) {
+            userService.deleteUser(id);
+            return new ResponseEntity<>("User has been deleted!", HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(403).body(null);
+        }
+    }
+
+    @DeleteMapping("/ala/users/delete")
+    public ResponseEntity<String> deleteAllUsers() {
+        System.out.println("Delete All Users...");
+
+        userService.deleteAllUsers();
+
+        return new ResponseEntity<>("All users have been deleted!", HttpStatus.OK);
+    }
+
+    @PostMapping("/ala/users/create")
+    public ResponseEntity<String> createUser(@RequestBody User user) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userService.save(user);
+        return new ResponseEntity<>("User has been created", HttpStatus.OK);
     }
 }

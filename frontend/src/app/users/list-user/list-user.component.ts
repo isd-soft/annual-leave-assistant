@@ -13,7 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ListUserComponent implements OnInit {
 
-  users: User[];
+  users: any;
 
   constructor(private router: Router, private userService: UserService) {
   }
@@ -37,15 +37,21 @@ export class ListUserComponent implements OnInit {
 
   deleteUser(user: User): void {
     this.userService.deleteUser(user.id)
-      .subscribe(data => {
-        this.users = this.users.filter(u => u !== user);
-      });
+      .toPromise().then(res => { this.users = res; }).catch(err => console.log(err));
+    this.reloadData();
   }
 
   deleteAllUsers(): void {
     this.userService.deleteAllUsers()
       .subscribe(data => {
         console.log(data);
+      });
+  }
+
+  reloadData() {
+    this.userService.getUsers()
+      .subscribe(data => {
+        this.users = data;
       });
   }
 }
