@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {toPromise} from 'rxjs-compat/operator/toPromise';
+import { ListUserComponent } from '../list-user/list-user.component';
 
 @Component({
   selector: 'app-edit-user',
@@ -29,7 +30,7 @@ export class EditUserComponent implements OnInit {
   disableTextbox =  true;
 
   completeFields(){
-    this.http.get(environment.rootUrl + '/ala/users/2', {observe: 'response'}).toPromise()
+    this.http.get(environment.rootUrl + '/ala/users/' + localStorage.getItem('updateUserId'), {observe: 'response'}).toPromise()
       .then( res => {
         this.id = res.body['id'];
         this.surname = res.body['surname'];
