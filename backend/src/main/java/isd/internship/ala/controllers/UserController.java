@@ -132,6 +132,18 @@ public class UserController {
                 }
 
 
+                if(user.getDepartment() != null){
+                    foundUser.setDepartment(user.getDepartment());
+                    System.out.println("Department changed");
+                }
+
+
+                if(user.getDepartment() != null){
+                    foundUser.setDepartment(user.getDepartment());
+                    System.out.println("Department changed");
+                }
+
+
                 userService.save(foundUser);
                 System.out.println("[ U ]   Data for " + foundUser.getEmail() + " updated.");
                 result.put("message","Data updated");
