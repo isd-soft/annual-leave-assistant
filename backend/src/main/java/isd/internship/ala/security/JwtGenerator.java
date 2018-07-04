@@ -41,6 +41,9 @@ public class JwtGenerator {
                 claims.put("email", foundUser.getEmail());
                 claims.put("empDate", foundUser.getEmpDate());
                 claims.put("role", (foundUser.getRole()).getRole());
+                claims.put("availDays", foundUser.getAvailDays().toString());
+                claims.put("function", foundUser.getFunction());
+                claims.put("department", foundUser.getDepartment());
 
                 String token = Jwts.builder()
                         .setClaims(claims)

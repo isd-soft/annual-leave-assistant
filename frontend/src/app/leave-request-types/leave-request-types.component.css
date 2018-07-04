@@ -12,6 +12,10 @@ ul{
   /*border-radius: 16px;*/
 }
 
+.avatar{
+  background-color: lightgrey;
+}
+
 span{
   font-weight: bold;
 }

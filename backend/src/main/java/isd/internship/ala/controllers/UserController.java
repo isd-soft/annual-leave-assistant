@@ -4,6 +4,7 @@ import java.util.*;
 
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.RoleRepository;
+import isd.internship.ala.repositories.UserRepository;
 import isd.internship.ala.security.JwtGenerator;
 import isd.internship.ala.services.LeaveRequestService;
 import isd.internship.ala.services.TokenService;
@@ -25,6 +26,9 @@ public class UserController {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private LeaveRequestService leaveRequestService;
@@ -80,10 +84,17 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean isAdmin = tokenService.isAdmin(header);
 
+<<<<<<< HEAD
         try {
             User foundUser = userService.findById(id);
             if (tokenService.getId(header) == foundUser.getId() || isAdmin) {
                 if (user.getSurname() != null && !user.getSurname().equals(foundUser.getSurname())) {
+=======
+        try{
+            User foundUser = userRepository.findById(id).get();
+            if(tokenService.getId(header).equals(foundUser.getId()) || isAdmin){
+                if(user.getSurname() != null && !user.getSurname().equals(foundUser.getSurname())) {
+>>>>>>> 0f488f0a7daba021525d19130ecb3174cf708db9
                     foundUser.setSurname(user.getSurname());
                     System.out.println("Surname changed");
                 }
@@ -117,6 +128,18 @@ public class UserController {
                 }
 
 
+                if(user.getDepartment() != null){
+                    foundUser.setDepartment(user.getDepartment());
+                    System.out.println("Department changed");
+                }
+
+
+                if(user.getDepartment() != null){
+                    foundUser.setDepartment(user.getDepartment());
+                    System.out.println("Department changed");
+                }
+
+
                 userService.save(foundUser);
                 System.out.println("[ U ]   Data for " + foundUser.getEmail() + " updated.");
                 result.put("message", "Data updated");
@@ -136,15 +159,31 @@ public class UserController {
 
 
     @GetMapping(value = "/ala/users/{id}", produces = "application/json")
-    public ResponseEntity<User> findUser(@RequestHeader(value = "Authorization") String header,
+    public ResponseEntity<HashMap<String, String>> findUser(@RequestHeader(value = "Authorization") String header,
                                          @PathVariable(name = "id") Long id) {
 
         boolean isAdmin = tokenService.isAdmin(header);
-
+        HashMap<String, String> response = new HashMap<>();
         if (tokenService.getId(header) == id || isAdmin) {
-            return ResponseEntity.status(200).body(userService.findById(id));
+            try {
+                User foundUser = userRepository.findById(id).get();
+                response.put("id", foundUser.getId().toString());
+                response.put("surname", foundUser.getSurname());
+                response.put("name", foundUser.getName());
+                response.put("email", foundUser.getSurname());
+                response.put("empDate", foundUser.getEmpDate().toString());
+                response.put("role", foundUser.getRole().getRole());
+                response.put("availDays", foundUser.getAvailDays().toString());
+                response.put("function", foundUser.getFunction());
+                response.put("department", foundUser.getDepartment());
+                return ResponseEntity.status(200).body(response);
+            } catch (NoSuchElementException e) {
+                response.put("message", "User not found!");
+                return ResponseEntity.status(404).body(response);
+            }
         } else {
-            return ResponseEntity.status(200).body(null);
+            response.put("message", "You have no power.");
+            return ResponseEntity.status(403).body(response);
         }
     }
 

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {toPromise} from 'rxjs-compat/operator/toPromise';
+import { ListUserComponent } from '../list-user/list-user.component';
 
 @Component({
   selector: 'app-edit-user',
@@ -18,26 +19,27 @@ export class EditUserComponent implements OnInit {
   private password: string;
   private role: string;
   private empDate: string;
-  private token: string;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.completeFields();
-    this.token = 'Token ' + localStorage.getItem('token');
     //console.log(this.token);
   }
 
   disableTextbox =  true;
 
   completeFields(){
-    this.id = localStorage.getItem('id');
-    this.surname = localStorage.getItem('surname');
-    this.password = "";
-    this.name = localStorage.getItem('name');
-    this.email = localStorage.getItem('email');
-    this.empDate = localStorage.getItem('empDate');
-    this.role = localStorage.getItem('role');
+    this.http.get(environment.rootUrl + '/ala/users/' + localStorage.getItem('updateUserId'), {observe: 'response'}).toPromise()
+      .then( res => {
+        this.id = res.body['id'];
+        this.surname = res.body['surname'];
+        this.name = res.body['name'];
+        this.email = res.body['email'];
+        this.password = "";
+        this.empDate = res.body['empDate'];
+        this.role = res.body['role'];
+      }).catch(err => console.log(err.body['message']));
   }
 
   toggleDisable() {
@@ -52,21 +54,7 @@ export class EditUserComponent implements OnInit {
 
   update() {
     var body: any;
-    if(this.surname != localStorage.getItem("surname")){
-      console.log("SURNAME");
-    }
 
-    if(this.name != localStorage.getItem("name")){
-      console.log("NAME");
-    }
-
-    if(this.email != localStorage.getItem("email")){
-      console.log("EMAIL");
-    }
-
-    if(this.empDate != localStorage.getItem("empDate")){
-      console.log("EMPDATE");
-    }
 
     if(this.password != ""){
       body = {

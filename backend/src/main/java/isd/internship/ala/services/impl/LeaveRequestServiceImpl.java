@@ -15,10 +15,7 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveRequestMaximumDays {
@@ -33,7 +30,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
         return leaveRequestRepository.save(leaveRequest);
     }
 
-//
+
 //    @Override
 //    public int getTotalDays(Long user_id, Integer year){
 //        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
@@ -54,11 +51,14 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
             if (leaveRequest.getUser().getId().equals(user_id) &&
                     (leaveRequest.getStartDate().getYear() == leaveRequest.getEndDate().getYear()) &&
                     (leaveRequest.getStartDate().getYear() == year) &&
-                    (Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() == 14))
+                    (Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 1 == 14))
                 return true;
         }
         return false;
     }
+
+
+
 
     @Override
     public boolean alreadyRequested(LeaveRequest leaveRequest){
@@ -66,11 +66,34 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
         for(LeaveRequest lr: leaveRequests) {
             if(lr.getUser().equals(leaveRequest.getUser()) && ( lr.getStartDate().equals(leaveRequest.getStartDate()) ||
                                                                 lr.getEndDate().equals(leaveRequest.getEndDate()) )){
-                    System.out.println("FOUND!!!!!!!!!!!!");
                 return true;
             }
         }
         return false;
+    }
+
+
+
+
+    @Override
+    public List<HashMap<String, String>> getByUserId(Long id){
+        List<HashMap<String, String>> result = new ArrayList<>();
+        HashMap<String, String> element = new HashMap<>();
+        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
+
+        for(LeaveRequest leaveRequest: leaveRequests){
+            if(leaveRequest.getUser().getId().equals(id)){
+                element.put("leaveRequestType", leaveRequest.getLeaveRequestType().getName());
+                element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
+                element.put("startDate", leaveRequest.getStartDate().toString());
+                element.put("endDate", leaveRequest.getEndDate().toString());
+                element.put("status", leaveRequest.getStatus().getName());
+                element.put("requestDate", leaveRequest.getRequestDate().toString());
+                result.add(element);
+                System.out.println(element);
+            }
+        }
+        return result;
     }
 
 

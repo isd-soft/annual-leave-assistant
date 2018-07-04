@@ -30,6 +30,7 @@ public class User {
     @Column(name = "surname") private String surname;
     @Column(name = "email") private String email;
     @Column(name = "password") private String password;
+
     @Column(name = "empDate")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)

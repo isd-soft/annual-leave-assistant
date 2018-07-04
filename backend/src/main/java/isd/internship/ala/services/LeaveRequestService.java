@@ -4,6 +4,7 @@ import isd.internship.ala.models.LeaveRequest;
 import isd.internship.ala.models.Status;
 import isd.internship.ala.models.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface LeaveRequestService {
@@ -16,6 +17,7 @@ public interface LeaveRequestService {
 //    int getTotalDays(Long user_id, Integer year);
     boolean taked14days(Long user_id, Integer year);
     boolean alreadyRequested(LeaveRequest leaveRequest);
+    List<HashMap<String, String>> getByUserId(Long id);
 //    LeaveRequest update(LeaveRequest leaveRequest, Integer id);
 //    void deleteById(Integer id);
 //    void deleteAll();

@@ -15,10 +15,14 @@ export class UserPageComponent implements OnInit {
   private surname: string;
   private name: string;
   private email: string;
-  private password  : string;
-  private role  : string;
+  private password: string;
+  private role: string;
   private empDate: string;
   private token: string;
+  private availDays: number;
+  private function_: string;
+  private department: string;
+
 
   constructor(private http: HttpClient) { }
 
@@ -38,6 +42,9 @@ export class UserPageComponent implements OnInit {
     this.email = localStorage.getItem("email");
     this.empDate = localStorage.getItem("empDate");
     this.role = localStorage.getItem("role");
+    this.availDays = Number(localStorage.getItem("availDays"));
+    this.department = localStorage.getItem("department");
+    this.function_ = localStorage.getItem("function_");
   }
 
   toggleDisable() {
@@ -68,13 +75,27 @@ export class UserPageComponent implements OnInit {
       console.log("EMPDATE");
     }
 
+    if(this.availDays != Number(localStorage.getItem("availDays"))){
+      console.log("AVAILDAYS");
+    }
+
+    if(this.department != localStorage.getItem("department")){
+      console.log("DEPARTMENT");
+    }
+
+    if(this.function_ != localStorage.getItem("function_")){
+      console.log("FUCNTION_");
+    }
     if(this.password != ""){
       body = {
         "surname": this.surname,
         "name": this.name,
         "email": this.email,
         "password": this.password,
-        "empDate": this.empDate
+        "empDate": this.empDate,
+        "department": this.department,
+        "availDays": this.availDays,
+        "fucntion_": this.function_
       };
       console.log("PASSWORD");
     } else {
@@ -82,7 +103,10 @@ export class UserPageComponent implements OnInit {
         "surname": this.surname,
         "name": this.name,
         "email": this.email,
-        "empDate": this.empDate
+        "empDate": this.empDate,
+        "department": this.department,
+        "availDays": this.availDays,
+        "fucntion_": this.function_
       };
     }
 
@@ -93,6 +117,9 @@ export class UserPageComponent implements OnInit {
               localStorage.setItem("name", this.name);
               localStorage.setItem("email", this.email);
               localStorage.setItem("empDate", this.empDate);
+              localStorage.setItem("function_", this.function_);
+              localStorage.setItem("department", this.department);
+              localStorage.setItem("availDays", String(this.availDays));
               this.toggleDisable();
             })
             .catch(err => console.log(err));
