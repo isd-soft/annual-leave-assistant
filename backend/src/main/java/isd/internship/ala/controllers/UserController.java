@@ -84,17 +84,10 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean isAdmin = tokenService.isAdmin(header);
 
-<<<<<<< HEAD
-        try {
-            User foundUser = userService.findById(id);
-            if (tokenService.getId(header) == foundUser.getId() || isAdmin) {
-                if (user.getSurname() != null && !user.getSurname().equals(foundUser.getSurname())) {
-=======
         try{
             User foundUser = userRepository.findById(id).get();
             if(tokenService.getId(header).equals(foundUser.getId()) || isAdmin){
                 if(user.getSurname() != null && !user.getSurname().equals(foundUser.getSurname())) {
->>>>>>> 0f488f0a7daba021525d19130ecb3174cf708db9
                     foundUser.setSurname(user.getSurname());
                     System.out.println("Surname changed");
                 }
