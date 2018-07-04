@@ -106,7 +106,7 @@ export class UserPageComponent implements OnInit {
         "empDate": this.empDate,
         "department": this.department,
         "availDays": this.availDays,
-        "fucntion_": this.function_
+        "fucntion": this.function_
       };
     }
 
@@ -117,7 +117,7 @@ export class UserPageComponent implements OnInit {
               localStorage.setItem("name", this.name);
               localStorage.setItem("email", this.email);
               localStorage.setItem("empDate", this.empDate);
-              localStorage.setItem("function_", this.function_);
+              localStorage.setItem("function", this.function_);
               localStorage.setItem("department", this.department);
               localStorage.setItem("availDays", String(this.availDays));
               this.toggleDisable();

@@ -19,6 +19,7 @@ import {AddUserComponent} from './users/add-user/add-user.component';
 import {ListUserComponent} from './users/list-user/list-user.component';
 import {EditUserComponent} from './users/edit-user/edit-user.component';
 import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/create-leave-request.component';
+import {ListLeaveRequestComponent} from './leave-request/list-leave-request/list-leave-request.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/
     HomeComponent,
     RegisterComponent,
     CreateLeaveRequestComponent,
+    ListLeaveRequestComponent,
     UserPageComponent,
     LeaveRequestTypesComponent,
     // AddUserComponent,
@@ -71,7 +73,7 @@ import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/
       },
       {
         path: 'leaveRequests',
-        component: ListUserComponent
+        component: ListLeaveRequestComponent
       },
       {
         path: 'create-leave-request',

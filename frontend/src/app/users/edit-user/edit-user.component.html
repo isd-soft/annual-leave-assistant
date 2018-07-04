@@ -1,5 +1,5 @@
 <div>
-  <h4>> Admin Edit User Page</h4>
+  <h4>> User Page</h4>
   <form class="container" (ngSubmit)="update()">
     <table class="striped">
       <tbody>
@@ -19,19 +19,32 @@
           <input class="isd-lbl" type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email" id="email">
           <label class="isd-lbl" for="email">Email</label>
         </td>
-        <td>
-          <input class="isd-lbl" type="text" disabled [(ngModel)]="role" name="role" id="role">
-          <label class="isd-lbl" for="role">Group</label>
-        </td>
-      </tr>
-
-      <tr>
         <td colspan="2">
           <input class="isd-lbl" type="password" placeholder="Choose a new password" [disabled]='disableTextbox' [(ngModel)]="password" name="password" id="password">
           <label class="isd-lbl" for="password">Password</label>
         </td>
       </tr>
 
+      <tr>
+        <td>
+          <input class="isd-lbl" type="text" disabled [(ngModel)]="role" name="role" id="role">
+          <label class="isd-lbl" for="role">Group</label>
+        </td>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="availDays" name="availDays" id="availDays">
+          <label class="isd-lbl" for="availDays">Available days</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="function_" name="function_" id="function_">
+          <label class="isd-lbl" for="function_">Function</label>
+        </td>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="department" name="department" id="department">
+          <label class="isd-lbl" for="department">Department</label>
+        </td>
+      </tr>
       <tr>
         <td>
           <input class="isd-lbl" type="date" [disabled]='disableTextbox' [(ngModel)]="empDate" name="empDate" id="empDate">
@@ -41,7 +54,7 @@
           <a class="waves-effect waves-light btn isd-btn" *ngIf="disableTextbox" (click)="toggleDisable()">Edit</a>
           <button type="submit" class="waves-effect waves-light btn isd-btn" *ngIf="!disableTextbox">Save</button>
           <div class="divider"></div>
-          <a class="waves-effect waves-light btn isd-btn" *ngIf="!disableTextbox" (click)="cancel()">Cancel</a>
+          <a class="waves-effect waves-light btn  isd-btn" *ngIf="!disableTextbox" (click)="cancel()">Cancel</a>
         </td>
       </tr>
       </tbody>

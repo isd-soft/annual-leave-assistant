@@ -77,10 +77,6 @@ export class EditUserComponent implements OnInit {
     this.http.put(environment.rootUrl + "/ala/users/" + this.id, body).toPromise()
       .then(res => {
         console.log(res);
-        localStorage.setItem("surname", this.surname);
-        localStorage.setItem("name", this.name);
-        localStorage.setItem("email", this.email);
-        localStorage.setItem("empDate", this.empDate);
         this.toggleDisable();
       })
       .catch(err => console.log(err));

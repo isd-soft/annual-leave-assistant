@@ -1,0 +1,35 @@
+<div class="col-md-12">
+  <h4>>Leave request list</h4>
+  <a class="waves-effect waves-light btn-small isd-btn" (click)="addLeaveRequest()">Add Leavea Request</a>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Employee</th>
+      <th>Leave request type</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Request date</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let leaveRequest of leaveRequests">
+      <td>{{leaveRequest.id}}</td>
+      <td>{{leaveRequest.user}}</td>
+      <td>{{leaveRequest.leaveRequestType}}</td>
+      <td>{{leaveRequest.startDate}}</td>
+      <td>{{leaveRequest.endDate}}</td>
+      <td>{{leaveRequest.requestDate}}</td>
+      <td>{{leaveRequest.status}}</td>
+      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateUser(user)">Approve</a></td>
+      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateUser(user)">Edit</a></td>
+      <td><a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteUser(user)">Delete</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteAllUsers()">Remove all</a>
+</div>
