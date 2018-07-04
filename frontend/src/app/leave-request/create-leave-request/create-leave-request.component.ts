@@ -26,8 +26,8 @@ export class CreateLeaveRequestComponent implements OnInit {
       .then(res => { this.leaveRequestTypes = res.body; } ).catch(err => console.log());
 
     // Get number of available days
-    this.http.get(environment.rootUrl+'/ala/users/'+localStorage.getItem('id')+'/days', {observe: 'response'})
-      .toPromise().then(res => { this.daysOff = 28 - res.body['days']; } ).catch(err => console.log());
+    this.http.get(environment.rootUrl+'/ala/users/'+localStorage.getItem('id'), {observe: 'response'})
+      .toPromise().then(res => { this.daysOff = res.body['availDays']; } ).catch(err => console.log());
   }
 
 

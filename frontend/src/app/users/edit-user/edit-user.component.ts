@@ -19,7 +19,7 @@ export class EditUserComponent implements OnInit {
   private role: string;
   private empDate: string;
 
-  constructor(private http: HttpClientz) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.completeFields();
