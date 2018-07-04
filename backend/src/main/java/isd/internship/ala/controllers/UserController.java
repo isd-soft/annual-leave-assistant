@@ -127,11 +127,10 @@ public class UserController {
                 }
 
 
-                if(user.getDepartment() != null){
-                    foundUser.setDepartment(user.getDepartment());
-                    System.out.println("Department changed");
+                if(user.getFunction() != null){
+                    foundUser.setDepartment(user.getFunction());
+                    System.out.println("Function changed");
                 }
-
 
                 userService.save(foundUser);
                 System.out.println("[ U ]   Data for " + foundUser.getEmail() + " updated.");
@@ -147,7 +146,7 @@ public class UserController {
             System.out.println("[ ! ]   User " + user.getId() + " not found!");
             result.put("message", "User not found");
         }
-        return ResponseEntity.status(201).body(result);
+        return ResponseEntity.status(404).body(result);
     }
 
 

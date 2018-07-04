@@ -26,7 +26,6 @@ public class StatusServiceImpl implements StatusService {
             if(status.getName().equals(name))
                 return status;
         }
-
         return null;
     }
 
