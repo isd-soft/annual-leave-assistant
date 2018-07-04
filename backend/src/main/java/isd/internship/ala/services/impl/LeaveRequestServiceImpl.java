@@ -71,7 +71,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                                                                 lr.getStartDate().equals(endDate) ||
                                                                 lr.getEndDate().equals(startDate) ||
                     (startDate.isBefore(lr.getEndDate()) && startDate.isAfter(lr.getStartDate())) ||
-                    (endDate.isBefore(lr.getEndDate()) && endDate.isAfter(lr.getStartDate()))){
+                    (endDate.isBefore(lr.getEndDate()) && endDate   .isAfter(lr.getStartDate()))){
                 return true;
             }
         }
@@ -94,6 +94,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                 element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
                 element.put("startDate", leaveRequest.getStartDate().toString());
                 element.put("endDate", leaveRequest.getEndDate().toString());
+                element.put("period", String.valueOf(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1));
                 element.put("status", leaveRequest.getStatus().getName());
                 element.put("requestDate", leaveRequest.getRequestDate().toString());
                 result.add(element);
@@ -114,6 +115,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                 element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
                 element.put("startDate", leaveRequest.getStartDate().toString());
                 element.put("endDate", leaveRequest.getEndDate().toString());
+                element.put("period", String.valueOf(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1));
                 element.put("status", leaveRequest.getStatus().getName());
                 element.put("requestDate", leaveRequest.getRequestDate().toString());
                 result.add(element);

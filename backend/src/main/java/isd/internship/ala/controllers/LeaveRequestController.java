@@ -125,23 +125,20 @@ public class LeaveRequestController {
 
     @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<HashMap<String, String>> updateLeaveRequest(@RequestHeader(value = "Authorization") String header,
-                                                      @RequestBody LeaveRequest leaveRequest,
-                                                      @PathVariable(name = "id") Integer id){
+                                                                      @RequestBody LeaveRequest leaveRequest,
+                                                                      @PathVariable(name = "id") Integer id){
         HashMap<String, String> result = new HashMap<>();
         boolean isAdmin = tokenService.isAdmin(header);
 
         try{
-            User foundUser = userRepository.findById(tokenService.getId(header)).get();
-            System.out.println("USER FOUND");
             LeaveRequest foundLeaveRequest = leaveRequestRepository.findById(id).get();
-            System.out.println("REQUEST FOUND");
 
             if(foundLeaveRequest.getStatus().getName().equals("approved" ) && !isAdmin){
                 result.put("message", "You can't edit approved leaveRequest");
                 return ResponseEntity.status(403).body(result);
             }
 
-            if(tokenService.getId(header).equals(foundUser.getId()) || isAdmin){
+            if(tokenService.getId(header).equals(foundLeaveRequest.getUser().getId()) || isAdmin){
                 if(leaveRequest.getLeaveRequestType().getId() != null && !leaveRequest.getLeaveRequestType().getId().equals(foundLeaveRequest.getLeaveRequestType().getId())){
                     LeaveRequestType type = leaveRequestTypeRepository.findById(leaveRequest.getLeaveRequestType().getId()).get();
                     foundLeaveRequest.setLeaveRequestType(type);
@@ -175,7 +172,33 @@ public class LeaveRequestController {
             }
         } catch (Exception e){
             result.put("message", "NoSuchElement exception");
+            return ResponseEntity.status(404).body(result);
         }
-        return ResponseEntity.status(404).body(result);
+    }
+
+    
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HashMap<String, String>> deleteLeaveRequest(@RequestHeader(value = "Authorization") String header,
+                                                                      @PathVariable(name = "id") Integer id){
+        HashMap<String, String> result = new HashMap<>();
+        boolean isAdmin = tokenService.isAdmin(header);
+
+        try{
+            LeaveRequest foundLeaveRequest = leaveRequestRepository.findById(id).get();
+            if((tokenService.getId(header).equals(foundLeaveRequest.getUser().getId()) && (foundLeaveRequest.getStatus().getName().equals("pending"))) || isAdmin){
+                leaveRequestRepository.delete(foundLeaveRequest);
+                result.put("message", "Delete success!");
+                return ResponseEntity.status(200).body(result);
+            } else {
+                System.out.println("[ ! ]   Attempt to change other user's data!");
+                result.put("message", "Forbidden: you have no rights!");
+                return ResponseEntity.status(403).body(result);
+            }
+        } catch (Exception e){
+            System.out.println("[ ! ]   Attempt to change other user's data!");
+            result.put("message", "NoSuchElementException!");
+            return ResponseEntity.status(404).body(result);
+        }
     }
 }
