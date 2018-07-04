@@ -63,9 +63,15 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     @Override
     public boolean alreadyRequested(LeaveRequest leaveRequest){
         List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
+        LocalDate startDate = leaveRequest.getStartDate();
+        LocalDate endDate = leaveRequest.getEndDate();
         for(LeaveRequest lr: leaveRequests) {
-            if(lr.getUser().equals(leaveRequest.getUser()) && ( lr.getStartDate().equals(leaveRequest.getStartDate()) ||
-                                                                lr.getEndDate().equals(leaveRequest.getEndDate()) )){
+            if(lr.getUser().equals(leaveRequest.getUser()) && ( lr.getStartDate().equals(startDate) ||
+                                                                lr.getEndDate().equals(endDate)) ||
+                                                                lr.getStartDate().equals(endDate) ||
+                                                                lr.getEndDate().equals(startDate) ||
+                    (startDate.isBefore(lr.getEndDate()) && startDate.isAfter(lr.getStartDate())) ||
+                    (endDate.isBefore(lr.getEndDate()) && endDate.isAfter(lr.getStartDate()))){
                 return true;
             }
         }
@@ -78,11 +84,11 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     @Override
     public List<HashMap<String, String>> getByUserId(Long id){
         List<HashMap<String, String>> result = new ArrayList<>();
-        HashMap<String, String> element = new HashMap<>();
         List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
 
         for(LeaveRequest leaveRequest: leaveRequests){
             if(leaveRequest.getUser().getId().equals(id)){
+                HashMap<String, String> element = new HashMap<>();
                 element.put("id", leaveRequest.getId().toString());
                 element.put("leaveRequestType", leaveRequest.getLeaveRequestType().getName());
                 element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
@@ -100,10 +106,10 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     @Override
     public List<HashMap<String, String>> getAll(){
         List<HashMap<String, String>> result = new ArrayList<>();
-        HashMap<String, String> element = new HashMap<>();
         List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
 
         for(LeaveRequest leaveRequest: leaveRequests){
+                HashMap<String, String> element = new HashMap<>();
                 element.put("leaveRequestType", leaveRequest.getLeaveRequestType().getName());
                 element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
                 element.put("startDate", leaveRequest.getStartDate().toString());
