@@ -29,7 +29,7 @@ export class UserService {
   }
 
   deleteUser(id: number) {
-    return this.http.delete(this.baseUrl + '/delete/' + id);
+    return this.http.delete(this.baseUrl + '/' + id);
   }
 
   deleteAllUsers() {

@@ -1,4 +1,4 @@
-///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
+//<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../user';
 import {Router} from '@angular/router';
@@ -37,15 +37,21 @@ export class ListUserComponent implements OnInit {
 
   deleteUser(user: User): void {
     this.userService.deleteUser(user.id)
-      .subscribe(data => {
-        this.users = this.users.filter(u => u !== user);
-      });
+      .toPromise().then(res => { this.users = res; }).catch(err => console.log(err));
+    this.reloadData();
   }
 
   deleteAllUsers(): void {
     this.userService.deleteAllUsers()
       .subscribe(data => {
         console.log(data);
+      });
+  }
+
+  reloadData() {
+    this.userService.getUsers()
+      .subscribe(data => {
+        this.users = data;
       });
   }
 }
