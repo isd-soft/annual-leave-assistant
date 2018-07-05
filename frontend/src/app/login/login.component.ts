@@ -53,6 +53,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('name', this.result.name);
           localStorage.setItem('email', this.result.email);
           localStorage.setItem('role', this.result.role);
+          localStorage.setItem('availDays', this.result.availDays);
+          localStorage.setItem('function', this.result.function_);
+          localStorage.setItem('department', this.result.department);
 
           let dateString = this.result.empDate.year + '-' + this.result.empDate.monthValue + '-' + this.result.empDate.dayOfMonth;
           localStorage.setItem('empDate', dateString);

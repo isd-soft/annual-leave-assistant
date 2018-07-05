@@ -57,9 +57,6 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
         return false;
     }
 
-
-
-
     @Override
     public boolean alreadyRequested(LeaveRequest leaveRequest){
         List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();

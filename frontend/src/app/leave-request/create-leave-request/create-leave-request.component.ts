@@ -16,35 +16,42 @@ export class CreateLeaveRequestComponent implements OnInit {
   leaveRequestTypes: any;
   reqType: any;
   private daysOff: number;
-  private datesDiff: number = 0;
+  private datesDiff = 0;
   private startDate: string;
   private endDate: string;
 
 
   ngOnInit() {
-    this.http.get(environment.rootUrl+'/ala/leaveRequestTypes', {observe: 'response'}).toPromise()
+    this.http.get(environment.rootUrl + '/ala/leaveRequestTypes', {observe: 'response'}).toPromise()
       .then(res => { this.leaveRequestTypes = res.body; } ).catch(err => console.log());
 
     // Get number of available days
-    this.http.get(environment.rootUrl+'/ala/users/'+localStorage.getItem('id'), {observe: 'response'})
+    this.http.get(environment.rootUrl + '/ala/users/' + localStorage.getItem('id'), {observe: 'response'})
       .toPromise().then(res => { this.daysOff = res.body['availDays']; } ).catch(err => console.log());
   }
 
 
-  dateChange(){
-    if(this.startDate != null && this.endDate != null){
+  dateChange() {
+    if (this.startDate != null && this.endDate != null) {
+      // let d1 = new DatePipe(this.startDate);
+      // let d2 = new DatePipe(this.endDate);
       let d1 = new Date(this.startDate);
       let d2 = new Date(this.endDate);
-      this.datesDiff =  Number(Math.round((d2.getTime()-d1.getTime())/(86400000)));
+      let diff: any;
+      if (d1.getFullYear() === d2.getFullYear()){
+        diff = d2.getDay() - d1.getDay();
+      }
+      console.log(this.endDate);
+      this.datesDiff =  Number(Math.round((diff) / (86400000)));
     } else {
       this.datesDiff = 0;
     }
   }
 
 
-  create(){
-    var d1 = new DatePipe (this.startDate);
-    var d2 = new DatePipe (this.endDate);
+  create() {
+    let d1 = new DatePipe (this.startDate);
+    let d2 = new DatePipe (this.endDate);
     console.log(d1);
     console.log(d2);
     console.log(d1 > d2);
@@ -56,16 +63,16 @@ export class CreateLeaveRequestComponent implements OnInit {
     }
 
 
-    this.http.post(environment.rootUrl+'/ala/leaveRequests', {
-      'leaveRequestType':{
+    this.http.post(environment.rootUrl + '/ala/leaveRequests', {
+      'leaveRequestType': {
         'id': this.reqType
       },
       'startDate': this.startDate,
       'endDate': this.endDate,
       'requestDate': new Date()
-    },{observe: 'response'}).toPromise()
-      .then(res =>{
-        if(res.status == 201) {
+    }, {observe: 'response'}).toPromise()
+      .then(res => {
+        if (res.status == 201) {
           window.alert(res.body['message']);
           this.reqType = null;
           this.startDate = null;

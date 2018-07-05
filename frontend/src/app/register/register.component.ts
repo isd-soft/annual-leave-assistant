@@ -38,7 +38,10 @@ export class RegisterComponent implements OnInit {
                 .then(res => {
                     if(res.status == 201){
                       window.alert(res.body["message"]);
-                      this.router.navigate(['/login']);
+                      if(!localStorage.getItem("token"))
+                        this.router.navigate(['/login']);
+                      else
+                        this.router.navigate(['/users']);
                     } else {
                       window.alert(res.body["message"]);
                       location.reload();
@@ -48,6 +51,13 @@ export class RegisterComponent implements OnInit {
                         console.log('error' + err);
                         window.alert("User with this email already exists!");
                         });
+  }
+
+  cancel(){
+    if(!localStorage.getItem("token"))
+      this.router.navigate(['/login']);
+    else
+      this.router.navigate(['/users']);
   }
  }
 

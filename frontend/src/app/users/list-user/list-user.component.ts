@@ -1,8 +1,9 @@
-//<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
+// <reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../user';
 import {Router} from '@angular/router';
 import {UserService} from '../../user.service';
+import {MatTable} from '@angular/material';
 import {Observable} from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -26,7 +27,7 @@ export class ListUserComponent implements OnInit {
   }
 
   addUser(): void {
-    this.router.navigate(['add-user']);
+    this.router.navigate(['register']);
   }
 
   updateUser(user: User): void {
@@ -37,15 +38,18 @@ export class ListUserComponent implements OnInit {
 
   deleteUser(user: User): void {
     this.userService.deleteUser(user.id)
-      .toPromise().then(res => { this.users = res; }).catch(err => console.log(err));
-    this.reloadData();
+      .toPromise().then(res => { this.users = res; this.router.navigate(['/users']);  } ).catch(err => console.log(err));
+    this.userService.getUsers();
+     window.location.reload();
   }
 
   deleteAllUsers(): void {
     this.userService.deleteAllUsers()
       .subscribe(data => {
-        console.log(data);
+        console.log(data); this.ngOnInit();
+        this.router.navigate(['/users']);
       });
+     window.location.reload();
   }
 
   reloadData() {

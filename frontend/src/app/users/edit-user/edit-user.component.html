@@ -27,7 +27,7 @@
 
       <tr>
         <td>
-          <input class="isd-lbl" type="text" disabled [(ngModel)]="role" name="role" id="role">
+          <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="role" name="role" id="role">
           <label class="isd-lbl" for="role">Group</label>
         </td>
         <td>

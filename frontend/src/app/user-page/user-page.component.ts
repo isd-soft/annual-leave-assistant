@@ -44,7 +44,7 @@ export class UserPageComponent implements OnInit {
     this.role = localStorage.getItem("role");
     this.availDays = Number(localStorage.getItem("availDays"));
     this.department = localStorage.getItem("department");
-    this.function_ = localStorage.getItem("function_");
+    this.function_ = localStorage.getItem("function");
   }
 
   toggleDisable() {
@@ -83,8 +83,8 @@ export class UserPageComponent implements OnInit {
       console.log("DEPARTMENT");
     }
 
-    if(this.function_ != localStorage.getItem("function_")){
-      console.log("FUCNTION_");
+    if(this.function_ != localStorage.getItem("function")){
+      console.log("FUNCTION");
     }
     if(this.password != ""){
       body = {
@@ -95,7 +95,7 @@ export class UserPageComponent implements OnInit {
         "empDate": this.empDate,
         "department": this.department,
         "availDays": this.availDays,
-        "fucntion_": this.function_
+        "function": this.function_
       };
       console.log("PASSWORD");
     } else {
@@ -106,7 +106,7 @@ export class UserPageComponent implements OnInit {
         "empDate": this.empDate,
         "department": this.department,
         "availDays": this.availDays,
-        "fucntion": this.function_
+        "function": this.function_
       };
     }
 

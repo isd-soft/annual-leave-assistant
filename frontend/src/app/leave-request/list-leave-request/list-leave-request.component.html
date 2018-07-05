@@ -1,7 +1,7 @@
 <div class="col-md-12">
   <h4>>Leave request list</h4>
   <a class="waves-effect waves-light btn-small isd-btn" (click)="addLeaveRequest()">Add Leavea Request</a>
-  <table class="table table-striped">
+  <table mat-table mat-pagination class="mat-elevation-z8">
     <thead>
     <tr>
       <th></th>
@@ -25,11 +25,11 @@
       <td>{{leaveRequest.endDate}}</td>
       <td>{{leaveRequest.requestDate}}</td>
       <td>{{leaveRequest.status}}</td>
-      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateUser(user)">Approve</a></td>
-      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateUser(user)">Edit</a></td>
-      <td><a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteUser(user)">Delete</a></td>
+      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateLvReq(leaveRequest.id)">Approve</a></td>
+      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateLvReq(leaveRequest.id)">Edit</a></td>
+      <td><a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteLvReq(leaveRequest.id)">Delete</a></td>
     </tr>
     </tbody>
   </table>
-  <a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteAllUsers()">Remove all</a>
+  <a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteAllLvReqs(leaveRequest.id)">Remove all</a>
 </div>

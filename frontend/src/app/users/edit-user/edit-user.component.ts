@@ -19,6 +19,9 @@ export class EditUserComponent implements OnInit {
   private password: string;
   private role: string;
   private empDate: string;
+  private function_: string;
+  private department: string;
+  private availDays: number;
 
   constructor(private http: HttpClient) { }
 
@@ -39,6 +42,9 @@ export class EditUserComponent implements OnInit {
         this.password = "";
         this.empDate = res.body['empDate'];
         this.role = res.body['role'];
+        this.function_ = res.body['function'];
+        this.department = res.body['department'];
+        this.availDays = res.body['availDays'];
       }).catch(err => console.log(err.body['message']));
   }
 
@@ -53,8 +59,12 @@ export class EditUserComponent implements OnInit {
   }
 
   update() {
-    var body: any;
+    let body: any;
 
+    let role_id = 2;
+    if(this.role === 'ADMIN') {
+      role_id = 1;
+    }
 
     if(this.password != ""){
       body = {
@@ -62,7 +72,11 @@ export class EditUserComponent implements OnInit {
         "name": this.name,
         "email": this.email,
         "password": this.password,
-        "empDate": this.empDate
+        "empDate": this.empDate,
+        'role': {"id": role_id},
+        'function': this.function_,
+        'department': this.department,
+        'availDays': this.availDays
       };
       console.log("PASSWORD");
     } else {
@@ -70,7 +84,12 @@ export class EditUserComponent implements OnInit {
         "surname": this.surname,
         "name": this.name,
         "email": this.email,
-        "empDate": this.empDate
+        "empDate": this.empDate,
+        'role': {"id": "1"},
+        'function': this.function_,
+        'department': this.department,
+        'availDays': this.availDays
+
       };
     }
 

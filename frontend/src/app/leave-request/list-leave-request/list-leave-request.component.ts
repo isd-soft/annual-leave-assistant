@@ -28,4 +28,10 @@ export class ListLeaveRequestComponent implements OnInit {
     this.router.navigate(['create-leave-request']);
   }
 
+  deleteLvReq(id: number) {
+    console.log('ID: ' + id);
+    this.http.delete(environment.rootUrl + '/ala/leaveRequests/' + id, {observe: 'response'})
+      .toPromise().then(res => console.log(res)).catch(err => console.log(err))
+  }
+
 }

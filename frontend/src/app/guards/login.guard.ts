@@ -12,6 +12,6 @@ export class LoginGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      if(!(localStorage.getItem("token"))) return true;
+      if(!(localStorage.getItem("token")) || (localStorage.getItem("role") == 'ADMIN')) return true;
     }
 }
