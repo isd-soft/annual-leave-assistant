@@ -1,6 +1,5 @@
 package isd.internship.ala.services.impl;
 
-import isd.internship.ala.models.LeaveRequest;
 import isd.internship.ala.models.LeaveRequestType;
 import isd.internship.ala.repositories.LeaveRequestTypeRepository;
 import isd.internship.ala.services.LeaveRequestTypeService;
@@ -26,6 +25,7 @@ public class LeaveRequestTypeServiceImpl implements LeaveRequestTypeService {
     @Override
     public LeaveRequestType create(LeaveRequestType leaveRequestType) {
         return leaveRequestTypeRepository.save(leaveRequestType);
+
     }
 
     @Override

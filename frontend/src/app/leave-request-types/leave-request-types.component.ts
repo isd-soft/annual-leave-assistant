@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-leave-request-types',
@@ -9,16 +10,20 @@ import {environment} from '../../environments/environment';
 })
 export class LeaveRequestTypesComponent implements OnInit {
 
-  private list: any;
+  list: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   ngOnInit() {
-    this.http.get(environment.rootUrl + '/ala/leaveRequestTypes', {observe: 'response'}).toPromise()
+    this.http.get(environment.rootUrl + '/ala/leaverequestype', {observe: 'response'}).toPromise()
       .then(res => {
         this.list = res.body;
       }).catch(err => console.log());
+  }
+
+  addRequestType(): void {
+    this.router.navigate(['app-create']);
   }
 
 }

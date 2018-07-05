@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {toPromise} from 'rxjs-compat/operator/toPromise';
-import { ListUserComponent } from '../list-user/list-user.component';
+import {ListUserComponent} from '../list-user/list-user.component';
 
 @Component({
   selector: 'app-edit-user',
@@ -20,23 +20,24 @@ export class EditUserComponent implements OnInit {
   private role: string;
   private empDate: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit() {
     this.completeFields();
-    //console.log(this.token);
+     //console.log(this.token);
   }
 
-  disableTextbox =  true;
+  disableTextbox = true;
 
-  completeFields(){
+  completeFields() {
     this.http.get(environment.rootUrl + '/ala/users/' + localStorage.getItem('updateUserId'), {observe: 'response'}).toPromise()
-      .then( res => {
+      .then(res => {
         this.id = res.body['id'];
         this.surname = res.body['surname'];
         this.name = res.body['name'];
         this.email = res.body['email'];
-        this.password = "";
+        this.password = '';
         this.empDate = res.body['empDate'];
         this.role = res.body['role'];
       }).catch(err => console.log(err.body['message']));
@@ -56,31 +57,31 @@ export class EditUserComponent implements OnInit {
     var body: any;
 
 
-    if(this.password != ""){
+    if (this.password != '') {
       body = {
-        "surname": this.surname,
-        "name": this.name,
-        "email": this.email,
-        "password": this.password,
-        "empDate": this.empDate
+        'surname': this.surname,
+        'name': this.name,
+        'email': this.email,
+        'password': this.password,
+        'empDate': this.empDate
       };
-      console.log("PASSWORD");
+      console.log('PASSWORD');
     } else {
       body = {
-        "surname": this.surname,
-        "name": this.name,
-        "email": this.email,
-        "empDate": this.empDate
+        'surname': this.surname,
+        'name': this.name,
+        'email': this.email,
+        'empDate': this.empDate
       };
     }
 
-    this.http.put(environment.rootUrl + "/ala/users/" + this.id, body).toPromise()
+    this.http.put(environment.rootUrl + '/ala/users/' + this.id, body).toPromise()
       .then(res => {
         console.log(res);
-        localStorage.setItem("surname", this.surname);
-        localStorage.setItem("name", this.name);
-        localStorage.setItem("email", this.email);
-        localStorage.setItem("empDate", this.empDate);
+        localStorage.setItem('surname', this.surname);
+        localStorage.setItem('name', this.name);
+        localStorage.setItem('email', this.email);
+        localStorage.setItem('empDate', this.empDate);
         this.toggleDisable();
       })
       .catch(err => console.log(err));

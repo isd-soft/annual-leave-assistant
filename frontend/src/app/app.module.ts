@@ -19,11 +19,9 @@ import {AddUserComponent} from './users/add-user/add-user.component';
 import {ListUserComponent} from './users/list-user/list-user.component';
 import {EditUserComponent} from './users/edit-user/edit-user.component';
 import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/create-leave-request.component';
-<<<<<<< HEAD
 import { CreateComponent } from './leave-request-types/create/create.component';
 import { EditComponent } from './leave-request-types/edit/edit.component';
-=======
->>>>>>> 0f488f0a7daba021525d19130ecb3174cf708db9
+
 
 
 @NgModule({
@@ -48,6 +46,10 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
+      {
+        path: 'app-create',
+        component: CreateComponent
+      },
       {
         path: 'leaveRequestTypes',
         canActivate: [AuthGuard],
