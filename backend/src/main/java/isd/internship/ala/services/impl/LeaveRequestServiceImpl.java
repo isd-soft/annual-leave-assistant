@@ -108,6 +108,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
 
         for(LeaveRequest leaveRequest: leaveRequests){
                 HashMap<String, String> element = new HashMap<>();
+                element.put("id", leaveRequest.getId().toString());
                 element.put("leaveRequestType", leaveRequest.getLeaveRequestType().getName());
                 element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
                 element.put("startDate", leaveRequest.getStartDate().toString());

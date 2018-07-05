@@ -70,14 +70,17 @@ public class LeaveRequestController {
         Status pending = statusService.getByName("pending");
         boolean isAdmin = tokenService.isAdmin(header);
             try {
-                Long user_id = leaveRequest.getUser().getId();
-                User foundUser;
+                Long user_id = null;
+                User foundUser = null;
 
-                // if user is indicated in request and you have admin rights, create it
-                if( user_id != null && isAdmin){
-                    foundUser = userRepository.findById(user_id).get();
-                } else {
+                try {
+                    user_id = leaveRequest.getUser().getId();
+                    if(isAdmin)
+                        foundUser = userRepository.findById(user_id).get();
+
+                } catch (NullPointerException e){
                     foundUser = userRepository.findById(tokenService.getId(header)).get();
+                    System.out.println("USER_ID NOT FOUND");
                 }
 
                 leaveRequest.setUser(foundUser);
