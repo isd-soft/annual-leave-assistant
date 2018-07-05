@@ -176,7 +176,7 @@ public class LeaveRequestController {
         }
     }
 
-    
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HashMap<String, String>> deleteLeaveRequest(@RequestHeader(value = "Authorization") String header,
