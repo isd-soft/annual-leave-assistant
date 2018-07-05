@@ -36,6 +36,13 @@ export class ListUserComponent implements OnInit {
     this.router.navigate(['edit-user']);
   }
 
+  addLeaveRequest(id: any) {
+    localStorage.removeItem('createUserId');
+    console.log(id);
+    localStorage.setItem('createUserId', id);
+     this.router.navigate(['create-leave-request']);
+  }
+
   deleteUser(user: User): void {
     this.userService.deleteUser(user.id)
       .toPromise().then(res => { this.users = res; console.log(this.users);
