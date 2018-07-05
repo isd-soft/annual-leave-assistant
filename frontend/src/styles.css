@@ -14,9 +14,6 @@ body {
 .isd-btn:hover {
   background-color: #ff7400;
 }
-.isd-btn:after{
-  background-color: #ff7400;
-}
 
 .isd-btn-danger {
   background-color: #2d2e2e;

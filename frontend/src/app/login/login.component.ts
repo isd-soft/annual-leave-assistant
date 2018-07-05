@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {stringify} from 'querystring';
 
-//import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +17,6 @@ export class LoginComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  ngOnInit() {
-  }
-
   email: string;
   password: string;
   result: any;
@@ -27,6 +24,10 @@ export class LoginComponent implements OnInit {
   year: number;
   month: number;
   day: number;
+  ngOnInit() {
+  }
+
+
 
 
   decodeToken(token: string): any {

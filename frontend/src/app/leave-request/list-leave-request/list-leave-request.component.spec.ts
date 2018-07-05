@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListUserComponent } from './list-user.component';
+import { ListLeaveRequestComponent } from './list-leave-request.component';
 
 describe('ListLeaveRequestComponent', () => {
-  let component: ListUserComponent;
-  let fixture: ComponentFixture<ListUserComponent>;
+  let component: ListLeaveRequestComponent;
+  let fixture: ComponentFixture<ListLeaveRequestComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListUserComponent ]
+      declarations: [ ListLeaveRequestComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListUserComponent);
+    fixture = TestBed.createComponent(ListLeaveRequestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

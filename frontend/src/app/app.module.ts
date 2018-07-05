@@ -19,6 +19,7 @@ import {AddUserComponent} from './users/add-user/add-user.component';
 import {ListUserComponent} from './users/list-user/list-user.component';
 import {EditUserComponent} from './users/edit-user/edit-user.component';
 import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/create-leave-request.component';
+import {ListLeaveRequestComponent} from './leave-request/list-leave-request/list-leave-request.component';
 import { CreateComponent } from './leave-request-types/create/create.component';
 import { EditComponent } from './leave-request-types/edit/edit.component';
 
@@ -33,6 +34,7 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
     HomeComponent,
     RegisterComponent,
     CreateLeaveRequestComponent,
+    ListLeaveRequestComponent,
     UserPageComponent,
     LeaveRequestTypesComponent,
     //  AddUserComponent,
@@ -46,10 +48,6 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      {
-        path: 'app-create',
-        component: CreateComponent
-      },
       {
         path: 'leaveRequestTypes',
         canActivate: [AuthGuard],
@@ -80,7 +78,7 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
       },
       {
         path: 'leaveRequests',
-        component: ListUserComponent
+        component: ListLeaveRequestComponent
       },
       {
         path: 'create-leave-request',

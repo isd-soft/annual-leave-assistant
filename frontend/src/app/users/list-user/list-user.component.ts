@@ -1,4 +1,4 @@
-///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
+//<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../user';
 import {Router} from '@angular/router';
