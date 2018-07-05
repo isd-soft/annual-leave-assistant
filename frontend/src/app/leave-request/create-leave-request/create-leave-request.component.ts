@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import DateTimeFormat = Intl.DateTimeFormat;
 import {DatePipe} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-leave-request',
@@ -11,7 +12,7 @@ import {DatePipe} from '@angular/common';
 })
 export class CreateLeaveRequestComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   leaveRequestTypes: any;
   reqType: any;
@@ -23,6 +24,7 @@ export class CreateLeaveRequestComponent implements OnInit {
 
   ngOnInit() {
     this.reloadData();
+    console.log(localStorage.getItem('createUserId'));
   }
 
 
@@ -63,23 +65,35 @@ export class CreateLeaveRequestComponent implements OnInit {
       this.endDate = null;
       return;
     }
+    let body: any;
 
-
-    this.http.post(environment.rootUrl + '/ala/leaveRequests', {
-      'leaveRequestType': {
+    if(localStorage.getItem('createUserId')) {
+      body = {
+        'user': { 'id': localStorage.getItem('createUserId')},
+        'leaveRequestType': {
         'id': this.reqType
       },
       'startDate': this.startDate,
-      'endDate': this.endDate,
-      'requestDate': new Date()
-    }, {observe: 'response'}).toPromise()
+        'endDate': this.endDate,
+        'requestDate': new Date()};
+    } else {
+      body = {
+        'leaveRequestType': {
+          'id': this.reqType
+        },
+        'startDate': this.startDate,
+        'endDate': this.endDate,
+        'requestDate': new Date()
+      };
+    }
+    this.http.post(environment.rootUrl + '/ala/leaveRequests', body, {observe: 'response'}).toPromise()
       .then(res => {
         if (res.status == 201) {
           window.alert(res.body['message']);
           this.reqType = null;
           this.startDate = null;
           this.endDate = null;
-          location.reload();
+          this.router.navigate(['leaveRequests'])
         } else {
           window.alert(res.body['message']);
         }

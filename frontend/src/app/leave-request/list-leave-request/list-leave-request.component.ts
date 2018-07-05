@@ -24,9 +24,7 @@ export class ListLeaveRequestComponent implements OnInit {
       .toPromise().then(res => this.leaveRequests = res.body).catch(err => console.log(err));
   }
 
-  addLeaveRequest(){
-    this.router.navigate(['create-leave-request']);
-  }
+
 
   deleteLvReq(id: number) {
     console.log('ID: ' + id);
