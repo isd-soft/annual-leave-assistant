@@ -22,6 +22,11 @@ export class CreateLeaveRequestComponent implements OnInit {
 
 
   ngOnInit() {
+    this.reloadData();
+  }
+
+
+  reloadData(){
     this.http.get(environment.rootUrl + '/ala/leaveRequestTypes', {observe: 'response'}).toPromise()
       .then(res => { this.leaveRequestTypes = res.body; } ).catch(err => console.log());
 
@@ -33,16 +38,13 @@ export class CreateLeaveRequestComponent implements OnInit {
 
   dateChange() {
     if (this.startDate != null && this.endDate != null) {
-      // let d1 = new DatePipe(this.startDate);
-      // let d2 = new DatePipe(this.endDate);
-      let d1 = new Date(this.startDate);
-      let d2 = new Date(this.endDate);
+      const d1 = new Date(this.startDate);
+      const d2 = new Date(this.endDate);
       let diff: any;
       if (d1.getFullYear() === d2.getFullYear()){
-        diff = d2.getDay() - d1.getDay();
+        diff = d2.getTime() - d1.getTime();
       }
-      console.log(this.endDate);
-      this.datesDiff =  Number(Math.round((diff) / (86400000)));
+      this.datesDiff = Math.round((diff) / (86400000)) + 1;
     } else {
       this.datesDiff = 0;
     }

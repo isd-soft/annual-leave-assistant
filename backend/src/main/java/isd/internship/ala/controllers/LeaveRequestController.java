@@ -68,8 +68,18 @@ public class LeaveRequestController {
                                                           @RequestBody LeaveRequest leaveRequest) {
         HashMap<String, String> result = new HashMap<>();
         Status pending = statusService.getByName("pending");
+        boolean isAdmin = tokenService.isAdmin(header);
             try {
-                User foundUser = userRepository.findById(tokenService.getId(header)).get();
+                Long user_id = leaveRequest.getUser().getId();
+                User foundUser;
+
+                // if user is indicated in request and you have admin rights, create it
+                if( user_id != null && isAdmin){
+                    foundUser = userRepository.findById(user_id).get();
+                } else {
+                    foundUser = userRepository.findById(tokenService.getId(header)).get();
+                }
+
                 leaveRequest.setUser(foundUser);
                 if(!leaveRequestService.alreadyRequested(leaveRequest) && (foundUser.getAvailDays() !=  0)) {
                     LeaveRequestType type = leaveRequestTypeRepository.findById(leaveRequest.getLeaveRequestType().getId()).get();

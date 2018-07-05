@@ -17,7 +17,7 @@
       </tr>
       <tr>
         <td>
-          <span id="daysOff">Available number of days: <b>{{daysOff}}</b></span>
+          <span id="daysOff" *ngIf="reqType == 1">Available number of days: <b>{{daysOff}}</b></span>
         </td>
 
         <td>
@@ -38,8 +38,8 @@
       </tr>
 
       <tr>
-        <td colspan="2" class="center">
-          <span>You will have: {{daysOff - datesDiff}} days</span>
+        <td colspan="2" class="center" *ngIf="reqType == 1">
+          <span>You will have: {{daysOff - datesDiff}} days left</span>
         </td>
       </tr>
       <td align="right">
