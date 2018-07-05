@@ -38,9 +38,10 @@ export class ListUserComponent implements OnInit {
 
   deleteUser(user: User): void {
     this.userService.deleteUser(user.id)
-      .toPromise().then(res => { this.users = res; this.router.navigate(['/users']);  } ).catch(err => console.log(err));
+      .toPromise().then(res => { this.users = res; console.log(this.users);
+      this.router.navigate(['/users']);  } ).catch(err => console.log(err));
     this.userService.getUsers();
-     window.location.reload();
+     // window.location.reload();
   }
 
   deleteAllUsers(): void {
@@ -49,7 +50,7 @@ export class ListUserComponent implements OnInit {
         console.log(data); this.ngOnInit();
         this.router.navigate(['/users']);
       });
-     window.location.reload();
+     // window.location.reload();
   }
 
   reloadData() {
