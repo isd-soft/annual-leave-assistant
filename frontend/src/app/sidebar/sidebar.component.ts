@@ -20,6 +20,10 @@ export class SidebarComponent implements OnInit {
       this.isLogged = true;
   }
 
+  isAdmin():boolean{
+    return localStorage.getItem('role') == 'ADMIN';
+  }
+
   logout() {
     localStorage.clear();
     this.isLogged = false;

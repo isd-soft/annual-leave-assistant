@@ -10,6 +10,7 @@ import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {LoginGuard} from './guards/login.guard';
 import {AuthGuard} from './guards/auth.guard';
+import {AdminGuard} from './guards/admin.guard';
 import {RegisterComponent} from './register/register.component';
 import {UserPageComponent} from './user-page/user-page.component';
 import {Interceptors} from './models/interceptors';
@@ -71,18 +72,22 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
       },
       {
         path: 'users',
+        canActivate: [AdminGuard],
         component: ListUserComponent
       },
       {
         path: 'edit-user',
+        canActivate: [AdminGuard],
         component: EditUserComponent
       },
       {
         path: 'leaveRequests',
+        canActivate: [AuthGuard],
         component: ListLeaveRequestComponent
       },
       {
         path: 'create-leave-request',
+        canActivate: [AuthGuard],
         component: CreateLeaveRequestComponent
       }
     ])
