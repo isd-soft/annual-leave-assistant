@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
-import {LeaverequesttypeService} from '../leaverequesttype.service';
-import {Leaverequesttype} from '../leaverequesttype';
+import {LeaveRequestTypeService} from '../leaveRequestType.service';
+import {LeaveRequestType} from '../leaveRequestType';
 import {error} from 'util';
 
 @Component({
@@ -15,7 +15,7 @@ export class LeaveRequestTypesComponent implements OnInit {
 
   list: any;
 
-  constructor(private http: HttpClient, private router: Router, private requestTypeService: LeaverequesttypeService) {
+  constructor(private http: HttpClient, private router: Router, private requestTypeService: LeaveRequestTypeService) {
   }
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class LeaveRequestTypesComponent implements OnInit {
     this.router.navigate(['app-create']);
   }
 
-  deleteRequestType(requestType: Leaverequesttype) {
+  deleteRequestType(requestType: LeaveRequestType) {
     this.requestTypeService.deleteLeaveRequestType(requestType.id)
       .subscribe(data => console.log(data), error1 => console.log(error));
   }

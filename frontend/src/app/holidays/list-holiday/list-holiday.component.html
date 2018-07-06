@@ -15,17 +15,6 @@
     <tr *ngFor="let holiday of holidays">
       <td>{{holiday.id}}</td>
       <td>{{holiday.name}}</td>
-      <div *ngIf="holiday.date[2].value().length==1; then thenTemplateName; else elseTemplateName">
-        Here is never showing
-      </div>
-
-      <ng-template #thenTemplateName>
-        <td>1{{holiday.date[2]}}-{{holiday.date[1]}}-{{holiday.date[0]}}</td>
-      </ng-template>
-
-      <ng-template #elseTemplateName>
-        <td>0{{holiday.date[2]}}-{{holiday.date[1]}}-{{holiday.date[0]}}</td>
-      </ng-template>
       <td>{{holiday.date[2]}}-{{holiday.date[1]}}-{{holiday.date[0]}}</td>
       <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateHoliday(holiday.id)">Edit</a></td>
       <td><a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteHoliday(holiday.id)">Delete</a></td>
