@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {LeaverequesttypeService} from '../leaverequesttype.service';
 import {Leaverequesttype} from '../leaverequesttype';
 import {error} from 'util';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-leave-request-types',
@@ -14,6 +15,7 @@ import {error} from 'util';
 export class LeaveRequestTypesComponent implements OnInit {
 
   list: any;
+  leaveRequestType: Leaverequesttype[];
 
   constructor(private http: HttpClient, private router: Router, private requestTypeService: LeaverequesttypeService) {
   }
@@ -31,7 +33,9 @@ export class LeaveRequestTypesComponent implements OnInit {
 
   deleteRequestType(requestType: Leaverequesttype) {
     this.requestTypeService.deleteLeaveRequestType(requestType.id)
-      .subscribe(data => console.log(data), error1 => console.log(error));
+      .subscribe(data => {
+        console.log(data);
+        this.leaveRequestType = this.leaveRequestType.filter(lt => lt !== requestType);
+      }, error1 => console.log(error));
   }
-
 }
