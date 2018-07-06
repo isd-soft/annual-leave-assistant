@@ -1,3 +1,15 @@
-<p>
-  create works!
-</p>
+<h3>Create a leave request type</h3>
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" required [(ngModel)]="leaveRequestType.name" name="name">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Descprition</label>
+    <input type="text" class="form-control" id="description" required [(ngModel)]="leaveRequestType.description" name="description">
+  </div>
+
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+

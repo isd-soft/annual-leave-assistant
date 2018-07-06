@@ -7,10 +7,10 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-leave-request',
-  templateUrl: './create-leave-request.component.html',
-  styleUrls: ['./create-leave-request.component.css']
+  templateUrl: './create-holiday.component.html',
+  styleUrls: ['./create-holiday.component.css']
 })
-export class CreateLeaveRequestComponent implements OnInit {
+export class CreateHolidayComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -28,7 +28,7 @@ export class CreateLeaveRequestComponent implements OnInit {
   }
 
 
-  reloadData() {
+  reloadData(){
     this.http.get(environment.rootUrl + '/ala/leaveRequestTypes', {observe: 'response'}).toPromise()
       .then(res => { this.leaveRequestTypes = res.body; } ).catch(err => console.log());
 
@@ -88,7 +88,7 @@ export class CreateLeaveRequestComponent implements OnInit {
     }
     this.http.post(environment.rootUrl + '/ala/leaveRequests', body, {observe: 'response'}).toPromise()
       .then(res => {
-        if (res.status === 201) {
+        if (res.status == 201) {
           window.alert(res.body['message']);
           this.reqType = null;
           this.startDate = null;

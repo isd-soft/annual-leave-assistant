@@ -25,6 +25,8 @@ import {ListLeaveRequestComponent} from './leave-request/list-leave-request/list
 import { CreateComponent } from './leave-request-types/create/create.component';
 import { EditComponent } from './leave-request-types/edit/edit.component';
 import { EditLeaveRequestComponent } from './leave-request/edit-leave-request/edit-leave-request.component';
+import {ListHolidayComponent} from './holidays/list-holiday/list-holiday.component';
+import {CreateHolidayComponent} from './holidays/create-holiday/create-holiday.component';
 
 
 
@@ -45,7 +47,9 @@ import { EditLeaveRequestComponent } from './leave-request/edit-leave-request/ed
     EditUserComponent,
     CreateComponent,
     EditComponent,
-    EditLeaveRequestComponent
+    EditLeaveRequestComponent,
+    ListHolidayComponent,
+    CreateHolidayComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +100,15 @@ import { EditLeaveRequestComponent } from './leave-request/edit-leave-request/ed
         path: 'create-leave-request',
         canActivate: [AuthGuard],
         component: CreateLeaveRequestComponent
+      }
+      ,
+      {
+        path: 'create-holiday',
+        component: CreateHolidayComponent
+      },
+      {
+        path: 'list-holidays',
+        component: ListHolidayComponent
       }
     ])
   ],

@@ -25,8 +25,8 @@
       <td>{{leaveRequest.endDate}}</td>
       <td>{{leaveRequest.requestDate}}</td>
       <td>{{leaveRequest.status}}</td>
-      <td><a class="waves-effect waves-light btn-small isd-btn" *ngIf="leaveRequest.status === 'pending'"  (click)="approve(leaveRequest.id, leaveRequest.user_id, leaveRequest.startDate, leaveRequest.endDate,leaveRequest.leaveRequestType)">Approve</a></td>
-      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateLvReq(leaveRequest.id, leaveRequest.user_id, leaveRequest.startDate, leaveRequest.endDate,leaveRequest.leaveRequestType)">Edit</a></td>
+      <td><a class="waves-effect waves-light btn-small isd-btn" *ngIf="leaveRequest.status === 'pending'"  (click)="approve(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">Approve</a></td>
+      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateLvReq(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">Edit</a></td>
       <td><a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteLvReq(leaveRequest.id)">Delete</a></td>
     </tr>
     </tbody>

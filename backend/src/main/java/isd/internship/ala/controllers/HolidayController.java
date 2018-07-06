@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/ala/holiday")
+@RequestMapping(value = "/ala/holidays")
 public class HolidayController {
 
     @Autowired
@@ -19,7 +19,7 @@ public class HolidayController {
         this.holidayService = holidayService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Holiday> getAll() {
 
         return holidayService.getAll();

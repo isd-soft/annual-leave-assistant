@@ -23,17 +23,18 @@ export class ListLeaveRequestComponent implements OnInit {
   }
 
 
-  updateLvReq(id: any, user_id: any, startDate: any, endDate: any, reqType: any){
+  updateLvReq(id: any, user_id: any, reqType: any, startDate: any, endDate: any){
     localStorage.removeItem('requestId');
+    localStorage.removeItem('requestType');
     localStorage.removeItem('requestUserId');
     localStorage.removeItem('requestStartDate');
     localStorage.removeItem('requestEndDate');
     localStorage.removeItem('requestType');
     localStorage.setItem('requestId', id);
     localStorage.setItem('requestUserId', user_id);
+    localStorage.setItem('requestType', reqType);
     localStorage.setItem('requestStartDate', startDate);
     localStorage.setItem('requestEndDate', endDate);
-    localStorage.setItem('requestType', reqType);
     this.router.navigate(['edit-leave-request']);
   }
 
@@ -50,14 +51,14 @@ export class ListLeaveRequestComponent implements OnInit {
 
 
 
-  approve(id: any, user_id: any, startDate: any, endDate: any, reqType: any){
+  approve(id: any, user_id: any, reqType: any, startDate: any, endDate: any){
     let  body = {
       'user': { 'id': localStorage.getItem('requestUserId')},
       'leaveRequestType': {
-        'id': this.reqType
+        'id': reqType
       },
-      'startDate': this.startDate,
-      'endDate': this.endDate,
+      'startDate': startDate,
+      'endDate': endDate,
       'requestDate': new Date(),
       'status':{
         'id': '1'
@@ -70,8 +71,6 @@ export class ListLeaveRequestComponent implements OnInit {
       window.location.reload();
 
     }).catch(err => window.alert(err['message']));
-
-
   }
 
 

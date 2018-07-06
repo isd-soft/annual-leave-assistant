@@ -43,7 +43,7 @@ export class EditLeaveRequestComponent implements OnInit {
         'status':{
           'id': '2'
         }
-      };,
+      };
     } else {
       body = {
         'leaveRequestType': {
@@ -93,10 +93,6 @@ export class EditLeaveRequestComponent implements OnInit {
     this.http.get<any[]>(environment.rootUrl + '/ala/leaveRequestTypes', {observe: 'response'}).toPromise()
       .then(res => {
         this.leaveRequestTypes = res.body;
-        for (var lr of this.leaveRequestTypes) {
-          if(lr['name'] === this.type)
-            this.reqType = lr['id'];
-        }
       } ).catch(err => console.log());
 
     // Get number of available days

@@ -1,12 +1,10 @@
 package isd.internship.ala.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "LEAVE_REQUEST_TYPES")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class LeaveRequestType {
 
     @Id
@@ -23,17 +21,15 @@ public class LeaveRequestType {
     public LeaveRequestType() {
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public LeaveRequestType(String name) {
         this.name = name;
     }
+
+    public LeaveRequestType(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
 
     public Integer getId() {
         return id;
@@ -49,5 +45,13 @@ public class LeaveRequestType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
