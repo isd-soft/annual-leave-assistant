@@ -3,8 +3,10 @@ package isd.internship.ala.controllers;
 import isd.internship.ala.models.Holiday;
 import isd.internship.ala.services.HolidayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -20,9 +22,8 @@ public class HolidayController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Holiday> getAll() {
-
-        return holidayService.getAll();
+    public ResponseEntity<List<HashMap<String, String>>> getAll() {
+        return ResponseEntity.status(200).body(holidayService.getAll());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -38,9 +39,8 @@ public class HolidayController {
     }
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
-    public Holiday create (@RequestBody Holiday holiday) {
-
-        return holidayService.create(holiday);
+    public ResponseEntity<Holiday> create (@RequestBody Holiday holiday) {
+        return ResponseEntity.status(201).body(holidayService.create(holiday));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

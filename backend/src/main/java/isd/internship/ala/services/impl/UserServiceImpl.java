@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -31,19 +32,22 @@ public class UserServiceImpl implements UserService {
 
     // Get user list w/o roles
     @Override
-    public HashMap<String, String> getUsers() {
-        HashMap<String, String> user = new HashMap<>();
+    public List<HashMap<String, String>> getUsers() {
+        List<HashMap<String, String>> result = new ArrayList<>();
         List<User> users = userRepository.findAll();
 
         for(User u : users){
+            HashMap<String, String> user = new HashMap<>();
             user.put("id", u.getId().toString());
             user.put("surname", u.getSurname());
             user.put("name", u.getName());
+            user.put("function", u.getFunction());
+            user.put("department", u.getDepartment());
             user.put("email", u.getSurname());
             user.put("empDate", u.getEmpDate().toString());
-            System.out.println(u);
+            result.add(user);
         }
-        return user;
+        return result;
     }
 
     @Override

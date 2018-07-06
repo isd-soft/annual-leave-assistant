@@ -6,7 +6,7 @@ import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-create-leave-request',
+  selector: 'app-create-holiday',
   templateUrl: './create-holiday.component.html',
   styleUrls: ['./create-holiday.component.css']
 })
@@ -14,12 +14,9 @@ export class CreateHolidayComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  leaveRequestTypes: any;
-  reqType: any;
-  private daysOff: number;
-  private datesDiff = 0;
-  private startDate: string;
-  private endDate: string;
+  holidays: any;
+  private date: string;
+  private name: string;
 
 
   ngOnInit() {
@@ -28,72 +25,38 @@ export class CreateHolidayComponent implements OnInit {
   }
 
 
-  reloadData(){
-    this.http.get(environment.rootUrl + '/ala/leaveRequestTypes', {observe: 'response'}).toPromise()
-      .then(res => { this.leaveRequestTypes = res.body; } ).catch(err => console.log());
-
-    // Get number of available days
-    this.http.get(environment.rootUrl + '/ala/users/' + localStorage.getItem('id'), {observe: 'response'})
-      .toPromise().then(res => { this.daysOff = res.body['availDays']; } ).catch(err => console.log());
-  }
-
-
-  dateChange() {
-    if (this.startDate != null && this.endDate != null) {
-      const d1 = new Date(this.startDate);
-      const d2 = new Date(this.endDate);
-      let diff: any;
-      if (d1.getFullYear() === d2.getFullYear()){
-        diff = d2.getTime() - d1.getTime();
-      }
-      this.datesDiff = Math.round((diff) / (86400000)) + 1;
-    } else {
-      this.datesDiff = 0;
+  reloadData() {
     }
-  }
 
 
   create() {
-    let d1 = new DatePipe (this.startDate);
-    let d2 = new DatePipe (this.endDate);
-    console.log(d1);
-    console.log(d2);
-    console.log(d1 > d2);
-    if (d1 > d2) {
-      window.alert('Wrong dates!');
-      this.startDate = null;
-      this.endDate = null;
-      return;
-    }
+    // let d1 = new DatePipe (this.date);
+    // let objDate = Date.now();
+    // let d2 = new DatePipe(objDate.toString());
+    //
+    // if (d1 > d2) {
+    //   window.alert('Wrong dates!');
+    //   this.date = null;
+    //   return;
+    // }
     let body: any;
 
-    if(localStorage.getItem('createUserId')) {
+    if (localStorage.getItem('createHolidayId')) {
       body = {
-        'user': { 'id': localStorage.getItem('createUserId')},
-        'leaveRequestType': {
-        'id': this.reqType
-      },
-      'startDate': this.startDate,
-        'endDate': this.endDate,
-        'requestDate': new Date()};
+        'id': { 'id': localStorage.getItem('createHolidayId')},
+        'date': this.date,
+        'name': this.name};
     } else {
       body = {
-        'leaveRequestType': {
-          'id': this.reqType
-        },
-        'startDate': this.startDate,
-        'endDate': this.endDate,
-        'requestDate': new Date()
+        'date': this.date,
+        'name': this.name
       };
     }
-    this.http.post(environment.rootUrl + '/ala/leaveRequests', body, {observe: 'response'}).toPromise()
+    this.http.post(environment.rootUrl + '/ala/holidays/create', body, {observe: 'response'}).toPromise()
       .then(res => {
         if (res.status == 201) {
-          window.alert(res.body['message']);
-          this.reqType = null;
-          this.startDate = null;
-          this.endDate = null;
-          this.router.navigate(['leaveRequests'])
+          window.alert("Created");
+          this.router.navigate(['list-holidays']);
         } else {
           window.alert(res.body['message']);
         }

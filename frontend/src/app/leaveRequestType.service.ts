@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Leaverequesttype} from './leaverequesttype';
+import {LeaveRequestType} from './leaveRequestType';
 import {User} from './user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LeaverequesttypeService {
+export class LeaveRequestTypeService {
 
   private baseUrl = 'http://localhost:8088/ala/leaveRequestTypes';
 
@@ -14,14 +14,14 @@ export class LeaverequesttypeService {
   }
 
   getLeaveRequestsTypes() {
-    return this.http.get<Leaverequesttype[]>(this.baseUrl);
+    return this.http.get<LeaveRequestType[]>(this.baseUrl);
   }
 
-  createLeaveRequestType(leaverequesttype: Leaverequesttype) {
+  createLeaveRequestType(leaverequesttype: LeaveRequestType) {
     return this.http.post(this.baseUrl + '/create', leaverequesttype);
   }
 
-  updateLeaveRequestType(leaverequesttype: Leaverequesttype) {
+  updateLeaveRequestType(leaverequesttype: LeaveRequestType) {
     return this.http.put(this.baseUrl + '/' + leaverequesttype.id, leaverequesttype);
   }
 

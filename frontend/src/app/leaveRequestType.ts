@@ -1,4 +1,4 @@
-export class Leaverequesttype {
+export class LeaveRequestType {
 
   id: number;
   name: string;

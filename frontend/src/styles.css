@@ -11,6 +11,11 @@ body {
   border: 0px !important;
   font-weight: bold;
 }
+.isd-btn:focus {
+  background-color: #2d2e2e !important;
+  border: 0px !important;
+  font-weight: bold;
+}
 .isd-btn:hover {
   background-color: #ff7400;
 }
@@ -22,6 +27,9 @@ body {
 }
 .isd-btn-danger:hover {
   background-color: red;
+}
+.isd-btn-danger:focus {
+  background-color: #2d2e2e;
 }
 
 .isd-lbl {
@@ -105,8 +113,3 @@ body {
   display: inline-block;
 }
 
-.dividerH{
-  width: 20px;
-  height: auto;
-  display:block;
-}

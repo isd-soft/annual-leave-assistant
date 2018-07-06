@@ -187,9 +187,9 @@ public class UserController {
 
     // GET user list
     @GetMapping(value = "/ala/users", produces = "application/json")
-    public ResponseEntity<List<User>> getAll(@RequestHeader(value = "Authorization") String header) {
+    public ResponseEntity<List<HashMap<String, String>>> getAll(@RequestHeader(value = "Authorization") String header) {
         if (tokenService.isAdmin(header))
-            return ResponseEntity.status(200).body(userService.findAll());
+            return ResponseEntity.status(200).body(userService.getUsers());
         else
             return ResponseEntity.status(403).body(null);
     }
