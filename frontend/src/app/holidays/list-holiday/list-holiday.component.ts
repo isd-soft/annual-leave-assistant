@@ -21,6 +21,7 @@ export class ListHolidayComponent implements OnInit {
   ngOnInit() {
     this.http.get(environment.rootUrl + '/ala/holidays', { observe: 'response' })
       .toPromise().then(res => { this.holidays = res.body; console.log(res);}).catch(err => console.log(err));
+    console.log(this.holidays);
   }
 
   updateHoliday(id: number){
