@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateLeaveRequestComponent } from './create-leave-request.component';
 
-describe('CreateLeaveRequestComponent', () => {
+describe('CreateHolidayComponent', () => {
   let component: CreateLeaveRequestComponent;
   let fixture: ComponentFixture<CreateLeaveRequestComponent>;
 

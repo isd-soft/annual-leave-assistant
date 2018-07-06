@@ -7,10 +7,10 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-leave-request',
-  templateUrl: './create-leave-request.component.html',
-  styleUrls: ['./create-leave-request.component.css']
+  templateUrl: './create-holiday.component.html',
+  styleUrls: ['./create-holiday.component.css']
 })
-export class CreateLeaveRequestComponent implements OnInit {
+export class CreateHolidayComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router) { }
 

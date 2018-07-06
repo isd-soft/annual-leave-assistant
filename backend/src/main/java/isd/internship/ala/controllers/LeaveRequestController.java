@@ -68,8 +68,21 @@ public class LeaveRequestController {
                                                           @RequestBody LeaveRequest leaveRequest) {
         HashMap<String, String> result = new HashMap<>();
         Status pending = statusService.getByName("pending");
+        boolean isAdmin = tokenService.isAdmin(header);
             try {
-                User foundUser = userRepository.findById(tokenService.getId(header)).get();
+                Long user_id = null;
+                User foundUser = null;
+
+                try {
+                    user_id = leaveRequest.getUser().getId();
+                    if(isAdmin)
+                        foundUser = userRepository.findById(user_id).get();
+
+                } catch (NullPointerException e){
+                    foundUser = userRepository.findById(tokenService.getId(header)).get();
+                    System.out.println("USER_ID NOT FOUND");
+                }
+
                 leaveRequest.setUser(foundUser);
                 if(!leaveRequestService.alreadyRequested(leaveRequest) && (foundUser.getAvailDays() !=  0)) {
                     LeaveRequestType type = leaveRequestTypeRepository.findById(leaveRequest.getLeaveRequestType().getId()).get();
@@ -176,7 +189,7 @@ public class LeaveRequestController {
         }
     }
 
-    
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HashMap<String, String>> deleteLeaveRequest(@RequestHeader(value = "Authorization") String header,

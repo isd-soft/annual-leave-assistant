@@ -4,6 +4,7 @@ package isd.internship.ala.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,12 +21,12 @@ public class Holiday {
     private String name;
 
     @Column(name = "DATE")
-    private Date date;
+    private LocalDate date;
 
     public Holiday() {
     }
 
-    public Holiday(String name, Date date) {
+    public Holiday(String name, LocalDate date) {
         this.name = name;
         this.date = date;
     }
@@ -46,11 +47,11 @@ public class Holiday {
         this.name = name;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

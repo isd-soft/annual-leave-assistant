@@ -4,11 +4,13 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
+import { DataSource , CdkTableModule} from '@angular/cdk/table';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {LoginGuard} from './guards/login.guard';
 import {AuthGuard} from './guards/auth.guard';
+import {AdminGuard} from './guards/admin.guard';
 import {RegisterComponent} from './register/register.component';
 import {UserPageComponent} from './user-page/user-page.component';
 import {Interceptors} from './models/interceptors';
@@ -22,6 +24,8 @@ import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/
 import {ListLeaveRequestComponent} from './leave-request/list-leave-request/list-leave-request.component';
 import { CreateComponent } from './leave-request-types/create/create.component';
 import { EditComponent } from './leave-request-types/edit/edit.component';
+import {ListHolidayComponent} from './holidays/list-holiday/list-holiday.component';
+import {CreateHolidayComponent} from './holidays/create-holiday/create-holiday.component';
 
 
 
@@ -41,7 +45,9 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
     ListUserComponent,
     EditUserComponent,
     CreateComponent,
-    EditComponent
+    EditComponent,
+    ListHolidayComponent,
+    CreateHolidayComponent
   ],
   imports: [
     BrowserModule,
@@ -70,19 +76,32 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
       },
       {
         path: 'users',
+        canActivate: [AdminGuard],
         component: ListUserComponent
       },
       {
         path: 'edit-user',
+        canActivate: [AdminGuard],
         component: EditUserComponent
       },
       {
         path: 'leaveRequests',
+        canActivate: [AuthGuard],
         component: ListLeaveRequestComponent
       },
       {
         path: 'create-leave-request',
+        canActivate: [AuthGuard],
         component: CreateLeaveRequestComponent
+      }
+      ,
+      {
+        path: 'create-holiday',
+        component: CreateHolidayComponent
+      },
+      {
+        path: 'list-holidays',
+        component: ListHolidayComponent
       }
     ])
   ],

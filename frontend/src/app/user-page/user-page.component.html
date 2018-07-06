@@ -3,48 +3,48 @@
   <form class="container" (ngSubmit)="update()">
     <table class="striped">
       <tbody>
-        <tr>
-          <td>
-            <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname" id="surname">
-            <label class="isd-lbl" for="surname">Surname</label>
-          </td>
-          <td>
-            <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name" id="name">
-            <label class="isd-lbl" for="name">Name</label>
-          </td>
-        </tr>
+      <tr>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname" id="surname">
+          <label class="isd-lbl" for="surname">Surname</label>
+        </td>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name" id="name">
+          <label class="isd-lbl" for="name">Name</label>
+        </td>
+      </tr>
 
-        <tr>
-          <td>
-            <input class="isd-lbl" type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email" id="email">
-            <label class="isd-lbl" for="email">Email</label>
-          </td>
-          <td colspan="2">
-            <input class="isd-lbl" type="password" placeholder="Choose a new password" [disabled]='disableTextbox' [(ngModel)]="password" name="password" id="password">
-            <label class="isd-lbl" for="password">Password</label>
-          </td>
-        </tr>
+      <tr>
+        <td>
+          <input class="isd-lbl" type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email" id="email">
+          <label class="isd-lbl" for="email">Email</label>
+        </td>
+        <td colspan="2">
+          <input class="isd-lbl" type="password" placeholder="Choose a new password" [disabled]='disableTextbox' [(ngModel)]="password" name="password" id="password">
+          <label class="isd-lbl" for="password">Password</label>
+        </td>
+      </tr>
 
-        <tr>
-          <td>
-            <input class="isd-lbl" type="text" disabled [(ngModel)]="role" name="role" id="role">
-            <label class="isd-lbl" for="role">Group</label>
-          </td>
-          <td>
-            <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="availDays" name="availDays" id="availDays">
-            <label class="isd-lbl" for="availDays">Available days</label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="function_" name="function_" id="function_">
-            <label class="isd-lbl" for="function_">Function</label>
-          </td>
-          <td>
-            <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="department" name="department" id="department">
-            <label class="isd-lbl" for="department">Department</label>
-          </td>
-        </tr>
+      <tr>
+        <td>
+          <input class="isd-lbl" type="text" disabled [(ngModel)]="role" name="role" id="role">
+          <label class="isd-lbl" for="role">Group</label>
+        </td>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="availDays" name="availDays" id="availDays">
+          <label class="isd-lbl" for="availDays">Available days</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="function_" name="function_" id="function_">
+          <label class="isd-lbl" for="function_">Function</label>
+        </td>
+        <td>
+          <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="department" name="department" id="department">
+          <label class="isd-lbl" for="department">Department</label>
+        </td>
+      </tr>
       <tr>
         <td>
           <input class="isd-lbl" type="date" [disabled]='disableTextbox' [(ngModel)]="empDate" name="empDate" id="empDate">
