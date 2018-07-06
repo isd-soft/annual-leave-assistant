@@ -48,7 +48,7 @@ export class ListUserComponent implements OnInit {
       .toPromise().then(res => { this.users = res; console.log(this.users);
       this.router.navigate(['/users']);  } ).catch(err => console.log(err));
     this.userService.getUsers();
-     // window.location.reload();
+      window.location.reload();
   }
 
   deleteAllUsers(): void {

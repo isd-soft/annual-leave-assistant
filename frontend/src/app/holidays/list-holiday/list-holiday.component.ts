@@ -42,6 +42,7 @@ export class ListHolidayComponent implements OnInit {
     console.log('ID: ' + id);
     this.http.delete(environment.rootUrl + '/ala/holidays/' + id, {observe: 'response'})
       .toPromise().then(res => console.log(res)).catch(err => console.log(err));
+    window.location.reload();
   }
 
 }
