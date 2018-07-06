@@ -55,6 +55,10 @@ import {CreateHolidayComponent} from './holidays/create-holiday/create-holiday.c
     FormsModule,
     RouterModule.forRoot([
       {
+        path: 'app-create',
+        component: CreateComponent
+      },
+      {
         path: 'leaveRequestTypes',
         canActivate: [AuthGuard],
         component: LeaveRequestTypesComponent

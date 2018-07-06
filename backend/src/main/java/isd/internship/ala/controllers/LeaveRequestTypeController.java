@@ -28,9 +28,18 @@ public class LeaveRequestTypeController {
         return leaveRequestTypeService.getById(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteById(@PathVariable(name = "id") Integer id) {
+//    @DeleteMapping("{id}")
+//    public void deleteById(@PathVariable(name = "id") int id) {
+//        leaveRequestTypeService.deleteById(id);
+//    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteRequestType(@PathVariable("id") int id) {
+        System.out.println("Deleting request type with id " + id);
+
         leaveRequestTypeService.deleteById(id);
+
+        return new ResponseEntity<>("Request type has been deleted", HttpStatus.OK);
     }
 
     @PostMapping("/create")

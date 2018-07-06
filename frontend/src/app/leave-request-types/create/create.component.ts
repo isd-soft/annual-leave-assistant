@@ -22,11 +22,6 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
   }
 
-  newRequestType(): void {
-    this.submitted = false;
-    this.leaveRequestType = new Leaverequesttype();
-  }
-
   saveRequestType() {
     this.leaveRequestTypeService.createLeaveRequestType(this.leaveRequestType)
       .subscribe(data => console.log(data), error1 => console.log(error));
