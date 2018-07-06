@@ -20,7 +20,7 @@ public class LeaveRequestTypeServiceImpl implements LeaveRequestTypeService {
     }
 
     @Override
-    public LeaveRequestType getById(Integer id) { return leaveRequestTypeRepository.getOne(id); }
+    public LeaveRequestType getById(int id) { return leaveRequestTypeRepository.getOne(id); }
 
     @Override
     public LeaveRequestType create(LeaveRequestType leaveRequestType) {
@@ -37,7 +37,7 @@ public class LeaveRequestTypeServiceImpl implements LeaveRequestTypeService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(int id) {
         leaveRequestTypeRepository.deleteById(id);
     }
 

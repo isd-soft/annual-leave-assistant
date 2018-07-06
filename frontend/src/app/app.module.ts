@@ -62,6 +62,10 @@ import {CreateHolidayComponent} from './holidays/create-holiday/create-holiday.c
         component: EditLeaveRequestComponent
       },
       {
+        path: 'app-create',
+        component: CreateComponent
+      },
+      {
         path: 'leaveRequestTypes',
         canActivate: [AuthGuard],
         component: LeaveRequestTypesComponent
