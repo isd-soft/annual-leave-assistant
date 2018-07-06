@@ -24,6 +24,7 @@ import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/
 import {ListLeaveRequestComponent} from './leave-request/list-leave-request/list-leave-request.component';
 import { CreateComponent } from './leave-request-types/create/create.component';
 import { EditComponent } from './leave-request-types/edit/edit.component';
+import { EditLeaveRequestComponent } from './leave-request/edit-leave-request/edit-leave-request.component';
 
 
 
@@ -43,13 +44,19 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
     ListUserComponent,
     EditUserComponent,
     CreateComponent,
-    EditComponent
+    EditComponent,
+    EditLeaveRequestComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
+      {
+        path: 'edit-leave-request',
+        canActivate: [AuthGuard],
+        component: EditLeaveRequestComponent
+      },
       {
         path: 'leaveRequestTypes',
         canActivate: [AuthGuard],
