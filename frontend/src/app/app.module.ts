@@ -23,6 +23,8 @@ import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/
 import {ListLeaveRequestComponent} from './leave-request/list-leave-request/list-leave-request.component';
 import { CreateComponent } from './leave-request-types/create/create.component';
 import { EditComponent } from './leave-request-types/edit/edit.component';
+import {ListHolidayComponent} from './holidays/list-holiday/list-holiday.component';
+import {CreateHolidayComponent} from './holidays/create-holiday/create-holiday.component';
 
 
 
@@ -42,7 +44,9 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
     ListUserComponent,
     EditUserComponent,
     CreateComponent,
-    EditComponent
+    EditComponent,
+    ListHolidayComponent,
+    CreateHolidayComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +88,15 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
       {
         path: 'create-leave-request',
         component: CreateLeaveRequestComponent
+      }
+      ,
+      {
+        path: 'create-holiday',
+        component: CreateHolidayComponent
+      },
+      {
+        path: 'list-holidays',
+        component: ListHolidayComponent
       }
     ])
   ],
