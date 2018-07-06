@@ -12,24 +12,43 @@
       </a>
     </li>
     <li>
+<<<<<<< HEAD
       <a routerLink="users" *ngIf="isAdmin()" [class.activated]="currentUrl == '/users'">
+=======
+      <a routerLink="/users" *ngIf="isLogged" [class.activated]="currentUrl == '/users'">
+>>>>>>> 784cba0b397f9108b2769fabe7704fa8ce4dfa44
         <i class="material-icons">supervised_user_circle</i>
       </a>
     </li>
     <li>
-      <a routerLink="leaveRequests" *ngIf="isLogged" [class.activated]="currentUrl == '/leaveRequests'">
+      <a routerLink="/leaveRequests" *ngIf="isLogged" [class.activated]="currentUrl == '/leaveRequests'">
         <i class="material-icons">library_books</i>
       </a>
     </li>
     <li>
-      <a routerLink="leaveRequestTypes" *ngIf="isLogged" [class.activated]="currentUrl == '/leaveRequestTypes'">
+      <a routerLink="/leaveRequestTypes" *ngIf="isLogged" [class.activated]="currentUrl == '/leaveRequestTypes'">
         <i class="material-icons">message</i>
       </a>
     </li>
+<<<<<<< HEAD
     <li class="logout">
+=======
+    <li>
+      <a routerLink="/Holidays" *ngIf="isLogged" [class.activated]="currentUrl == '/holidays'">
+        <i class="material-icons">date_range</i>
+      </a>
+    </li>
+    <li class="dividerH" ></li>
+    <!--Exit button-->
+    <li>
+>>>>>>> 784cba0b397f9108b2769fabe7704fa8ce4dfa44
       <a href="#!" *ngIf="isLogged" (click)="logout()">
         <i class="material-icons">exit_to_app</i>
       </a>
     </li>
+<<<<<<< HEAD
+=======
+    <!--Exit button-->
+>>>>>>> 784cba0b397f9108b2769fabe7704fa8ce4dfa44
   </ul>
 </nav>

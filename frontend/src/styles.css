@@ -104,3 +104,9 @@ body {
   height: auto;
   display: inline-block;
 }
+
+.dividerH{
+  width: 20px;
+  height: auto;
+  display:block;
+}
