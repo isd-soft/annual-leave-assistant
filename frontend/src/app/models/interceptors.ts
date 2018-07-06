@@ -17,7 +17,7 @@ export class Interceptors implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if(localStorage.getItem("token")) {
-      console.log(`AddTokenInterceptor - ${req.url}`);
+      //console.log(`AddTokenInterceptor - ${req.url}`);
       let jsonReq: HttpRequest<any> = req.clone({
         setHeaders: {
           Authorization: `Token ${localStorage.getItem("token")}`,

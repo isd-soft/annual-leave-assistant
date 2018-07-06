@@ -25,11 +25,23 @@ export class ListLeaveRequestComponent implements OnInit {
   }
 
 
+  updateLvReq(id: number){
+    localStorage.removeItem('requestId');
+    localStorage.setItem('requestId', id);
+    localStorage.setItem('requestStartDate',);
+    this.router.navigate(['create-leave-request']);
+    this.http.put(environment.rootUrl + '/ala/leaveRequests' + id, {observe: 'response'})
+      .toPromise().then(res => console.log(res)).catch(err => console.log(err));
+  }
+
 
   deleteLvReq(id: number) {
-    console.log('ID: ' + id);
     this.http.delete(environment.rootUrl + '/ala/leaveRequests/' + id, {observe: 'response'})
       .toPromise().then(res => console.log(res)).catch(err => console.log(err));
+  }
+
+  addLeaveRequest(){
+    this.router.navigate(['create-leave-request']);
   }
 
 }

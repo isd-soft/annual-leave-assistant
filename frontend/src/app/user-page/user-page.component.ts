@@ -58,7 +58,7 @@ export class UserPageComponent implements OnInit {
   }
 
   update() {
-    var body: any;
+    let body: any;
     if(this.surname != localStorage.getItem("surname")){
       console.log("SURNAME");
     }

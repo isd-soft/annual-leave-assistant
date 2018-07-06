@@ -12,7 +12,7 @@
       </a>
     </li>
     <li>
-      <a routerLink="/users" *ngIf="isLogged" [class.activated]="currentUrl == '/users'">
+      <a routerLink="users" *ngIf="isAdmin()" [class.activated]="currentUrl == '/users'">
         <i class="material-icons">supervised_user_circle</i>
       </a>
     </li>
