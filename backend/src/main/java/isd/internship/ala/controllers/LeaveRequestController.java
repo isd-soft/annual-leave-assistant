@@ -143,6 +143,11 @@ public class LeaveRequestController {
         HashMap<String, String> result = new HashMap<>();
         boolean isAdmin = tokenService.isAdmin(header);
 
+        System.out.println("R: " + id);
+        System.out.println("R: " + leaveRequest.getStartDate());
+        System.out.println("R: " + leaveRequest.getEndDate());
+        System.out.println("R: " + leaveRequest.getLeaveRequestType().getId());
+
         try{
             LeaveRequest foundLeaveRequest = leaveRequestRepository.findById(id).get();
 
@@ -169,7 +174,9 @@ public class LeaveRequestController {
                 }
 
 
+                System.out.println(leaveRequest.getStatus().getId());
                 if(leaveRequest.getStatus().getId() != null && !leaveRequest.getStatus().getId().equals(foundLeaveRequest.getStatus().getId()) && isAdmin){
+                    System.out.println("Changing status ...");
                     Status status = statusRepository.findById(leaveRequest.getStatus().getId()).get();
                     foundLeaveRequest.setStatus(status);
                     System.out.println("Status changed");

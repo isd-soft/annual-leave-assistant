@@ -88,6 +88,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                 HashMap<String, String> element = new HashMap<>();
                 element.put("id", leaveRequest.getId().toString());
                 element.put("leaveRequestType", leaveRequest.getLeaveRequestType().getName());
+                element.put("leaveRequestTypeId", leaveRequest.getLeaveRequestType().getId().toString());
                 element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
                 element.put("startDate", leaveRequest.getStartDate().toString());
                 element.put("endDate", leaveRequest.getEndDate().toString());
@@ -110,7 +111,9 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                 HashMap<String, String> element = new HashMap<>();
                 element.put("id", leaveRequest.getId().toString());
                 element.put("leaveRequestType", leaveRequest.getLeaveRequestType().getName());
+                element.put("leaveRequestTypeId", leaveRequest.getLeaveRequestType().getId().toString());
                 element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
+                element.put("user_id", leaveRequest.getUser().getId().toString());
                 element.put("startDate", leaveRequest.getStartDate().toString());
                 element.put("endDate", leaveRequest.getEndDate().toString());
                 element.put("period", String.valueOf(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1));

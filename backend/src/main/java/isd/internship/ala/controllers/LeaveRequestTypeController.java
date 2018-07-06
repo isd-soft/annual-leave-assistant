@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/ala/leaverequestype")
+@RequestMapping(value = "/ala/leaveRequestTypes")
 public class LeaveRequestTypeController {
 
     @Autowired
