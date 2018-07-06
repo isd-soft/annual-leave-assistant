@@ -23,6 +23,18 @@ export class ListHolidayComponent implements OnInit {
       .toPromise().then(res => { this.holidays = res.body; console.log(res);}).catch(err => console.log(err));
   }
 
+  updateHoliday(id: number){
+    localStorage.removeItem('holidayId');
+    // localStorage.setItem('requestId', id);
+    // localStorage.setItem('requestStartDate',);
+    this.router.navigate(['create-holiday']);
+    this.http.put(environment.rootUrl + '/ala/holidays' + id, {observe: 'response'})
+      .toPromise().then(res => console.log(res)).catch(err => console.log(err));
+  }
+
+  addHoliday(){
+    this.router.navigate(['create-holiday']);
+  }
 
 
   deleteHoliday(id: number) {

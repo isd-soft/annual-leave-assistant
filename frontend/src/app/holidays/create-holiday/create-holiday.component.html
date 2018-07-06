@@ -1,46 +1,19 @@
 <div>
-  <h4> > Create leave request</h4>
+  <h4> > Create holiday</h4>
   <form class="container" ngValidate (ngSubmit)="create()">
     <table class="striped">
       <tbody>
-      <tr>
-        <td>
-
-          <select class="browser-default" [(ngModel)]="reqType" name="reqTypes" required>
-            <option value="" disabled selected>Choose your option</option>
-            <option *ngFor="let leaveRequestType of leaveRequestTypes" [ngValue]="leaveRequestType['id']">{{leaveRequestType["name"]}}</option>
-
-          </select>
-          <label class="isd-lbl">Leave request type</label>
-        </td>
-
-      </tr>
-      <tr>
-        <td>
-          <span id="daysOff" *ngIf="reqType == 1">Available number of days: <b>{{daysOff}}</b></span>
-        </td>
-
-        <td>
-          <span>You selected: <b>{{datesDiff}}</b> days</span>
-        </td>
-      </tr>
 
       <tr>
         <td>
-          <input class="isd-lbl" type="date" [disabled]='disableTextbox' [(ngModel)]="startDate" name="startDate" id="startDate" (change)="dateChange()" required>
-          <label class="isd-lbl" for="startDate">From</label>
+          <input class="isd-lbl" type="date" [disabled]='disableTextbox' [(ngModel)]="date" name="date" id="date" (change)="dateChange()" required>
+          <label class="isd-lbl" for="date">Date</label>
         </td>
         <td>
-          <input class="isd-lbl" type="date" [disabled]='disableTextbox' [(ngModel)]="endDate" name="endDate" id="endDate" (change)="dateChange()" required>
-          <label class="isd-lbl" for="endDate">To</label>
+          <input class="isd-lbl"  [disabled]='disableTextbox' [(ngModel)]="name" name="name" id="name" required>
+          <label class="isd-lbl" for="name">Description</label>
         </td>
 
-      </tr>
-
-      <tr>
-        <td colspan="2" class="center" *ngIf="reqType == 1">
-          <span>You will have: {{daysOff - datesDiff}} days left</span>
-        </td>
       </tr>
       <td align="right">
         <button class="center" class="waves-effect waves-light btn isd-btn" type="submit">Create</button>

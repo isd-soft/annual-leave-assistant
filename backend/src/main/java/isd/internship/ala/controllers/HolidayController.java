@@ -3,6 +3,7 @@ package isd.internship.ala.controllers;
 import isd.internship.ala.models.Holiday;
 import isd.internship.ala.services.HolidayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,9 +39,8 @@ public class HolidayController {
     }
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
-    public Holiday create (@RequestBody Holiday holiday) {
-
-        return holidayService.create(holiday);
+    public ResponseEntity<Holiday> create (@RequestBody Holiday holiday) {
+        return ResponseEntity.status(201).body(holidayService.create(holiday));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
