@@ -116,7 +116,6 @@ public class LeaveRequestController {
                             result.put("message", "You should request 14 days!");
                             return ResponseEntity.status(200).body(result);
                         }
-                        foundUser.setAvailDays(foundUser.getAvailDays() - requestedDays);
                     }
 
                     leaveRequestService.create(leaveRequest);
@@ -179,6 +178,8 @@ public class LeaveRequestController {
                     System.out.println("Changing status ...");
                     Status status = statusRepository.findById(leaveRequest.getStatus().getId()).get();
                     foundLeaveRequest.setStatus(status);
+                    int requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 1;
+                    foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
                     System.out.println("Status changed");
                 }
 

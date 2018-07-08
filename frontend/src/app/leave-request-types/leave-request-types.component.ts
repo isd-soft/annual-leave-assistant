@@ -15,7 +15,7 @@ import {Observable} from 'rxjs';
 export class LeaveRequestTypesComponent implements OnInit {
 
   list: any;
-  leaveRequestType: Leaverequesttype[];
+	leaveRequestType: LeaveRequestType[];
 
   constructor(private http: HttpClient, private router: Router, private requestTypeService: LeaveRequestTypeService) {
   }
