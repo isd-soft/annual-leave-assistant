@@ -34,17 +34,21 @@ export class UserPageComponent implements OnInit {
 
   disableTextbox =  true;
 
+
   completeFields(){
-    this.id = localStorage.getItem("id");
-    this.surname = localStorage.getItem("surname");
-    this.password = "";
-    this.name = localStorage.getItem("name");
-    this.email = localStorage.getItem("email");
-    this.empDate = localStorage.getItem("empDate");
-    this.role = localStorage.getItem("role");
-    this.availDays = Number(localStorage.getItem("availDays"));
-    this.department = localStorage.getItem("department");
-    this.function_ = localStorage.getItem("function");
+    this.http.get(environment.rootUrl + '/ala/users/' + localStorage.getItem('id'), {observe: 'response'}).toPromise()
+      .then( res => {
+        this.id = res.body['id'];
+        this.surname = res.body['surname'];
+        this.name = res.body['name'];
+        this.email = res.body['email'];
+        this.password = "";
+        this.empDate = res.body['empDate'];
+        this.role = res.body['role'];
+        this.function_ = res.body['function'];
+        this.department = res.body['department'];
+        this.availDays = res.body['availDays'];
+      }).catch(err => console.log(err.body['message']));
   }
 
   toggleDisable() {

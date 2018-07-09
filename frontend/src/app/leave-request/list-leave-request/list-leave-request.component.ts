@@ -44,6 +44,7 @@ export class ListLeaveRequestComponent implements OnInit {
   }
 
   addLeaveRequest(){
+    localStorage.removeItem('createUserId');
     this.router.navigate(['create-leave-request']);
   }
 

@@ -68,6 +68,7 @@ export class CreateLeaveRequestComponent implements OnInit {
     let body: any;
 
     if(localStorage.getItem('createUserId')) {
+      console.log("with user");
       body = {
         'user': { 'id': localStorage.getItem('createUserId')},
         'leaveRequestType': {
