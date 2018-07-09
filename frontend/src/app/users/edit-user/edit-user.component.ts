@@ -85,7 +85,7 @@ export class EditUserComponent implements OnInit {
         "name": this.name,
         "email": this.email,
         "empDate": this.empDate,
-        'role': {"id": "1"},
+        'role': {"id": role_id},
         'function': this.function_,
         'department': this.department,
         'availDays': this.availDays
