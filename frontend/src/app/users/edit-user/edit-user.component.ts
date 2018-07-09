@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {toPromise} from 'rxjs-compat/operator/toPromise';
 import { ListUserComponent } from '../list-user/list-user.component';
@@ -23,7 +24,7 @@ export class EditUserComponent implements OnInit {
   private department: string;
   private availDays: number;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.completeFields();
@@ -78,6 +79,7 @@ export class EditUserComponent implements OnInit {
         'department': this.department,
         'availDays': this.availDays
       };
+      this.router.navigate(['users']);
       console.log("PASSWORD");
     } else {
       body = {
@@ -91,6 +93,7 @@ export class EditUserComponent implements OnInit {
         'availDays': this.availDays
 
       };
+      this.router.navigate(['users']);
     }
 
     this.http.put(environment.rootUrl + "/ala/users/" + this.id, body).toPromise()

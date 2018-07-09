@@ -97,28 +97,10 @@ public class LeaveRequestController {
 
                     System.out.println("TYPE: " + type.getName() + " = " + type.getName().equals("Annual"));
 
-                    if(type.getName().equals("Annual")) {
-                        int year = Calendar.getInstance().get(Calendar.YEAR);
-
-                        int availDays = foundUser.getAvailDays();
-                        boolean hasFourteenDays = leaveRequestService.taked14days(foundUser.getId(), year);
-                        int requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 1;
-
-
-                        System.out.println("AvailableDays: " + availDays + " / Has14:" + hasFourteenDays + " / reqDays = " + requestedDays);
-
-                        if (requestedDays > availDays) {
-                            result.put("message", "You request too many days, man!");
-                            return ResponseEntity.ok().body(result);
-                        }
-
-                        if ((requestedDays == 14) || (requestedDays == foundUser.getAvailDays()))
-                            hasFourteenDays = true;
-
-                        if (!hasFourteenDays && (availDays - requestedDays < 14)) {
-                            result.put("message", "You should request 14 days!");
-                            return ResponseEntity.ok().body(result);
-                        }
+                    String msg = leaveRequestService.check(leaveRequest, type, foundUser);
+                    if(!msg.equals("Accepted")){
+                        result.put("message", msg);
+                        return ResponseEntity.ok().body(result);
                     }
 
                     User user = leaveRequest.getUser();
@@ -175,31 +157,49 @@ public class LeaveRequestController {
                     System.out.println("LeaveRequestType changed");
                 }
 
+                boolean datesChanged = false;
                 if(leaveRequest.getStartDate() != null && !leaveRequest.getStartDate().equals(foundLeaveRequest.getStartDate())){
-                    foundLeaveRequest.setStartDate(leaveRequest.getStartDate());
                     System.out.println("StartDate changed");
+                    datesChanged = true;
                 }
 
                 if(leaveRequest.getEndDate() != null && !leaveRequest.getEndDate().equals(foundLeaveRequest.getEndDate())){
-                    foundLeaveRequest.setEndDate(leaveRequest.getEndDate());
                     System.out.println("EndDate changed");
+                    datesChanged = true;
                 }
+
+
+
 
                 System.out.println(leaveRequest.getStatus().getId());
-                if(leaveRequest.getStatus().getId() != null && !leaveRequest.getStatus().getId().equals(foundLeaveRequest.getStatus().getId()) && isAdmin){
-                    System.out.println("Enter");
-                    Status status = statusRepository.findById(leaveRequest.getStatus().getId()).get();
-                    System.out.println(status.getName());
-                    foundLeaveRequest.setStatus(status);
+                if(leaveRequest.getStatus().getId().equals(1) && isAdmin){
+                    foundLeaveRequest.setStatus(leaveRequest.getStatus());
+
+                    foundLeaveRequest.setEndDate(leaveRequest.getEndDate());
+                    foundLeaveRequest.setStartDate(leaveRequest.getStartDate());
+
                     emailService.sendUserNotification(foundLeaveRequest.getUser());
 
-                    if(foundLeaveRequest.getLeaveRequestType().getName().equals("Annual")){
-                        int requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 1;
-                        foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
+                    System.out.println("Approved");
+                } else {
+                    if(datesChanged){
+                        foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() + Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 1);
                     }
-
-                    System.out.println("Status changed");
+                    foundLeaveRequest.setEndDate(leaveRequest.getEndDate());
+                    foundLeaveRequest.setStartDate(leaveRequest.getStartDate());
                 }
+
+                String msg = leaveRequestService.check(leaveRequest, foundLeaveRequest.getLeaveRequestType(), foundLeaveRequest.getUser());
+                if(!msg.equals("Accepted")){
+                    result.put("message", msg);
+                    return ResponseEntity.ok().body(result);
+                }
+
+                if(foundLeaveRequest.getLeaveRequestType().getName().equals("Annual")){
+                    int requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 1;
+                    foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
+                }
+
 
                 leaveRequestService.create(foundLeaveRequest);
                 result.put("message", "LeaveRequest Data updated");
