@@ -28,6 +28,7 @@
       <td><a class="waves-effect waves-light btn-small isd-btn" *ngIf="leaveRequest.status === 'pending'"  (click)="approve(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">Approve</a></td>
       <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateLvReq(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">Edit</a></td>
       <td><a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteLvReq(leaveRequest.id)">Delete</a></td>
+      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="download(leaveRequest.id, leaveRequest.user.surname, leaveRequest.user.name, leaveRequest.leaveRequestType.name)">Download</a></td>
     </tr>
     </tbody>
   </table>

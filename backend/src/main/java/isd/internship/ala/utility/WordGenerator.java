@@ -6,6 +6,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -44,12 +45,12 @@ public class WordGenerator {
         try {
 //            POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templatePath));
             XWPFDocument doc = new XWPFDocument(new FileInputStream(templatePath));
-            doc = replaceText(doc, "$name", map.get("name").toString());
-            doc = replaceText(doc, "$surname", map.get("surname").toString());
-            doc = replaceText(doc, "$position", map.get("function").toString());
-            doc = replaceText(doc, "$startday", map.get("start_day").toString());
-            doc = replaceText(doc, "$endday", map.get("end_day").toString());
-            doc = replaceText(doc, "$days", map.get("days").toString());
+            doc = replaceText(doc, "[$name]", map.get("name").toString());
+            doc = replaceText(doc, "[$surname]", map.get("surname").toString());
+//            doc = replaceText(doc, "$position", map.get("function").toString());
+            doc = replaceText(doc, "[$start]", map.get("start_day").toString());
+            doc = replaceText(doc, "[$end]", map.get("end_day").toString());
+            doc = replaceText(doc, "[$days]", map.get("days").toString());
             System.out.println("Enter baby");
 
             doc.write(bai);
@@ -63,9 +64,43 @@ public class WordGenerator {
 
     }
 
+//    private XWPFDocument replace(XWPFDocument doc, String findText, String replaceText) {
+//        for(XWPFParagraph p : doc.getParagraphs()) {
+//            String replacedText = StringUtils.replace(p.getText(), findText, replaceText);
+//            System.out.println(replacedText);
+//            removeAllRuns(p);
+//            insertReplacementRuns(p, replacedText);
+//        }
+//        return doc;
+//    }
+//
+//    private void insertReplacementRuns(XWPFParagraph paragraph, String replacedText) {
+//        String[] replacementTextSplitOnCarriageReturn = StringUtils.split(replacedText, "\n");
+//        System.out.println(replacementTextSplitOnCarriageReturn);
+//
+//        for (int j = 0; j < replacementTextSplitOnCarriageReturn.length; j++) {
+//            String part = replacementTextSplitOnCarriageReturn[j];
+//
+//            XWPFRun newRun = paragraph.insertNewRun(j);
+//            newRun.setText(part);
+//
+//            if (j+1 < replacementTextSplitOnCarriageReturn.length) {
+//                newRun.addCarriageReturn();
+//            }
+//        }
+//    }
+//
+//    private void removeAllRuns(XWPFParagraph paragraph) {
+//        int size = paragraph.getRuns().size();
+//        for (int i = 0; i < size; i++) {
+//            paragraph.removeRun(0);
+//        }
+//    }
+
     private static XWPFDocument replaceText(XWPFDocument doc, String findText, String replaceText){
         StringBuilder s = new StringBuilder();
         for (XWPFParagraph p : doc.getParagraphs()) {
+            System.out.println(p.getText());
             List<XWPFRun> runs = p.getRuns();
             if (runs != null) {
                 for (XWPFRun r : runs) {

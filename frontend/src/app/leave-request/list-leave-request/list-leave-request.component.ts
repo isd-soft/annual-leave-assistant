@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-list-leave-request',
@@ -75,6 +76,16 @@ export class ListLeaveRequestComponent implements OnInit {
   reloadData(){
     this.http.get(environment.rootUrl + '/ala/leaveRequests', { observe: 'response' })
       .toPromise().then(res => this.leaveRequests = res.body).catch(err => console.log(err));
+  }
+
+  download(id: any, surname: any, name: any, requestType: any) {
+    this.http.get(environment.rootUrl + '/ala/utility/word/' + id, {responseType: 'blob' as 'json'}).toPromise()
+      .then(data => {
+        console.log(data);
+        const blob = new Blob([data], {type: 'application/octet-stream'});
+        FileSaver.saveAs(blob,
+          name + surname + requestType + '.docx');
+      });
   }
 
 }
