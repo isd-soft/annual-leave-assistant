@@ -187,18 +187,17 @@ public class LeaveRequestController {
 
                 System.out.println(leaveRequest.getStatus().getId());
                 if(leaveRequest.getStatus().getId() != null && !leaveRequest.getStatus().getId().equals(foundLeaveRequest.getStatus().getId()) && isAdmin){
+                    System.out.println("Enter");
                     Status status = statusRepository.findById(leaveRequest.getStatus().getId()).get();
+                    System.out.println(status.getName());
                     foundLeaveRequest.setStatus(status);
-<<<<<<< HEAD
-                    emailService.sendUserNotification(leaveRequest.getUser());
-=======
+                    emailService.sendUserNotification(foundLeaveRequest.getUser());
 
                     if(foundLeaveRequest.getLeaveRequestType().getName().equals("Annual")){
                         int requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 1;
                         foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
                     }
 
->>>>>>> ba9ca2da3617c5e1734c1649dcfaae756cc00681
                     System.out.println("Status changed");
                 }
 
