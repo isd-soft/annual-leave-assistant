@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
             user.put("name", u.getName());
             user.put("function", u.getFunction());
             user.put("department", u.getDepartment());
-            user.put("email", u.getSurname());
+            user.put("email", u.getEmail());
             user.put("empDate", u.getEmpDate().toString());
             user.put("availDays", u.getAvailDays().toString());
             result.add(user);
