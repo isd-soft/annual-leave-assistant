@@ -29,8 +29,12 @@
       <td>{{leaveRequest.status}}</td>
       <td><a class="waves-effect waves-light btn-small isd-btn"  *ngIf="isAdmin() && leaveRequest.status === 'pending'"  (click)="approve(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">Approve</a></td>
       <td><a class="waves-effect waves-light btn-small isd-btn" *ngIf="leaveRequest.status != 'approved'" (click)="updateLvReq(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">Edit</a></td>
+<<<<<<< HEAD
       <td><a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteLvReq(leaveRequest.id)">Delete</a></td>
       <td><a class="waves-effect waves-light btn-small isd-btn" (click)="download(leaveRequest.id, leaveRequest.user.surname, leaveRequest.user.name, leaveRequest.leaveRequestType.name)">Download</a></td>
+=======
+      <td><a class="waves-effect waves-light btn-small isd-btn-danger" *ngIf="leaveRequest.status != 'approved'" (click)="deleteLvReq(leaveRequest.id)">Delete</a></td>
+>>>>>>> 7fb57931ff89db86d5249f224f11471b8fa91ffe
     </tr>
     </tbody>
   </table>
