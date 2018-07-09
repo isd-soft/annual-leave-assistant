@@ -4,6 +4,9 @@ export class User {
   surname: string;
   email: string;
   password: string;
-  date: Date;
+  empDate: Date;
+  function_: string;
+  department: string;
+  availDays: string;
 
 }

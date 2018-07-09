@@ -20,6 +20,9 @@ export class ListLeaveRequestComponent implements OnInit {
     this.reloadData();
   }
 
+  isAdmin():boolean{
+    return localStorage.getItem('role') == 'ADMIN';
+  }
 
   updateLvReq(id: any, user_id: any, reqType: any, startDate: any, endDate: any){
     localStorage.removeItem('requestId');
