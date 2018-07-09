@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
             user.put("department", u.getDepartment());
             user.put("email", u.getSurname());
             user.put("empDate", u.getEmpDate().toString());
+            user.put("availDays", u.getAvailDays().toString());
             result.add(user);
         }
         return result;
