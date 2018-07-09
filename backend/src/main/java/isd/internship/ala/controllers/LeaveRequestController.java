@@ -86,6 +86,7 @@ public class LeaveRequestController {
                 }
 
                 leaveRequest.setUser(foundUser);
+
                 if(!leaveRequestService.alreadyRequested(leaveRequest) && (foundUser.getAvailDays() !=  0)) {
                     LeaveRequestType type = leaveRequestTypeRepository.findById(leaveRequest.getLeaveRequestType().getId()).get();
                     leaveRequest.setLeaveRequestType(type);
@@ -108,17 +109,16 @@ public class LeaveRequestController {
 
                         if (requestedDays > availDays) {
                             result.put("message", "You request too many days, man!");
-                            return ResponseEntity.status(200).body(result);
+                            return ResponseEntity.ok().body(result);
                         }
 
-                        if (requestedDays == 14)
+                        if ((requestedDays == 14) || (requestedDays == foundUser.getAvailDays()))
                             hasFourteenDays = true;
 
                         if (!hasFourteenDays && (availDays - requestedDays < 14)) {
                             result.put("message", "You should request 14 days!");
-                            return ResponseEntity.status(200).body(result);
+                            return ResponseEntity.ok().body(result);
                         }
-                        foundUser.setAvailDays(foundUser.getAvailDays() - requestedDays);
                     }
 
                     User user = leaveRequest.getUser();
@@ -187,10 +187,18 @@ public class LeaveRequestController {
 
                 System.out.println(leaveRequest.getStatus().getId());
                 if(leaveRequest.getStatus().getId() != null && !leaveRequest.getStatus().getId().equals(foundLeaveRequest.getStatus().getId()) && isAdmin){
-                    System.out.println("Changing status ...");
                     Status status = statusRepository.findById(leaveRequest.getStatus().getId()).get();
                     foundLeaveRequest.setStatus(status);
+<<<<<<< HEAD
                     emailService.sendUserNotification(leaveRequest.getUser());
+=======
+
+                    if(foundLeaveRequest.getLeaveRequestType().getName().equals("Annual")){
+                        int requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 1;
+                        foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
+                    }
+
+>>>>>>> ba9ca2da3617c5e1734c1649dcfaae756cc00681
                     System.out.println("Status changed");
                 }
 

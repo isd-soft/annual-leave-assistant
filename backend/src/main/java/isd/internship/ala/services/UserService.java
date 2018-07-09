@@ -11,7 +11,7 @@ public interface UserService {
     User save(User user);
     Optional<User> findByEmail(String email);
     List<User> findAll();
-    HashMap<String, String> getUsers();
+    List<HashMap<String, String>> getUsers();
     User findById(Long id);
     ResponseEntity<String> deleteUser(long id);
     ResponseEntity<String> deleteAllUsers();

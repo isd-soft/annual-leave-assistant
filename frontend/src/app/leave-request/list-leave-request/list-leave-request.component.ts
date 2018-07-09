@@ -3,8 +3,6 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {renderComponent} from '@angular/core/src/render3';
-import {renderTemplate} from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-list-leave-request',

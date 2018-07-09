@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../user.service';
 import {MatTable} from '@angular/material';
 import {Observable} from 'rxjs';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-user',
@@ -14,7 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ListUserComponent implements OnInit {
 
-  users: any;
+  users: User[];
 
   constructor(private router: Router, private userService: UserService) {
   }
@@ -40,30 +40,24 @@ export class ListUserComponent implements OnInit {
     localStorage.removeItem('createUserId');
     console.log(id);
     localStorage.setItem('createUserId', id);
-     this.router.navigate(['create-leave-request']);
+    this.router.navigate(['create-leave-request']);
   }
 
   deleteUser(user: User): void {
     this.userService.deleteUser(user.id)
-      .toPromise().then(res => { this.users = res; console.log(this.users);
-      this.router.navigate(['/users']);  } ).catch(err => console.log(err));
-    this.userService.getUsers();
-     // window.location.reload();
+      .subscribe(data => {
+        this.users = this.users.filter(u => u !== user);
+      });
   }
 
   deleteAllUsers(): void {
     this.userService.deleteAllUsers()
       .subscribe(data => {
-        console.log(data); this.ngOnInit();
+        console.log(data);
+        this.ngOnInit();
         this.router.navigate(['/users']);
       });
-     // window.location.reload();
+    // window.location.reload();
   }
 
-  reloadData() {
-    this.userService.getUsers()
-      .subscribe(data => {
-        this.users = data;
-      });
-  }
 }

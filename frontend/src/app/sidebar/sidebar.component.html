@@ -17,12 +17,12 @@
       </a>
     </li>
     <li>
-      <a routerLink="/leaveRequests" *ngIf="isLogged" [class.activated]="currentUrl == '/leaveRequests'">
+      <a routerLink="/leave-requests" *ngIf="isLogged" [class.activated]="currentUrl == '/leave-requests'">
         <i class="material-icons">library_books</i>
       </a>
     </li>
     <li>
-      <a routerLink="/leaveRequestTypes" *ngIf="isLogged" [class.activated]="currentUrl == '/leaveRequestTypes'">
+      <a routerLink="/leave-request-types" *ngIf="isLogged" [class.activated]="currentUrl == '/leave-request-types'">
         <i class="material-icons">message</i>
       </a>
     </li>
@@ -31,7 +31,7 @@
         <i class="material-icons">date_range</i>
       </a>
     </li>
-    <li class="dividerH" ></li>
+
     <!--Exit button-->
     <li>
       <a href="#!" *ngIf="isLogged" (click)="logout()">
