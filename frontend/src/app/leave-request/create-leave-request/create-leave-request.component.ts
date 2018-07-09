@@ -93,11 +93,7 @@ export class CreateLeaveRequestComponent implements OnInit {
           this.reqType = null;
           this.startDate = null;
           this.endDate = null;
-          this.router.navigate(['leaveRequests']);
-<<<<<<< HEAD
-=======
-
->>>>>>> ba9ca2da3617c5e1734c1649dcfaae756cc00681
+          this.router.navigate(['leave-requests']);
         } else {
           window.alert(res.body['message']);
         }
