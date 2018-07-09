@@ -1,18 +1,14 @@
 package isd.internship.ala.controllers;
 
 
-import isd.internship.ala.models.LeaveRequest;
-import isd.internship.ala.models.LeaveRequestType;
-import isd.internship.ala.models.Status;
-import isd.internship.ala.models.User;
-import isd.internship.ala.repositories.LeaveRequestRepository;
-import isd.internship.ala.repositories.LeaveRequestTypeRepository;
-import isd.internship.ala.repositories.StatusRepository;
-import isd.internship.ala.repositories.UserRepository;
+import isd.internship.ala.models.*;
+import isd.internship.ala.repositories.*;
 import isd.internship.ala.services.*;
+import isd.internship.ala.utility.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Period;
@@ -49,6 +45,12 @@ public class LeaveRequestController {
 
     @Autowired
     private StatusRepository statusRepository;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
 
 
@@ -119,6 +121,13 @@ public class LeaveRequestController {
                         foundUser.setAvailDays(foundUser.getAvailDays() - requestedDays);
                     }
 
+                    User user = leaveRequest.getUser();
+                    Role role = roleRepository.findByRole("ADMIN");
+                    List<User> admins = userRepository.findAllByRole(role);
+                    System.out.println("this line");
+                    System.out.println(admins.get(0));
+                    emailService.sendAdminNotification(admins, user);
+
                     leaveRequestService.create(leaveRequest);
                     result.put("message", "LeaveRequest creation success!");
                     return ResponseEntity.status(201).body(result);
@@ -132,6 +141,9 @@ public class LeaveRequestController {
                 System.out.println("NoSuchElement exception !");
                 result.put("message", "User not found!");
                 return ResponseEntity.status(404).body(result);
+            } catch(MailException e) {
+                e.printStackTrace();
+                return ResponseEntity.status(500).body(result);
             }
     }
 
@@ -173,12 +185,12 @@ public class LeaveRequestController {
                     System.out.println("EndDate changed");
                 }
 
-
                 System.out.println(leaveRequest.getStatus().getId());
                 if(leaveRequest.getStatus().getId() != null && !leaveRequest.getStatus().getId().equals(foundLeaveRequest.getStatus().getId()) && isAdmin){
                     System.out.println("Changing status ...");
                     Status status = statusRepository.findById(leaveRequest.getStatus().getId()).get();
                     foundLeaveRequest.setStatus(status);
+                    emailService.sendUserNotification(leaveRequest.getUser());
                     System.out.println("Status changed");
                 }
 
