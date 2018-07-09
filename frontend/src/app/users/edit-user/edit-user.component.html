@@ -1,22 +1,22 @@
 <div>
   <h4>> User Page</h4>
-  <form class="container" (ngSubmit)="update()">
+  <form class="container" ngNativeValidate (ngSubmit)="update()">
     <table class="striped">
       <tbody>
       <tr>
         <td>
-          <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname" id="surname">
+          <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="surname" name="surname" id="surname" required>
           <label class="isd-lbl" for="surname">Surname</label>
         </td>
         <td>
-          <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name" id="name">
+          <input class="isd-lbl" type="text" [disabled]='disableTextbox' [(ngModel)]="name" name="name" id="name" required>
           <label class="isd-lbl" for="name">Name</label>
         </td>
       </tr>
 
       <tr>
         <td>
-          <input class="isd-lbl" type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email" id="email">
+          <input class="isd-lbl" type="email" [disabled]='disableTextbox' [(ngModel)]="email" name="email" id="email" required>
           <label class="isd-lbl" for="email">Email</label>
         </td>
         <td colspan="2">
@@ -27,7 +27,7 @@
 
       <tr>
         <td>
-          <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="role" name="role" id="role">
+          <input class="isd-lbl" type="text" [disabled]="disableTextbox" [(ngModel)]="role" name="role" id="role" required>
           <label class="isd-lbl" for="role">Group</label>
         </td>
         <td>
