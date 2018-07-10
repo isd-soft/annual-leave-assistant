@@ -9,6 +9,7 @@
         {{requestType["description"]}}
       </p>
       <button class="button btn isd-btn-danger" *ngIf="isAdmin()" (click)='deleteRequestType(requestType)'>Delete</button>
+      <div class="divider"></div>
       <button class="button btn isd-btn-danger" *ngIf="isAdmin()" (click)='editRequestType(requestType)'>Edit</button>
       <!--<a href="#!" class="secondary-content" title="Click to create a request of this type"><i class="material-icons">add_circle</i></a>-->
     </li>
