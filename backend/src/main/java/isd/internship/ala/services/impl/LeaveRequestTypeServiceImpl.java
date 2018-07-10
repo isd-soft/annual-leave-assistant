@@ -20,7 +20,7 @@ public class LeaveRequestTypeServiceImpl implements LeaveRequestTypeService {
     }
 
     @Override
-    public LeaveRequestType getById(int id) { return leaveRequestTypeRepository.getOne(id); }
+    public LeaveRequestType getById(int id) { return leaveRequestTypeRepository.findById(id).get(); }
 
     @Override
     public LeaveRequestType create(LeaveRequestType leaveRequestType) {
@@ -29,11 +29,13 @@ public class LeaveRequestTypeServiceImpl implements LeaveRequestTypeService {
     }
 
     @Override
-    public LeaveRequestType update(LeaveRequestType leaveRequestType, Integer id) {
-        LeaveRequestType leaveRequestTypeNew = leaveRequestTypeRepository.getOne(id);
+    public LeaveRequestType update(int id, LeaveRequestType leaveRequestType) {
+        LeaveRequestType leaveRequestTypeNew = leaveRequestTypeRepository.findById(id).get();
+
         leaveRequestTypeNew.setName(leaveRequestType.getName());
-        leaveRequestTypeRepository.save(leaveRequestTypeNew);
-        return leaveRequestTypeNew;
+        leaveRequestTypeNew.setDescription(leaveRequestType.getDescription());
+
+        return leaveRequestTypeRepository.save(leaveRequestTypeNew);
     }
 
     @Override

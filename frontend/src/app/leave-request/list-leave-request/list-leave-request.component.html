@@ -1,8 +1,11 @@
 <div class="col-md-12">
   <h4>>Leave request list</h4>
   <a class="waves-effect waves-light btn-small isd-btn" (click)="addLeaveRequest()">Add Leavea Request</a>
+
+
   <table>
     <thead>
+    <input type="text" placeholder="search" [(ngModel)]="queryString">
     <tr>
       <th>ID</th>
       <th>Employee</th>
@@ -17,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let leaveRequest of leaveRequests">
+    <tr *ngFor="let leaveRequest of leaveRequests | filterdata: queryString : 'user' ;">
       <td>{{leaveRequest.id}}</td>
       <td>{{leaveRequest.user}}</td>
       <td>{{leaveRequest.leaveRequestType}}</td>

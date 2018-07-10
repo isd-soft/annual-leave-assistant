@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
@@ -24,34 +24,35 @@ export class UserPageComponent implements OnInit {
   private department: string;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit() {
     this.completeFields();
-    this.token = "Token " + localStorage.getItem("token");
+    this.token = 'Token ' + localStorage.getItem('token');
     //console.log(this.token);
   }
 
-  disableTextbox =  true;
+  disableTextbox = true;
 
-  completeFields(){
-    this.id = localStorage.getItem("id");
-    this.surname = localStorage.getItem("surname");
-    this.password = "";
-    this.name = localStorage.getItem("name");
-    this.email = localStorage.getItem("email");
-    this.empDate = localStorage.getItem("empDate");
-    this.role = localStorage.getItem("role");
-    this.availDays = Number(localStorage.getItem("availDays"));
-    this.department = localStorage.getItem("department");
-    this.function_ = localStorage.getItem("function");
+  completeFields() {
+    this.id = localStorage.getItem('id');
+    this.surname = localStorage.getItem('surname');
+    this.password = '';
+    this.name = localStorage.getItem('name');
+    this.email = localStorage.getItem('email');
+    this.empDate = localStorage.getItem('empDate');
+    this.role = localStorage.getItem('role');
+    this.availDays = Number(localStorage.getItem('availDays'));
+    this.department = localStorage.getItem('department');
+    this.function_ = localStorage.getItem('function');
   }
 
   toggleDisable() {
     this.disableTextbox = !this.disableTextbox;
   }
 
-  cancel(){
+  cancel() {
     this.completeFields();
     this.toggleDisable();
 
@@ -59,69 +60,69 @@ export class UserPageComponent implements OnInit {
 
   update() {
     let body: any;
-    if(this.surname != localStorage.getItem("surname")){
-      console.log("SURNAME");
+    if (this.surname != localStorage.getItem('surname')) {
+      console.log('SURNAME');
     }
 
-    if(this.name != localStorage.getItem("name")){
-      console.log("NAME");
+    if (this.name != localStorage.getItem('name')) {
+      console.log('NAME');
     }
 
-    if(this.email != localStorage.getItem("email")){
-      console.log("EMAIL");
+    if (this.email != localStorage.getItem('email')) {
+      console.log('EMAIL');
     }
 
-    if(this.empDate != localStorage.getItem("empDate")){
-      console.log("EMPDATE");
+    if (this.empDate != localStorage.getItem('empDate')) {
+      console.log('EMPDATE');
     }
 
-    if(this.availDays != Number(localStorage.getItem("availDays"))){
-      console.log("AVAILDAYS");
+    if (this.availDays != Number(localStorage.getItem('availDays'))) {
+      console.log('AVAILDAYS');
     }
 
-    if(this.department != localStorage.getItem("department")){
-      console.log("DEPARTMENT");
+    if (this.department != localStorage.getItem('department')) {
+      console.log('DEPARTMENT');
     }
 
-    if(this.function_ != localStorage.getItem("function")){
-      console.log("FUNCTION");
+    if (this.function_ != localStorage.getItem('function')) {
+      console.log('FUNCTION');
     }
-    if(this.password != ""){
+    if (this.password != '') {
       body = {
-        "surname": this.surname,
-        "name": this.name,
-        "email": this.email,
-        "password": this.password,
-        "empDate": this.empDate,
-        "department": this.department,
-        "availDays": this.availDays,
-        "function": this.function_
+        'surname': this.surname,
+        'name': this.name,
+        'email': this.email,
+        'password': this.password,
+        'empDate': this.empDate,
+        'department': this.department,
+        'availDays': this.availDays,
+        'function': this.function_
       };
-      console.log("PASSWORD");
+      console.log('PASSWORD');
     } else {
       body = {
-        "surname": this.surname,
-        "name": this.name,
-        "email": this.email,
-        "empDate": this.empDate,
-        "department": this.department,
-        "availDays": this.availDays,
-        "function": this.function_
+        'surname': this.surname,
+        'name': this.name,
+        'email': this.email,
+        'empDate': this.empDate,
+        'department': this.department,
+        'availDays': this.availDays,
+        'function': this.function_
       };
     }
 
-     this.http.put(environment.rootUrl + "/ala/users/" + this.id, body).toPromise()
-            .then(res => {
-              console.log(res);
-              localStorage.setItem("surname", this.surname);
-              localStorage.setItem("name", this.name);
-              localStorage.setItem("email", this.email);
-              localStorage.setItem("empDate", this.empDate);
-              localStorage.setItem("function", this.function_);
-              localStorage.setItem("department", this.department);
-              localStorage.setItem("availDays", String(this.availDays));
-              this.toggleDisable();
-            })
-            .catch(err => console.log(err));
-    }
+    this.http.put(environment.rootUrl + '/ala/users/' + this.id, body).toPromise()
+      .then(res => {
+        console.log(res);
+        localStorage.setItem('surname', this.surname);
+        localStorage.setItem('name', this.name);
+        localStorage.setItem('email', this.email);
+        localStorage.setItem('empDate', this.empDate);
+        localStorage.setItem('function', this.function_);
+        localStorage.setItem('department', this.department);
+        localStorage.setItem('availDays', String(this.availDays));
+        this.toggleDisable();
+      })
+      .catch(err => console.log(err));
+  }
 }

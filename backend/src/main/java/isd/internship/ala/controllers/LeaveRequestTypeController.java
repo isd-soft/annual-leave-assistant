@@ -22,16 +22,13 @@ public class LeaveRequestTypeController {
         return ResponseEntity.status(200).body(leaveRequestTypeService.getAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<String> getById(@PathVariable("id") int id) {
+        leaveRequestTypeService.getById(id);
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public LeaveRequestType getById(@PathVariable(name = "id") Integer id) {
-        return leaveRequestTypeService.getById(id);
+        return new ResponseEntity<>("Request leave request type id", HttpStatus.OK);
     }
 
-//    @DeleteMapping("{id}")
-//    public void deleteById(@PathVariable(name = "id") int id) {
-//        leaveRequestTypeService.deleteById(id);
-//    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteRequestType(@PathVariable("id") int id) {
@@ -48,9 +45,11 @@ public class LeaveRequestTypeController {
         return new ResponseEntity<>("Leave request type saved", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@RequestBody LeaveRequestType leaveRequestType, @PathVariable(name = "id") Integer id) {
-        leaveRequestTypeService.update(leaveRequestType, id);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<LeaveRequestType> update(@PathVariable("id") int id, @RequestBody LeaveRequestType leaveRequestType) {
+        leaveRequestTypeService.update(id, leaveRequestType);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

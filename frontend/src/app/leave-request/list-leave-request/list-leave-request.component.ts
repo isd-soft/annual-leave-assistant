@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-list-leave-request',
@@ -12,16 +13,19 @@ import {environment} from '../../../environments/environment';
 export class ListLeaveRequestComponent implements OnInit {
 
   leaveRequests: any;
+  surname: string;
+  user: User[];
 
   constructor(private router: Router, private http: HttpClient) {
   }
 
   ngOnInit() {
     this.reloadData();
+    this.surname = null;
   }
 
 
-  updateLvReq(id: any, user_id: any, reqType: any, startDate: any, endDate: any){
+  updateLvReq(id: any, user_id: any, reqType: any, startDate: any, endDate: any) {
     localStorage.removeItem('requestId');
     localStorage.removeItem('requestType');
     localStorage.removeItem('requestUserId');
@@ -43,22 +47,21 @@ export class ListLeaveRequestComponent implements OnInit {
     window.location.reload();
   }
 
-  addLeaveRequest(){
+  addLeaveRequest() {
     this.router.navigate(['create-leave-request']);
   }
 
 
-
-  approve(id: any, user_id: any, reqType: any, startDate: any, endDate: any){
-    let  body = {
-      'user': { 'id': localStorage.getItem('requestUserId')},
+  approve(id: any, user_id: any, reqType: any, startDate: any, endDate: any) {
+    const body = {
+      'user': {'id': localStorage.getItem('requestUserId')},
       'leaveRequestType': {
         'id': reqType
       },
       'startDate': startDate,
       'endDate': endDate,
       'requestDate': new Date(),
-      'status':{
+      'status': {
         'id': '1'
       }
     };
@@ -71,9 +74,8 @@ export class ListLeaveRequestComponent implements OnInit {
     }).catch(err => window.alert(err['message']));
   }
 
-
-  reloadData(){
-    this.http.get(environment.rootUrl + '/ala/leaveRequests', { observe: 'response' })
+  reloadData() {
+    this.http.get(environment.rootUrl + '/ala/leaveRequests', {observe: 'response'})
       .toPromise().then(res => this.leaveRequests = res.body).catch(err => console.log(err));
   }
 

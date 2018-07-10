@@ -2,6 +2,7 @@ package isd.internship.ala.controllers;
 
 import java.util.*;
 
+import isd.internship.ala.models.LeaveRequestType;
 import isd.internship.ala.models.User;
 import isd.internship.ala.repositories.RoleRepository;
 import isd.internship.ala.repositories.UserRepository;
@@ -215,12 +216,11 @@ public class UserController {
         return new ResponseEntity<>("All users have been deleted!", HttpStatus.OK);
     }
 
-    @PostMapping("/ala/users/create")
-    public ResponseEntity<String> createUser(@RequestBody User user) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userService.save(user);
-        return new ResponseEntity<>("User has been created", HttpStatus.OK);
+    @GetMapping(value = "/ala/users/search/{surname}")
+    public List<User> findByAge(@PathVariable("surname") String surname) {
+
+        return userRepository.findUserBySurname(surname);
     }
 }
+
