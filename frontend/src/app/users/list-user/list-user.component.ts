@@ -48,6 +48,7 @@ export class ListUserComponent implements OnInit {
       .subscribe(data => {
         this.users = this.users.filter(u => u !== user);
       });
+    window.location.reload();
   }
 
   deleteAllUsers(): void {
@@ -57,7 +58,7 @@ export class ListUserComponent implements OnInit {
         this.ngOnInit();
         this.router.navigate(['/users']);
       });
-    // window.location.reload();
+     window.location.reload();
   }
 
 }

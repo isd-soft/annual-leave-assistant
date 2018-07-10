@@ -31,6 +31,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FilterdataPipe } from './filterdata.pipe';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -61,7 +61,7 @@ export class EditLeaveRequestComponent implements OnInit {
     this.http.put(environment.rootUrl + '/ala/leaveRequests/' + id, body, {observe: 'response'})
       .toPromise().then(res => {
       window.alert(res.body['message']);
-      this.router.navigate(['leaveRequests']);
+        this.router.navigate(['leave-requests']);
 
     }).catch(err => window.alert(err['message']));
   }

@@ -3,7 +3,11 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+<<<<<<< HEAD
 import {User} from '../../models/user.model';
+=======
+import * as FileSaver from 'file-saver';
+>>>>>>> 1b022eb2ec59bd63b533b8805d7c774f57dbd6ca
 
 @Component({
   selector: 'app-list-leave-request',
@@ -24,6 +28,9 @@ export class ListLeaveRequestComponent implements OnInit {
     this.surname = null;
   }
 
+  isAdmin():boolean{
+    return localStorage.getItem('role') == 'ADMIN';
+  }
 
   updateLvReq(id: any, user_id: any, reqType: any, startDate: any, endDate: any) {
     localStorage.removeItem('requestId');
@@ -47,7 +54,12 @@ export class ListLeaveRequestComponent implements OnInit {
     window.location.reload();
   }
 
+<<<<<<< HEAD
   addLeaveRequest() {
+=======
+  addLeaveRequest(){
+    localStorage.removeItem('createUserId');
+>>>>>>> 1b022eb2ec59bd63b533b8805d7c774f57dbd6ca
     this.router.navigate(['create-leave-request']);
   }
 
@@ -77,6 +89,16 @@ export class ListLeaveRequestComponent implements OnInit {
   reloadData() {
     this.http.get(environment.rootUrl + '/ala/leaveRequests', {observe: 'response'})
       .toPromise().then(res => this.leaveRequests = res.body).catch(err => console.log(err));
+  }
+
+  download(id: any, surname: any, name: any, requestType: any) {
+    this.http.get(environment.rootUrl + '/ala/utility/word/' + id, {responseType: 'blob' as 'json'}).toPromise()
+      .then(data => {
+        console.log(data);
+        const blob = new Blob([data], {type: 'application/octet-stream'});
+        FileSaver.saveAs(blob,
+          name + surname + requestType + '.docx');
+      });
   }
 
 }

@@ -68,6 +68,7 @@ export class CreateLeaveRequestComponent implements OnInit {
     let body: any;
 
     if(localStorage.getItem('createUserId')) {
+      console.log("with user");
       body = {
         'user': { 'id': localStorage.getItem('createUserId')},
         'leaveRequestType': {
@@ -93,8 +94,7 @@ export class CreateLeaveRequestComponent implements OnInit {
           this.reqType = null;
           this.startDate = null;
           this.endDate = null;
-          this.router.navigate(['leaveRequests']);
-
+          this.router.navigate(['leave-requests']);
         } else {
           window.alert(res.body['message']);
         }

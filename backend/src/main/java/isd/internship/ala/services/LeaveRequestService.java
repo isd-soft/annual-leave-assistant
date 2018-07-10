@@ -1,6 +1,7 @@
 package isd.internship.ala.services;
 
 import isd.internship.ala.models.LeaveRequest;
+import isd.internship.ala.models.LeaveRequestType;
 import isd.internship.ala.models.Status;
 import isd.internship.ala.models.User;
 
@@ -19,6 +20,7 @@ public interface LeaveRequestService {
     boolean alreadyRequested(LeaveRequest leaveRequest);
     List<HashMap<String, String>> getByUserId(Long id);
     List<HashMap<String, String>> getAll();
+    String check(LeaveRequest leaveRequest, LeaveRequestType type, User foundUser);
 //    LeaveRequest update(LeaveRequest leaveRequest, Integer id);
 //    void deleteById(Integer id);
 //    void deleteAll();
