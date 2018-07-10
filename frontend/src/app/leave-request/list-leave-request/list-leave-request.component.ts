@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import * as FileSaver from 'file-saver';
+import {User} from '../../user';
+import {LeaveRequestType} from '../../leaveRequestType';
 
 @Component({
   selector: 'app-list-leave-request',
@@ -21,8 +23,8 @@ export class ListLeaveRequestComponent implements OnInit {
     this.reloadData();
   }
 
-  isAdmin():boolean{
-    return localStorage.getItem('role') == 'ADMIN';
+    isAdmin(): boolean {
+    return localStorage.getItem('role') === 'ADMIN';
   }
 
   updateLvReq(id: any, user_id: any, reqType: any, startDate: any, endDate: any){
@@ -82,13 +84,15 @@ export class ListLeaveRequestComponent implements OnInit {
       .toPromise().then(res => this.leaveRequests = res.body).catch(err => console.log(err));
   }
 
-  download(id: any, surname: any, name: any, requestType: any) {
+  download(id: any, user: User, requestType: LeaveRequestType) {
     this.http.get(environment.rootUrl + '/ala/utility/word/' + id, {responseType: 'blob' as 'json'}).toPromise()
       .then(data => {
+        console.log(user);
+        console.log(requestType);
         console.log(data);
         const blob = new Blob([data], {type: 'application/octet-stream'});
         FileSaver.saveAs(blob,
-          name + surname + requestType + '.docx');
+           user.toString() + ' ' + requestType.toString() + '.docx');
       });
   }
 
