@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <h4>>Employees list</h4>
-  <a class="waves-effect waves-light btn-small isd-btn" (click)="addUser()">Add user</a>
+  <button class="material-icons mat-tooltip:'Add user'" (click)="addUser()">add</button>
   <table>
     <thead>
     <tr>
@@ -27,11 +27,11 @@
       <td>{{user.department}}</td>
       <td>{{user.function}}</td>
       <td>{{user.availDays}}</td>
-      <td><button class="waves-effect waves-light btn-small isd-btn" (click)="addLeaveRequest(user.id)">Create leave request</button></td>
-      <td><a class="waves-effect waves-light btn-small isd-btn" (click)="updateUser(user)">Edit</a></td>
-      <td><a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteUser(user)">Delete</a></td>
+      <td><button class="material-icons" (click)="addLeaveRequest(user.id)">add</button></td>
+      <td><button class="material-icons" (click)="updateUser(user)">edit</button></td>
+      <td><button class="material-icons" (click)="deleteUser(user)">delete</button></td>
     </tr>
     </tbody>
   </table>
-  <a class="waves-effect waves-light btn-small isd-btn-danger" (click)="deleteAllUsers()">Remove all</a>
+  <button class="material-icons" (click)="deleteAllUsers()">delete</button>
 </div>

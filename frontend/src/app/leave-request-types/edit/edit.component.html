@@ -2,10 +2,10 @@
   <h2 class="text-center">Edit Leave Request Type</h2>
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
 
-    <div class="form-group">
-      <label for="id">Id:</label>
-      <input type="number" formControlName="id" placeholder="id" name="id" class="form-control" id="id" readonly>
-    </div>
+    <!--<div class="form-group">-->
+      <!--<label for="id">Id:</label>-->
+      <!--<input type="number" formControlName="id" placeholder="id" name="id" class="form-control" id="id" readonly>-->
+    <!--</div>-->
 
 
     <div class="form-group">
@@ -19,6 +19,6 @@
       <input formControlName="description" placeholder="description" name="description" class="form-control" id="description">
     </div>
 
-    <button class="btn btn-success">Update</button>
+    <button class="material-icons">check</button>
   </form>
 </div>
