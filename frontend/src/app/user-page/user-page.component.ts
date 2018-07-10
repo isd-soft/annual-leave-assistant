@@ -33,23 +33,7 @@ export class UserPageComponent implements OnInit {
     //console.log(this.token);
   }
 
-<<<<<<< HEAD
   disableTextbox = true;
-
-  completeFields() {
-    this.id = localStorage.getItem('id');
-    this.surname = localStorage.getItem('surname');
-    this.password = '';
-    this.name = localStorage.getItem('name');
-    this.email = localStorage.getItem('email');
-    this.empDate = localStorage.getItem('empDate');
-    this.role = localStorage.getItem('role');
-    this.availDays = Number(localStorage.getItem('availDays'));
-    this.department = localStorage.getItem('department');
-    this.function_ = localStorage.getItem('function');
-=======
-  disableTextbox =  true;
-
 
   completeFields(){
     this.http.get(environment.rootUrl + '/ala/users/' + localStorage.getItem('id'), {observe: 'response'}).toPromise()
@@ -65,7 +49,6 @@ export class UserPageComponent implements OnInit {
         this.department = res.body['department'];
         this.availDays = res.body['availDays'];
       }).catch(err => console.log(err.body['message']));
->>>>>>> 1b022eb2ec59bd63b533b8805d7c774f57dbd6ca
   }
 
   toggleDisable() {

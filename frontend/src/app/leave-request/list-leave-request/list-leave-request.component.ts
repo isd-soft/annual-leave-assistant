@@ -3,11 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-<<<<<<< HEAD
 import {User} from '../../models/user.model';
-=======
 import * as FileSaver from 'file-saver';
->>>>>>> 1b022eb2ec59bd63b533b8805d7c774f57dbd6ca
 
 @Component({
   selector: 'app-list-leave-request',
@@ -54,12 +51,9 @@ export class ListLeaveRequestComponent implements OnInit {
     window.location.reload();
   }
 
-<<<<<<< HEAD
-  addLeaveRequest() {
-=======
+
   addLeaveRequest(){
     localStorage.removeItem('createUserId');
->>>>>>> 1b022eb2ec59bd63b533b8805d7c774f57dbd6ca
     this.router.navigate(['create-leave-request']);
   }
 

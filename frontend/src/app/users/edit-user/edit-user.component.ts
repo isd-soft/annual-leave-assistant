@@ -24,12 +24,9 @@ export class EditUserComponent implements OnInit {
   private department: string;
   private availDays: number;
 
-<<<<<<< HEAD
-  constructor(private http: HttpClient) {
-  }
-=======
+
   constructor(private http: HttpClient, private router: Router) { }
->>>>>>> 1b022eb2ec59bd63b533b8805d7c774f57dbd6ca
+
 
   ngOnInit() {
     this.completeFields();
@@ -84,12 +81,8 @@ export class EditUserComponent implements OnInit {
         'department': this.department,
         'availDays': this.availDays
       };
-<<<<<<< HEAD
       console.log('PASSWORD');
-=======
       this.router.navigate(['users']);
-      console.log("PASSWORD");
->>>>>>> 1b022eb2ec59bd63b533b8805d7c774f57dbd6ca
     } else {
       body = {
         'surname': this.surname,
