@@ -1,6 +1,6 @@
 <div>
   <h4>> Leave request types</h4>
-  <button class="btn isd-btn" (click)="addRequestType()"> Add Request Type</button>
+  <button matTooltip="Create leave request type" class="material-icons" *ngIf="isAdmin()" (click)="addRequestType()">add</button>
   <ul class="collection container">
     <li class="collection-item avatar blue-grey lighten-5" *ngFor="let requestType of list">
       <!--<i class="material-icons circle blue-grey">chevron_right</i>-->
@@ -8,7 +8,9 @@
       <p>
         {{requestType["description"]}}
       </p>
-      <button class="button btn isd-btn-danger" (click)='deleteRequestType(requestType)'>Delete</button>
+      <button matTooltip="Edit leave request type" class="material-icons" *ngIf="isAdmin()" (click)='editRequestType(requestType)'>edit</button>
+      <div class="divider"></div>
+      <button matTooltip="Delete leave request type" class="material-icons" *ngIf="isAdmin()" (click)='deleteRequestType(requestType)'>delete</button>
       <!--<a href="#!" class="secondary-content" title="Click to create a request of this type"><i class="material-icons">add_circle</i></a>-->
     </li>
   </ul>

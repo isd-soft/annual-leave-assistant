@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {toPromise} from 'rxjs-compat/operator/toPromise';
-import { ListUserComponent } from '../list-user/list-user.component';
+import {ListUserComponent} from '../list-user/list-user.component';
 
 @Component({
   selector: 'app-edit-user',
@@ -24,23 +24,25 @@ export class EditUserComponent implements OnInit {
   private department: string;
   private availDays: number;
 
+
   constructor(private http: HttpClient, private router: Router) { }
+
 
   ngOnInit() {
     this.completeFields();
-    //console.log(this.token);
+     /*console.log(this.token);*/
   }
 
-  disableTextbox =  true;
+  disableTextbox = true;
 
-  completeFields(){
+  completeFields() {
     this.http.get(environment.rootUrl + '/ala/users/' + localStorage.getItem('updateUserId'), {observe: 'response'}).toPromise()
-      .then( res => {
+      .then(res => {
         this.id = res.body['id'];
         this.surname = res.body['surname'];
         this.name = res.body['name'];
         this.email = res.body['email'];
-        this.password = "";
+        this.password = '';
         this.empDate = res.body['empDate'];
         this.role = res.body['role'];
         this.function_ = res.body['function'];
@@ -63,31 +65,31 @@ export class EditUserComponent implements OnInit {
     let body: any;
 
     let role_id = 2;
-    if(this.role === 'ADMIN') {
+    if (this.role === 'ADMIN') {
       role_id = 1;
     }
 
-    if(this.password != ""){
+    if (this.password != '') {
       body = {
-        "surname": this.surname,
-        "name": this.name,
-        "email": this.email,
-        "password": this.password,
-        "empDate": this.empDate,
-        'role': {"id": role_id},
+        'surname': this.surname,
+        'name': this.name,
+        'email': this.email,
+        'password': this.password,
+        'empDate': this.empDate,
+        'role': {'id': role_id},
         'function': this.function_,
         'department': this.department,
         'availDays': this.availDays
       };
+      console.log('PASSWORD');
       this.router.navigate(['users']);
-      console.log("PASSWORD");
     } else {
       body = {
-        "surname": this.surname,
-        "name": this.name,
-        "email": this.email,
-        "empDate": this.empDate,
-        'role': {"id": role_id},
+        'surname': this.surname,
+        'name': this.name,
+        'email': this.email,
+        'empDate': this.empDate,
+        'role': {'id': role_id},
         'function': this.function_,
         'department': this.department,
         'availDays': this.availDays
@@ -96,7 +98,7 @@ export class EditUserComponent implements OnInit {
       this.router.navigate(['users']);
     }
 
-    this.http.put(environment.rootUrl + "/ala/users/" + this.id, body).toPromise()
+    this.http.put(environment.rootUrl + '/ala/users/' + this.id, body).toPromise()
       .then(res => {
         console.log(res);
         this.toggleDisable();

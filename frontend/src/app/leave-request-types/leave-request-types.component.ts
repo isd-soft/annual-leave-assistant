@@ -15,7 +15,7 @@ import {Observable} from 'rxjs';
 export class LeaveRequestTypesComponent implements OnInit {
 
   list: any;
-	leaveRequestType: LeaveRequestType[];
+  leaveRequestType: LeaveRequestType[];
 
   constructor(private http: HttpClient, private router: Router, private requestTypeService: LeaveRequestTypeService) {
   }
@@ -27,8 +27,18 @@ export class LeaveRequestTypesComponent implements OnInit {
       }).catch(err => console.log());
   }
 
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'ADMIN';
+  }
+
   addRequestType(): void {
     this.router.navigate(['app-create']);
+  }
+
+  editRequestType(requestType: LeaveRequestType): void {
+    localStorage.removeItem('lrtID');
+    localStorage.setItem('lrtID', requestType.id.toString());
+    this.router.navigate(['app-edit']);
   }
 
   deleteRequestType(requestType: LeaveRequestType) {
@@ -37,5 +47,6 @@ export class LeaveRequestTypesComponent implements OnInit {
         console.log(data);
         this.leaveRequestType = this.leaveRequestType.filter(lt => lt !== requestType);
       }, error1 => console.log(error));
+     window.location.reload();
   }
 }

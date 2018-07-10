@@ -2,40 +2,40 @@
   <ul>
     <li class="input-field inline">
       <a href="./login" *ngIf="!isLogged" [class.activated]="currentUrl == '/login'">
-        <i class="material-icons">portrait</i></a>
+        <i matTooltip="Login" class="material-icons">account_circle</i></a>
     </li>
 
 
     <li>
       <a href="/user-page" *ngIf="isLogged" [class.activated]="currentUrl == '/user-page'">
-        <i class="material-icons">account_circle</i>
+        <i matTooltip="User's profile" class="material-icons">account_circle</i>
       </a>
     </li>
     <li>
       <a routerLink="users" *ngIf="isAdmin()" [class.activated]="currentUrl == '/users'">
-        <i class="material-icons">supervised_user_circle</i>
+        <i matTooltip="Users" class="material-icons">supervised_user_circle</i>
       </a>
     </li>
     <li>
       <a routerLink="/leave-requests" *ngIf="isLogged" [class.activated]="currentUrl == '/leave-requests'">
-        <i class="material-icons">library_books</i>
+        <i matTooltip="Leave requests list" class="material-icons">library_books</i>
       </a>
     </li>
     <li>
       <a routerLink="/leave-request-types" *ngIf="isLogged" [class.activated]="currentUrl == '/leave-request-types'">
-        <i class="material-icons">message</i>
+        <i matTooltip="Leave request types list" class="material-icons">message</i>
       </a>
     </li>
     <li>
       <a routerLink="/list-holidays" *ngIf="isLogged" [class.activated]="currentUrl == '/list-holidays'">
-        <i class="material-icons">date_range</i>
+        <i matTooltip="Holidays list" class="material-icons">date_range</i>
       </a>
     </li>
 
     <!--Exit button-->
     <li>
       <a href="#!" *ngIf="isLogged" (click)="logout()">
-        <i class="material-icons">exit_to_app</i>
+        <i matTooltip="Logout" class="material-icons">exit_to_app</i>
       </a>
     </li>
     <!--Exit button-->

@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { DataSource , CdkTableModule} from '@angular/cdk/table';
@@ -27,8 +27,10 @@ import { EditComponent } from './leave-request-types/edit/edit.component';
 import { EditLeaveRequestComponent } from './leave-request/edit-leave-request/edit-leave-request.component';
 import {ListHolidayComponent} from './holidays/list-holiday/list-holiday.component';
 import {CreateHolidayComponent} from './holidays/create-holiday/create-holiday.component';
-
-
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { FilterdataPipe } from './filterdata.pipe';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -50,17 +52,26 @@ import {CreateHolidayComponent} from './holidays/create-holiday/create-holiday.c
     EditComponent,
     EditLeaveRequestComponent,
     ListHolidayComponent,
-    CreateHolidayComponent
+    CreateHolidayComponent,
+    FilterdataPipe
   ],
   imports: [
+    FilterPipeModule,
     BrowserModule,
+    ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    MatTooltipModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       {
         path: 'edit-leave-request',
         canActivate: [AuthGuard],
         component: EditLeaveRequestComponent
+      },
+      {
+        path: 'app-edit',
+        component: EditComponent
       },
       {
         path: 'app-create',
