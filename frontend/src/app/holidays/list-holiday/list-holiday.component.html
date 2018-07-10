@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <h4>>Holidays list</h4>
-  <button class="material-icons" (click)="addHoliday()">add</button>
+  <button matTooltip="Create holiday" class="material-icons" (click)="addHoliday()">add</button>
   <table>
     <thead>
     <tr>
@@ -16,10 +16,10 @@
       <td>{{holiday.id}}</td>
       <td>{{holiday.name}}</td>
       <td>{{holiday.date}}</td>
-      <td><button class="material-icons" (click)="updateHoliday(holiday.id)">edit</button></td>
-      <td><button class="material-icons" (click)="deleteHoliday(holiday.id)">cancel</button></td>
+      <td><button matTooltip="Edit holiday" class="material-icons" (click)="updateHoliday(holiday.id)">edit</button></td>
+      <td><button matTooltip="Delete holiday" class="material-icons" (click)="deleteHoliday(holiday.id)">delete</button></td>
     </tr>
     </tbody>
   </table>
-  <button class="material-icons" (click)="deleteAllHolidays()">delete</button>
+  <button matTooltip="Delete all holidays" class="material-icons" (click)="deleteAllHolidays()">delete</button>
 </div>

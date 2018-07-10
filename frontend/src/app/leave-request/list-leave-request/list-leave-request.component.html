@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <h4>>Leave request list</h4>
-  <button class="material-icons" (click)="addLeaveRequest()">add</button>
+  <button matTooltip="Create leave request" class="material-icons" (click)="addLeaveRequest()">add</button>
 
 
   <table>
@@ -30,12 +30,12 @@
       <td>{{leaveRequest.period}}</td>
       <td>{{leaveRequest.requestDate}}</td>
       <td>{{leaveRequest.status}}</td>
-      <td><button class="material-icons"  *ngIf="isAdmin() && leaveRequest.status === 'pending'"  (click)="approve(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">check</button></td>
-      <td><button class="material-icons" *ngIf="leaveRequest.status != 'approved'" (click)="updateLvReq(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">edit</button></td>
-      <td><button class="material-icons" *ngIf="leaveRequest.status != 'approved'" (click)="deleteLvReq(leaveRequest.id)">delete</button></td>
-      <td><button class="material-icons" (click)="download(leaveRequest.id, leaveRequest.user.surname, leaveRequest.user.name, leaveRequest.leaveRequestType.name)">cloud_download</button></td>
+      <td><button matTooltip="Approve" class="material-icons"  *ngIf="isAdmin() && leaveRequest.status === 'pending'"  (click)="approve(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">check</button></td>
+      <td><button matTooltip="Edit leave request" class="material-icons" *ngIf="leaveRequest.status != 'approved'" (click)="updateLvReq(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">edit</button></td>
+      <td><button matTooltip="Delete leave request" class="material-icons" *ngIf="leaveRequest.status != 'approved'" (click)="deleteLvReq(leaveRequest.id)">delete</button></td>
+      <td><button matTooltip="Download doc" class="material-icons" (click)="download(leaveRequest.id, leaveRequest.user.surname, leaveRequest.user.name, leaveRequest.leaveRequestType.name)">cloud_download</button></td>
     </tr>
     </tbody>
   </table>
-  <button class="material-icons" (click)="deleteAllLvReqs(leaveRequest.id)">delete</button>
+  <button matTooltip="Delete all leave requests" class="material-icons" (click)="deleteAllLvReqs(leaveRequest.id)">delete</button>
 </div>

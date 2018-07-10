@@ -51,10 +51,10 @@
           <label class="isd-lbl" for="empDate">Employment date</label>
         </td>
         <td class="right">
-          <button class="material-icons" *ngIf="disableTextbox" (click)="toggleDisable()">edit</button>
-          <button type="submit" class="material-icons" *ngIf="!disableTextbox">save</button>
+          <button matTooltip="Edit" class="material-icons" *ngIf="disableTextbox" (click)="toggleDisable()">edit</button>
+          <button matTooltip="Save" type="submit" class="material-icons" *ngIf="!disableTextbox">save</button>
           <div class="divider"></div>
-          <button class="material-icons" *ngIf="!disableTextbox" (click)="cancel()">cancel</button>
+          <button matTooltip="Cancel" class="material-icons" *ngIf="!disableTextbox" (click)="cancel()">cancel</button>
         </td>
       </tr>
       </tbody>

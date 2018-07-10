@@ -29,7 +29,8 @@ import {ListHolidayComponent} from './holidays/list-holiday/list-holiday.compone
 import {CreateHolidayComponent} from './holidays/create-holiday/create-holiday.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FilterdataPipe } from './filterdata.pipe';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -60,6 +61,8 @@ import { FilterdataPipe } from './filterdata.pipe';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    MatTooltipModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       {
         path: 'edit-leave-request',
