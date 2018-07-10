@@ -1,9 +1,8 @@
-///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
+
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {User} from '../../models/user.model';
 import * as FileSaver from 'file-saver';
 import {User} from '../../user';
 import {LeaveRequestType} from '../../leaveRequestType';
