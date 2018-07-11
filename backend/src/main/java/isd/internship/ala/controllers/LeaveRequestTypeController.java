@@ -26,7 +26,7 @@ public class LeaveRequestTypeController {
     public ResponseEntity<String> getById(@PathVariable("id") int id) {
         leaveRequestTypeService.getById(id);
 
-        return new ResponseEntity<>("Request leave request type id", HttpStatus.OK);
+        return new ResponseEntity<>("Request leave request type with id " + id, HttpStatus.OK);
     }
 
 
@@ -39,13 +39,14 @@ public class LeaveRequestTypeController {
         return new ResponseEntity<>("Request type has been deleted", HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/cr")
     public ResponseEntity<String> create(@RequestBody LeaveRequestType leaveRequestType) {
         leaveRequestTypeService.create(leaveRequestType);
+
         return new ResponseEntity<>("Leave request type saved", HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<LeaveRequestType> update(@PathVariable("id") int id, @RequestBody LeaveRequestType leaveRequestType) {
         leaveRequestTypeService.update(id, leaveRequestType);
 
