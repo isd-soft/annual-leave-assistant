@@ -9,7 +9,6 @@ import {User} from './user';
 export class LeaveRequestTypeService {
 
   private baseUrl = 'http://localhost:8088/ala/leaveRequestTypes';
-  private userSearchUrl = 'http://localhost:8088/ala/users/search';
 
   constructor(private http: HttpClient) {
   }
@@ -23,11 +22,11 @@ export class LeaveRequestTypeService {
   }
 
   createLeaveRequestType(leaverequesttype: LeaveRequestType) {
-    return this.http.post(this.baseUrl + '/create', leaverequesttype);
+    return this.http.post(this.baseUrl + '/cr', leaverequesttype);
   }
 
   updateLeaveRequestType(leaverequesttype: LeaveRequestType) {
-    return this.http.put(this.baseUrl + '/update/' + leaverequesttype.id, leaverequesttype);
+    return this.http.put(this.baseUrl + '/edit/' + leaverequesttype.id, leaverequesttype);
   }
 
   deleteLeaveRequestType(id: number) {

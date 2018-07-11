@@ -3,33 +3,42 @@
   <form class="container" ngNativeValidate (ngSubmit)="register()">
     <div class="row">
       <div class="input-field col s6">
-        <input type="text" [(ngModel)]="surname" name="surname" id="surname" required>
-        <label for="surname">Surname</label>
+        <input class="isd-lbl-login" type="text" [(ngModel)]="surname" name="surname" id="surname" required>
+        <label class="isd-lbl-login" for="surname">Surname</label>
       </div>
       <div class="input-field col s6">
-        <input type="text" [(ngModel)]="name" name="name" id="name" required>
-        <label for="name">Name</label>
+        <input class="isd-lbl-login" type="text" [(ngModel)]="name" name="name" id="name" required>
+        <label class="isd-lbl-login" for="name">Name</label>
       </div>
     </div>
 
     <div class="input-field">
-      <input type="email" [(ngModel)]="email" id="email" name="email" required>
-      <label for="email">Email</label>
+      <input class="isd-lbl-login" type="email" [(ngModel)]="email" id="email" name="email" required>
+      <label class="isd-lbl-login" for="email">Email</label>
     </div>
 
     <div class="input-field">
-      <input type="password" [(ngModel)]="password" id="password" name="password" required>
-      <label for="password">Password</label>
+      <input class="isd-lbl-login" type="password" [(ngModel)]="password" id="password" name="password" required>
+      <label class="isd-lbl-login" for="password">Password</label>
     </div>
 
     <div class="input-field">
-      <input type="password" [(ngModel)]="confirmPassword" id="confirmPassword" name="confirmPassword" required compare-to="password">
-      <label for="confirmPassword">Confirm password</label>
+      <input class="isd-lbl-login" type="password" [(ngModel)]="confirmPassword" id="confirmPassword" name="confirmPassword" required compare-to="password">
+      <label class="isd-lbl-login" for="confirmPassword">Confirm password</label>
+    </div>
+
+    <div class="input-field">
+      <input class="isd-lbl-login" type="text" [disabled]="disableTextbox" [(ngModel)]="function_" name="function_" id="function_">
+      <label class="isd-lbl-login" for="function_">Function</label>
+    </div>
+    <div class="input-field">
+      <input class="isd-lbl-login" type="text" [disabled]="disableTextbox" [(ngModel)]="department" name="department" id="department">
+      <label class="isd-lbl-login" for="department">Department</label>
     </div>
 
     <div class="input-field left">
-      <input type="date" [(ngModel)]="empDate" id="empDate" name="empDate" required>
-      <label for="empDate">Employment date</label>
+      <input class="isd-lbl-login" type="date" [(ngModel)]="empDate" id="empDate" name="empDate" required>
+      <label class="isd-lbl-login" for="empDate">Employment date</label>
     </div>
 
     <div class="right">

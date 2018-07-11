@@ -14,17 +14,17 @@ import {Observable} from 'rxjs';
 })
 export class LeaveRequestTypesComponent implements OnInit {
 
-  list: any;
   leaveRequestType: LeaveRequestType[];
 
   constructor(private http: HttpClient, private router: Router, private requestTypeService: LeaveRequestTypeService) {
   }
 
   ngOnInit() {
-    this.http.get(environment.rootUrl + '/ala/leaveRequestTypes', {observe: 'response'}).toPromise()
-      .then(res => {
-        this.list = res.body;
-      }).catch(err => console.log());
+
+    this.requestTypeService.getLeaveRequestsTypes()
+      .subscribe(data => {
+        this.leaveRequestType = data;
+      });
   }
 
   isAdmin(): boolean {
@@ -47,6 +47,6 @@ export class LeaveRequestTypesComponent implements OnInit {
         console.log(data);
         this.leaveRequestType = this.leaveRequestType.filter(lt => lt !== requestType);
       }, error1 => console.log(error));
-     window.location.reload();
+    window.location.reload();
   }
 }
