@@ -27,7 +27,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-
+  isAdmin():boolean{
+    return localStorage.getItem('role') == 'ADMIN';
+  }
 
 
   decodeToken(token: string): any {
@@ -61,7 +63,11 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('empDate', dateString);
 
           location.reload();
-          this.router.navigate(['/users']);
+          if (this.isAdmin()) {
+            this.router.navigate(['/users']);
+          } else {
+            this.router.navigate(['/leave-requests']);
+          }
         } else {
           console.log(res.body['message']);
           window.alert(res.body['message']);
