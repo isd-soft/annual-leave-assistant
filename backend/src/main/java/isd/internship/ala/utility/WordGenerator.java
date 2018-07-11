@@ -8,14 +8,8 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class WordGenerator {
 
@@ -32,9 +26,30 @@ public class WordGenerator {
 
     public ByteArrayInputStream generateNewWord(Map<String, Object> map, String requestType ) {
 
+        File templates_path = new File(System.getProperty("user.home") + "/properties.txt");
+        Scanner in = null;
+        String path = null;
+
+        try {
+            in = new Scanner(templates_path);
+            while(in.hasNext()){
+
+                String line=in.nextLine();
+                if(line.contains("template_path"))
+                    path = line;
+                break;
+            }
+
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String[] splitString = path.split("=");
+        System.out.println(splitString[1]);
+
+
         Map<String, String> templates = new HashMap<String, String>() {{
             for(int i = 0; i < leaveRequestTypes.size(); i++) {
-                put(leaveRequestTypes.get(i).getName(), "C:\\Users\\Miron\\Desktop\\concediu" + leaveRequestTypes.get(i).getName() + ".docx");
+                put(leaveRequestTypes.get(i).getName(), splitString[1] + leaveRequestTypes.get(i).getName() + ".docx");
             }
         }};
 
