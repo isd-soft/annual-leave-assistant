@@ -178,6 +178,8 @@ public class LeaveRequestController {
                     foundLeaveRequest.setEndDate(leaveRequest.getEndDate());
                     foundLeaveRequest.setStartDate(leaveRequest.getStartDate());
 
+                    //leaveRequestService.checkForHoliday(foundLeaveRequest);
+
                     emailService.sendUserNotification(foundLeaveRequest.getUser());
 
                     System.out.println("Approved");
@@ -190,7 +192,7 @@ public class LeaveRequestController {
                 }
 
 
-                if(leaveRequestService.alreadyRequested(foundLeaveRequest, foundLeaveRequest.getUser())){
+                if(leaveRequestService.alreadyRequested(foundLeaveRequest, foundLeaveRequest.getUser()) && (foundLeaveRequest.getLeaveRequestType().getId() != 1)){
                     result.put("message", "These days are already taken!");
                     return ResponseEntity.status(409).body(result);
                 }
