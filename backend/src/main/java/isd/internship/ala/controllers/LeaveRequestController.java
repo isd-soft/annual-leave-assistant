@@ -189,17 +189,24 @@ public class LeaveRequestController {
                     foundLeaveRequest.setStartDate(leaveRequest.getStartDate());
                 }
 
+
+                if(leaveRequestService.alreadyRequested(foundLeaveRequest, foundLeaveRequest.getUser())){
+                    result.put("message", "These days are already taken!");
+                    return ResponseEntity.status(409).body(result);
+                }
+
+
                 String msg = leaveRequestService.check(leaveRequest, foundLeaveRequest.getLeaveRequestType(), foundLeaveRequest.getUser());
                 if(!msg.equals("Accepted")){
                     result.put("message", msg);
-                    return ResponseEntity.ok().body(result);
+                    return ResponseEntity.status(409).body(result);
                 }
+
 
                 if(foundLeaveRequest.getLeaveRequestType().getName().equals("Annual")){
                     int requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 1;
                     foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
                 }
-
 
                 leaveRequestService.create(foundLeaveRequest);
                 result.put("message", "LeaveRequest Data updated");

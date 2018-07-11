@@ -15,7 +15,7 @@ public interface LeaveRequestService {
 //    List<LeaveRequest> findAllPendingByUserId (User userId, Status statusId );
 //    LeaveRequest getById(Integer id);
     LeaveRequest create(LeaveRequest leaveRequest);
-//    int getTotalDays(Long user_id, Integer year);
+    int getTotalDays(User user, Integer year, String type);
     boolean taked14days(Long user_id, Integer year);
     boolean alreadyRequested(LeaveRequest leaveRequest, User user);
     List<HashMap<String, String>> getByUserId(Long id);
