@@ -5,7 +5,7 @@
 
   <table>
     <thead>
-    <input type="text" placeholder="search" [(ngModel)]="queryString">
+    <input class="isd-lbl-login" type="text" placeholder="search" [(ngModel)]="queryString">
     <tr>
       <th>ID</th>
       <th>Employee</th>
@@ -38,5 +38,4 @@
     </tr>
     </tbody>
   </table>
-  <button matTooltip="Delete all leave requests" class="material-icons" (click)="deleteAllLvReqs(leaveRequest.id)">delete</button>
 </div>
