@@ -87,7 +87,7 @@ public class LeaveRequestController {
 
                 leaveRequest.setUser(foundUser);
 
-                if(!leaveRequestService.alreadyRequested(leaveRequest) && (foundUser.getAvailDays() !=  0)) {
+                if(!leaveRequestService.alreadyRequested(leaveRequest, foundUser) && (foundUser.getAvailDays() !=  0)) {
                     LeaveRequestType type = leaveRequestTypeRepository.findById(leaveRequest.getLeaveRequestType().getId()).get();
                     leaveRequest.setLeaveRequestType(type);
                     leaveRequest.setStatus(pending);
@@ -100,7 +100,7 @@ public class LeaveRequestController {
                     String msg = leaveRequestService.check(leaveRequest, type, foundUser);
                     if(!msg.equals("Accepted")){
                         result.put("message", msg);
-                        return ResponseEntity.ok().body(result);
+                        return ResponseEntity.status(409).body(result);
                     }
 
                     User user = leaveRequest.getUser();
@@ -115,7 +115,7 @@ public class LeaveRequestController {
                     return ResponseEntity.status(201).body(result);
                 } else {
                     result.put("message", "You've already requested these days or there are no available days left for you!");
-                    return ResponseEntity.status(404).body(result);
+                    return ResponseEntity.status(409).body(result);
                 }
 
             } catch(NoSuchElementException e) {

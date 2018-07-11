@@ -60,17 +60,17 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     }
 
     @Override
-    public boolean alreadyRequested(LeaveRequest leaveRequest){
+    public boolean alreadyRequested(LeaveRequest leaveRequest, User user){
         List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
         LocalDate startDate = leaveRequest.getStartDate();
         LocalDate endDate = leaveRequest.getEndDate();
         for(LeaveRequest lr: leaveRequests) {
-            if(lr.getUser().equals(leaveRequest.getUser()) && ( lr.getStartDate().equals(startDate) ||
+            if(lr.getUser().equals(user) && ( (lr.getStartDate().equals(startDate) ||
                                                                 lr.getEndDate().equals(endDate)) ||
                                                                 lr.getStartDate().equals(endDate) ||
                                                                 lr.getEndDate().equals(startDate) ||
                     (startDate.isBefore(lr.getEndDate()) && startDate.isAfter(lr.getStartDate())) ||
-                    (endDate.isBefore(lr.getEndDate()) && endDate   .isAfter(lr.getStartDate()))){
+                    (endDate.isBefore(lr.getEndDate()) && endDate   .isAfter(lr.getStartDate()))) ){
                 return true;
             }
         }

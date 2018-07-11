@@ -17,7 +17,7 @@ public interface LeaveRequestService {
     LeaveRequest create(LeaveRequest leaveRequest);
 //    int getTotalDays(Long user_id, Integer year);
     boolean taked14days(Long user_id, Integer year);
-    boolean alreadyRequested(LeaveRequest leaveRequest);
+    boolean alreadyRequested(LeaveRequest leaveRequest, User user);
     List<HashMap<String, String>> getByUserId(Long id);
     List<HashMap<String, String>> getAll();
     String check(LeaveRequest leaveRequest, LeaveRequestType type, User foundUser);
