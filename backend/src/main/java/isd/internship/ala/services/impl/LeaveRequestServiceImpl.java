@@ -1,9 +1,7 @@
 package isd.internship.ala.services.impl;
 
-import isd.internship.ala.models.LeaveRequest;
-import isd.internship.ala.models.LeaveRequestType;
-import isd.internship.ala.models.Status;
-import isd.internship.ala.models.User;
+import isd.internship.ala.models.*;
+import isd.internship.ala.repositories.HolidayRepository;
 import isd.internship.ala.repositories.LeaveRequestRepository;
 import isd.internship.ala.repositories.StatusRepository;
 import isd.internship.ala.services.LeaveRequestMaximumDays;
@@ -26,6 +24,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     private LeaveRequestRepository leaveRequestRepository;
     private StatusRepository statusRepository;
     private UserService userService;
+    private HolidayRepository holidayRepository;
 
     @Override
     public LeaveRequest create(LeaveRequest leaveRequest) {
@@ -239,9 +238,23 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                 return "You request too many days!";
         }
 
-
-
         return "Accepted";
+    }
+
+    @Override
+    public void checkForHoliday(LeaveRequest leaveRequest){
+        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
+        List<Holiday> holidays = holidayRepository.findAll();
+        int result = 0;
+
+        for(LeaveRequest lr : leaveRequests){
+            for(Holiday holiday : holidays)
+                if(holiday.getDate().isAfter(lr.getStartDate()) && holiday.getDate().isBefore(lr.getEndDate()))
+                    result++;
+        }
+
+        User user = leaveRequest.getUser();
+        user.setAvailDays(user.getAvailDays() + result);
     }
 
 }
