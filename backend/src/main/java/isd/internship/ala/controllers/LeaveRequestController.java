@@ -178,14 +178,19 @@ public class LeaveRequestController {
                     foundLeaveRequest.setEndDate(leaveRequest.getEndDate());
                     foundLeaveRequest.setStartDate(leaveRequest.getStartDate());
 
-                    //leaveRequestService.checkForHoliday(foundLeaveRequest);
-
                     emailService.sendUserNotification(foundLeaveRequest.getUser());
 
                     System.out.println("Approved");
                 } else {
                     if(datesChanged){
-                        foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() + Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 1);
+                        int requestedDays = 0;
+
+                        if(Period.between(foundLeaveRequest.getStartDate(),foundLeaveRequest.getEndDate()).getMonths() == 0)
+                            requestedDays = Period.between(foundLeaveRequest.getStartDate(),foundLeaveRequest.getEndDate()).getDays() + 1;
+                        else
+                            requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getMonths() * 30 + Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 2;
+
+                        foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() + requestedDays);
                     }
                     foundLeaveRequest.setEndDate(leaveRequest.getEndDate());
                     foundLeaveRequest.setStartDate(leaveRequest.getStartDate());
@@ -194,7 +199,7 @@ public class LeaveRequestController {
 
                 if(leaveRequestService.alreadyRequested(foundLeaveRequest, foundLeaveRequest.getUser()) && (foundLeaveRequest.getLeaveRequestType().getId() != 1)){
                     result.put("message", "These days are already taken!");
-                    return ResponseEntity.status(409).body(result);
+                    return ResponseEntity.status(500).body(result);
                 }
 
 
@@ -205,10 +210,15 @@ public class LeaveRequestController {
                 }
 
 
-                if(foundLeaveRequest.getLeaveRequestType().getName().equals("Annual")){
-                    int requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 1;
+                    int requestedDays = 0;
+
+                    if(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getMonths() == 0)
+                        requestedDays = Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1;
+                    else
+                        requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2;
+
                     foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
-                }
+
 
                 leaveRequestService.create(foundLeaveRequest);
                 result.put("message", "LeaveRequest Data updated");
