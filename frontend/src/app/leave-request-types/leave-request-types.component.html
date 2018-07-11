@@ -2,11 +2,11 @@
   <h4>> Leave request types</h4>
   <button matTooltip="Create leave request type" class="material-icons" *ngIf="isAdmin()" (click)="addRequestType()">add</button>
   <ul class="collection container">
-    <li class="collection-item avatar blue-grey lighten-5" *ngFor="let requestType of list">
+    <li class="collection-item avatar blue-grey lighten-5" *ngFor="let requestType of leaveRequestType">
       <!--<i class="material-icons circle blue-grey">chevron_right</i>-->
-      <span class="title">{{requestType["name"]}}</span>
+      <span class="title">{{requestType.name}}</span>
       <p>
-        {{requestType["description"]}}
+        {{requestType.description}}
       </p>
       <button matTooltip="Edit leave request type" class="material-icons" *ngIf="isAdmin()" (click)='editRequestType(requestType)'>edit</button>
       <div class="divider"></div>

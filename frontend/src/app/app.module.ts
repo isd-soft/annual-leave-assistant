@@ -17,7 +17,6 @@ import {Interceptors} from './models/interceptors';
 import {LeaveRequestTypesComponent} from './leave-request-types/leave-request-types.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {UsersComponent} from './users/users.component';
-import {AddUserComponent} from './users/add-user/add-user.component';
 import {ListUserComponent} from './users/list-user/list-user.component';
 import {EditUserComponent} from './users/edit-user/edit-user.component';
 import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/create-leave-request.component';
@@ -45,7 +44,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ListLeaveRequestComponent,
     UserPageComponent,
     LeaveRequestTypesComponent,
-    //  AddUserComponent,
     ListUserComponent,
     EditUserComponent,
     CreateComponent,

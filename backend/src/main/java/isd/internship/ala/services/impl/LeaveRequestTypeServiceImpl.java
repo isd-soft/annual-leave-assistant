@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LeaveRequestTypeServiceImpl implements LeaveRequestTypeService {
@@ -30,12 +31,19 @@ public class LeaveRequestTypeServiceImpl implements LeaveRequestTypeService {
 
     @Override
     public LeaveRequestType update(int id, LeaveRequestType leaveRequestType) {
-        LeaveRequestType leaveRequestTypeNew = leaveRequestTypeRepository.findById(id).get();
 
-        leaveRequestTypeNew.setName(leaveRequestType.getName());
-        leaveRequestTypeNew.setDescription(leaveRequestType.getDescription());
 
-        return leaveRequestTypeRepository.save(leaveRequestTypeNew);
+        Optional<LeaveRequestType> requestTypeData = leaveRequestTypeRepository.findById(id);
+
+        if (requestTypeData.isPresent()) {
+            LeaveRequestType newLeaveRequestType = requestTypeData.get();
+            newLeaveRequestType.setName(leaveRequestType.getName());
+            newLeaveRequestType.setDescription(leaveRequestType.getDescription());
+            return leaveRequestTypeRepository.save(newLeaveRequestType);
+        }
+        else {
+            return leaveRequestType;
+        }
     }
 
     @Override
