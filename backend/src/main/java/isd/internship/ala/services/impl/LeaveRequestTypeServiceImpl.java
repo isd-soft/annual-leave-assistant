@@ -30,21 +30,10 @@ public class LeaveRequestTypeServiceImpl implements LeaveRequestTypeService {
     }
 
     @Override
-    public LeaveRequestType update(int id, LeaveRequestType leaveRequestType) {
-
-
-        Optional<LeaveRequestType> requestTypeData = leaveRequestTypeRepository.findById(id);
-
-        if (requestTypeData.isPresent()) {
-            LeaveRequestType newLeaveRequestType = requestTypeData.get();
-            newLeaveRequestType.setName(leaveRequestType.getName());
-            newLeaveRequestType.setDescription(leaveRequestType.getDescription());
-            return leaveRequestTypeRepository.save(newLeaveRequestType);
-        }
-        else {
-            return leaveRequestType;
-        }
+    public LeaveRequestType update(Integer id, LeaveRequestType leaveRequestType) {
+        return leaveRequestTypeRepository.save(leaveRequestType);
     }
+
 
     @Override
     public void deleteById(int id) {

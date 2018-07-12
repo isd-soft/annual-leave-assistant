@@ -2,11 +2,13 @@ package isd.internship.ala.controllers;
 
 import isd.internship.ala.models.LeaveRequestType;
 import isd.internship.ala.services.LeaveRequestTypeService;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -23,10 +25,8 @@ public class LeaveRequestTypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getById(@PathVariable("id") int id) {
-        leaveRequestTypeService.getById(id);
-
-        return new ResponseEntity<>("Request leave request type with id " + id, HttpStatus.OK);
+    public ResponseEntity<LeaveRequestType> getById(@PathVariable("id") int id) {
+        return new ResponseEntity<>(leaveRequestTypeService.getById(id), HttpStatus.OK);
     }
 
 
@@ -43,14 +43,17 @@ public class LeaveRequestTypeController {
     public ResponseEntity<String> create(@RequestBody LeaveRequestType leaveRequestType) {
         leaveRequestTypeService.create(leaveRequestType);
 
-        return new ResponseEntity<>("Leave request type saved", HttpStatus.OK);
+        return new ResponseEntity<>("Leave request type saved", HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<LeaveRequestType> update(@PathVariable("id") int id, @RequestBody LeaveRequestType leaveRequestType) {
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<HashMap<String, String>> update(@PathVariable("id") Integer id,@RequestBody LeaveRequestType leaveRequestType) {
+        HashMap<String, String> response = new HashMap<>();
+
+        response.put("message", "Updated successfuly");
         leaveRequestTypeService.update(id, leaveRequestType);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 }

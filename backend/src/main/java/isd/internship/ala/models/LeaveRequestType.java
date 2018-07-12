@@ -10,7 +10,7 @@ public class LeaveRequestType {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Integer id;
+    private int id;
 
     @Column(name = "NAME")
     private String name;

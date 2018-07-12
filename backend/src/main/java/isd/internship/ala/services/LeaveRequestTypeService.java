@@ -8,7 +8,7 @@ public interface LeaveRequestTypeService {
     List<LeaveRequestType> getAll();
     LeaveRequestType getById(int id);
     LeaveRequestType create(LeaveRequestType leaveRequestType);
-    LeaveRequestType update(int id, LeaveRequestType leaveRequestType);
+    LeaveRequestType update(Integer id, LeaveRequestType leaveRequestType);
     void deleteById(int id);
     void deleteAll();
     LeaveRequestType findByName(String name);
