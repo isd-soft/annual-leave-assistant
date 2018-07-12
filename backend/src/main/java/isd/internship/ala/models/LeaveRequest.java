@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -46,12 +47,14 @@ public class LeaveRequest {
     private Status status;
 
     @Column(name = "REQUEST_DATE")
-    private Date requestDate;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate requestDate;
 
     public LeaveRequest() {
     }
 
-    public LeaveRequest(LeaveRequestType leaveRequestType, User user, LocalDate startDate, LocalDate endDate, Status status, Date requestDate) {
+    public LeaveRequest(LeaveRequestType leaveRequestType, User user, LocalDate startDate, LocalDate endDate, Status status, LocalDate requestDate) {
         this.leaveRequestType = leaveRequestType;
         this.user = user;
         this.startDate = startDate;
@@ -108,11 +111,11 @@ public class LeaveRequest {
         this.status = status;
     }
 
-    public Date getRequestDate() {
+    public LocalDate getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(Date requestDate) {
+    public void setRequestDate(LocalDate requestDate) {
         this.requestDate = requestDate;
     }
 }
