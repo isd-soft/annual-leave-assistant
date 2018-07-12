@@ -1,4 +1,3 @@
-
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
@@ -15,6 +14,7 @@ import {LeaveRequestType} from '../../leaveRequestType';
 export class ListLeaveRequestComponent implements OnInit {
 
   leaveRequests: any;
+  availDays: number;
   surname: string;
   user: User[];
 
@@ -26,7 +26,7 @@ export class ListLeaveRequestComponent implements OnInit {
     this.surname = null;
   }
 
-    isAdmin(): boolean {
+  isAdmin(): boolean {
     return localStorage.getItem('role') === 'ADMIN';
   }
 
@@ -53,7 +53,7 @@ export class ListLeaveRequestComponent implements OnInit {
   }
 
 
-  addLeaveRequest(){
+  addLeaveRequest() {
     localStorage.removeItem('createUserId');
     this.router.navigate(['create-leave-request']);
   }
@@ -83,7 +83,10 @@ export class ListLeaveRequestComponent implements OnInit {
 
   reloadData() {
     this.http.get(environment.rootUrl + '/ala/leaveRequests', {observe: 'response'})
-      .toPromise().then(res => this.leaveRequests = res.body).catch(err => console.log(err));
+      .toPromise().then(res => {
+      this.availDays = res.body['availDays'];
+      this.leaveRequests = res.body;
+    }).catch(err => console.log(err));
   }
 
   download(id: any, user: User, requestType: LeaveRequestType) {
@@ -94,7 +97,7 @@ export class ListLeaveRequestComponent implements OnInit {
         console.log(data);
         const blob = new Blob([data], {type: 'application/octet-stream'});
         FileSaver.saveAs(blob,
-           user.toString() + ' ' + requestType.toString() + '.docx');
+          user.toString() + ' ' + requestType.toString() + '.docx');
       });
   }
 
