@@ -37,6 +37,7 @@ export class ListHolidayComponent implements OnInit {
       .subscribe( data => {
         console.log(data);
       }, error1 => console.log(error));
+    window.location.reload();
   }
 
 }
