@@ -26,7 +26,7 @@ export class LeaveRequestTypeService {
   }
 
   updateLeaveRequestType(leaverequesttype: LeaveRequestType) {
-    return this.http.put(this.baseUrl + '/edit/' + leaverequesttype.id, leaverequesttype);
+    return this.http.put(this.baseUrl + '/update/' + leaverequesttype.id, leaverequesttype);
   }
 
   deleteLeaveRequestType(id: number) {

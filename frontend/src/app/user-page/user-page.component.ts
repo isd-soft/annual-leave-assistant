@@ -35,14 +35,14 @@ export class UserPageComponent implements OnInit {
 
   disableTextbox = true;
 
-  completeFields(){
+  completeFields() {
     this.http.get(environment.rootUrl + '/ala/users/' + localStorage.getItem('id'), {observe: 'response'}).toPromise()
-      .then( res => {
+      .then(res => {
         this.id = res.body['id'];
         this.surname = res.body['surname'];
         this.name = res.body['name'];
         this.email = res.body['email'];
-        this.password = "";
+        this.password = '';
         this.empDate = res.body['empDate'];
         this.role = res.body['role'];
         this.function_ = res.body['function'];

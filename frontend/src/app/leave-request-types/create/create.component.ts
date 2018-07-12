@@ -32,6 +32,7 @@ export class CreateComponent implements OnInit {
     this.submitted = true;
     this.saveRequestType();
     this.router.navigate(['leave-request-types']);
+    window.location.reload();
   }
 
 }

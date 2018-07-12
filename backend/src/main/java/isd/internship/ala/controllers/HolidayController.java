@@ -3,6 +3,7 @@ package isd.internship.ala.controllers;
 import isd.internship.ala.models.Holiday;
 import isd.internship.ala.services.HolidayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,8 @@ public class HolidayController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<HashMap<String, String>>> getAll() {
-        return ResponseEntity.status(200).body(holidayService.getAll());
+    public ResponseEntity<List<Holiday>> getAll() {
+        return new ResponseEntity<>(holidayService.getAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -32,15 +33,23 @@ public class HolidayController {
         return holidayService.getById(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteById(@PathVariable(name = "id") Integer id) {
-
-        holidayService.deleteById(id);
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    public void deleteById(@PathVariable(name = "id") Integer id) {
+//
+//        holidayService.deleteById(id);
+//    }
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
     public ResponseEntity<Holiday> create (@RequestBody Holiday holiday) {
         return ResponseEntity.status(201).body(holidayService.create(holiday));
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteHoliday(@PathVariable("id") int id) {
+
+        holidayService.deleteById(id);
+
+        return new ResponseEntity<>("Holiday has been deleted", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

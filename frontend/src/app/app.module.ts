@@ -30,6 +30,9 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FilterdataPipe } from './filterdata.pipe';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { EditHolidayComponent } from './holidays/edit-holiday/edit-holiday.component';
+
 import { Title } from '@angular/platform-browser';
 
 @NgModule({
@@ -51,7 +54,8 @@ import { Title } from '@angular/platform-browser';
     EditLeaveRequestComponent,
     ListHolidayComponent,
     CreateHolidayComponent,
-    FilterdataPipe
+    FilterdataPipe,
+    EditHolidayComponent
   ],
   imports: [
     FilterPipeModule,
