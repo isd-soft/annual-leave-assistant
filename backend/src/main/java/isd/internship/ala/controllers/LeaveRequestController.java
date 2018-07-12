@@ -178,17 +178,18 @@ public class LeaveRequestController {
                     foundLeaveRequest.setEndDate(leaveRequest.getEndDate());
                     foundLeaveRequest.setStartDate(leaveRequest.getStartDate());
 
+                    //leaveRequestService.checkForHoliday(foundLeaveRequest);
+
                     emailService.sendUserNotification(foundLeaveRequest.getUser());
 
                     System.out.println("Approved");
                 } else {
                     if(datesChanged){
                         int requestedDays = 0;
-
                         if(Period.between(foundLeaveRequest.getStartDate(),foundLeaveRequest.getEndDate()).getMonths() == 0)
-                            requestedDays = Period.between(foundLeaveRequest.getStartDate(),foundLeaveRequest.getEndDate()).getDays() + 1;
+                        requestedDays = Period.between(foundLeaveRequest.getStartDate(),foundLeaveRequest.getEndDate()).getDays() + 1;
                         else
-                            requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getMonths() * 30 + Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 2;
+                        requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getMonths() * 30 + Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 2;
 
                         foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() + requestedDays);
                     }
@@ -210,15 +211,14 @@ public class LeaveRequestController {
                 }
 
 
-                    int requestedDays = 0;
+                int requestedDays = 0;
 
-                    if(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getMonths() == 0)
-                        requestedDays = Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1;
-                    else
-                        requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2;
+                if(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getMonths() == 0)
+                    requestedDays = Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1;
+                else
+                    requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2;
 
-                    foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
-
+                foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
 
                 leaveRequestService.create(foundLeaveRequest);
                 result.put("message", "LeaveRequest Data updated");
