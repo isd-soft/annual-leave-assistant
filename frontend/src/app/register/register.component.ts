@@ -22,6 +22,9 @@ export class RegisterComponent implements OnInit {
   email: string;
   password: string;
   empDate: string;
+  function_: string;
+  department: string;
+
 
   register(){
     console.log(this.empDate);
@@ -31,7 +34,9 @@ export class RegisterComponent implements OnInit {
           "name": this.name,
           "email": this.email,
           "password": this.password,
-          "empDate": this.empDate
+          "empDate": this.empDate,
+          "function": this.function_,
+          "department":this.department
         },
         {observe: 'response'})
           .toPromise()
