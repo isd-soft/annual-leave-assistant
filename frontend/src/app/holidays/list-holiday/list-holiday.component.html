@@ -5,7 +5,7 @@
     <thead>
     <tr>
       <th></th>
-      <th>Description</th>
+      <th>Name</th>
       <th>Date</th>
       <th></th>
       <th></th>
@@ -17,9 +17,8 @@
       <td>{{holiday.name}}</td>
       <td>{{holiday.date}}</td>
       <td><button matTooltip="Edit holiday" class="material-icons" (click)="updateHoliday(holiday.id)">edit</button></td>
-      <td><button matTooltip="Delete holiday" class="material-icons" (click)="deleteHoliday(holiday.id)">delete</button></td>
+      <td><button matTooltip="Delete holiday" class="material-icons" (click)="deleteHoliday(holiday)">delete</button></td>
     </tr>
     </tbody>
   </table>
-  <button matTooltip="Delete all holidays" class="material-icons" (click)="deleteAllHolidays()">delete</button>
 </div>

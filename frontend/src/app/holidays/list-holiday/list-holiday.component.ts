@@ -2,9 +2,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {Holidays} from '../../models/holidays';
+import {HolidaysService} from '../../holidays.service';
+import {error} from 'util';
 
 @Component({
   selector: 'app-list-holiday',
@@ -13,36 +16,27 @@ import {environment} from '../../../environments/environment';
 })
 export class ListHolidayComponent implements OnInit {
 
-  holidays: any;
+  holidays: Holidays[];
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private holidayService: HolidaysService) {
   }
 
   ngOnInit() {
-    this.http.get(environment.rootUrl + '/ala/holidays', { observe: 'response' })
-      .toPromise().then(res => { this.holidays = res.body; console.log(res);}).catch(err => console.log(err));
-    console.log(this.holidays);
+    this.holidayService.getHolidays()
+      .subscribe(data => {
+        this.holidays = data;
+      });
   }
 
-  updateHoliday(id: number){
-    localStorage.removeItem('holidayId');
-    // localStorage.setItem('requestId', id);
-    // localStorage.setItem('requestStartDate',);
-    this.router.navigate(['create-holiday']);
-    this.http.put(environment.rootUrl + '/ala/holidays' + id, {observe: 'response'})
-      .toPromise().then(res => console.log(res)).catch(err => console.log(err));
-  }
-
-  addHoliday(){
+  addHoliday() {
     this.router.navigate(['create-holiday']);
   }
 
-
-  deleteHoliday(id: number) {
-    console.log('ID: ' + id);
-    this.http.delete(environment.rootUrl + '/ala/holidays/' + id, {observe: 'response'})
-      .toPromise().then(res => console.log(res)).catch(err => console.log(err));
-    window.location.reload();
+  deleteHoliday(holiday: Holidays): void {
+    this.holidayService.deleteHoliday(holiday.id)
+      .subscribe( data => {
+        console.log(data);
+      }, error1 => console.log(error));
   }
 
 }

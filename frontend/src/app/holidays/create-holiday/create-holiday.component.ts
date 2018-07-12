@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 import DateTimeFormat = Intl.DateTimeFormat;
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
@@ -12,7 +12,8 @@ import {Router} from '@angular/router';
 })
 export class CreateHolidayComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   holidays: any;
   private date: string;
@@ -26,7 +27,7 @@ export class CreateHolidayComponent implements OnInit {
 
 
   reloadData() {
-    }
+  }
 
 
   create() {
@@ -43,9 +44,10 @@ export class CreateHolidayComponent implements OnInit {
 
     if (localStorage.getItem('createHolidayId')) {
       body = {
-        'id': { 'id': localStorage.getItem('createHolidayId')},
+        'id': {'id': localStorage.getItem('createHolidayId')},
         'date': this.date,
-        'name': this.name};
+        'name': this.name
+      };
     } else {
       body = {
         'date': this.date,
@@ -55,7 +57,7 @@ export class CreateHolidayComponent implements OnInit {
     this.http.post(environment.rootUrl + '/ala/holidays/create', body, {observe: 'response'}).toPromise()
       .then(res => {
         if (res.status == 201) {
-          window.alert("Created");
+          window.alert('Created');
           this.router.navigate(['list-holidays']);
         } else {
           window.alert(res.body['message']);

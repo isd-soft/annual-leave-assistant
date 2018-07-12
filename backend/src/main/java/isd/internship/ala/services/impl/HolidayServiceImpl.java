@@ -17,20 +17,12 @@ public class HolidayServiceImpl implements HolidayService {
     private HolidayRepository holidayRepository;
 
     @Override
-    public List<HashMap<String, String>> getAll() {
-        List<HashMap<String, String>> result = new ArrayList<>();
-        List<Holiday> holidays = holidayRepository.findAll();
-        for(Holiday holiday: holidays){
-            HashMap<String, String> day = new HashMap<>();
-            day.put("name", holiday.getName());
-            day.put("date", holiday.getDate().toString());
-            result.add(day);
-        }
-        return result;
+    public List<Holiday> getAll() {
+        return holidayRepository.findAll();
     }
 
     @Override
-    public Holiday getById(Integer id) { return holidayRepository.getOne(id); }
+    public Holiday getById(Integer id) { return holidayRepository.findById(id).get(); }
 
     @Override
     public Holiday create(Holiday holiday) {
