@@ -10,6 +10,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -33,6 +37,16 @@ public class AlaApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		File propertiesFile = new File(System.getProperty("user.home") + "/properties.txt");
+		if(!propertiesFile.exists()) {
+			propertiesFile.createNewFile();
+
+			BufferedWriter writer = new BufferedWriter(new FileWriter(propertiesFile));
+			writer.write("template_path=");
+			writer.close();
+		}
+
 		Role adminRole = roleRepository.findByRole("ADMIN");
 		Role userRole = roleRepository.findByRole("USER");
 

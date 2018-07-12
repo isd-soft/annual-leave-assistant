@@ -1,9 +1,7 @@
 package isd.internship.ala.services.impl;
 
-import isd.internship.ala.models.LeaveRequest;
-import isd.internship.ala.models.LeaveRequestType;
-import isd.internship.ala.models.Status;
-import isd.internship.ala.models.User;
+import isd.internship.ala.models.*;
+import isd.internship.ala.repositories.HolidayRepository;
 import isd.internship.ala.repositories.LeaveRequestRepository;
 import isd.internship.ala.repositories.StatusRepository;
 import isd.internship.ala.services.LeaveRequestMaximumDays;
@@ -26,6 +24,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     private LeaveRequestRepository leaveRequestRepository;
     private StatusRepository statusRepository;
     private UserService userService;
+    private HolidayRepository holidayRepository;
 
     @Override
     public LeaveRequest create(LeaveRequest leaveRequest) {
@@ -33,18 +32,23 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
     }
 
 
-//    @Override
-//    public int getTotalDays(Long user_id, Integer year){
-//        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
-//        int totalDays = 0;
-//        for (LeaveRequest leaveRequest : leaveRequests) {
-//            if (leaveRequest.getUser().getId().equals(user_id) &&
-//                    (leaveRequest.getStartDate().getYear() == leaveRequest.getEndDate().getYear()) &&
-//                    (leaveRequest.getStartDate().getYear() == year))
-//                totalDays += Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays();
-//        }
-//        return totalDays;
-//    }
+    @Override
+    public int getTotalDays(User user, Integer year, String type){
+        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
+        int totalDays = 0;
+        for (LeaveRequest leaveRequest : leaveRequests) {
+            if (leaveRequest.getUser().equals(user) &&
+                    leaveRequest.getLeaveRequestType().getName().equals(type) &&
+                    (leaveRequest.getStartDate().getYear() == leaveRequest.getEndDate().getYear()) &&
+                    (leaveRequest.getStartDate().getYear() == year))
+                if(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getMonths() == 0)
+                    totalDays = Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1;
+                else
+                    totalDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2;
+
+        }
+        return totalDays;
+    }
 
     @Override
     public boolean taked14days(Long user_id, Integer year){
@@ -86,6 +90,12 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
         List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
 
         for(LeaveRequest leaveRequest: leaveRequests){
+            String period = null;
+            if(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getMonths() == 0)
+                period = String.valueOf(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1);
+            else
+                period = String.valueOf(Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2);
+
             if(leaveRequest.getUser().getId().equals(id)){
                 HashMap<String, String> element = new HashMap<>();
                 element.put("id", leaveRequest.getId().toString());
@@ -94,7 +104,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                 element.put("user", leaveRequest.getUser().getSurname() + " " + leaveRequest.getUser().getName());
                 element.put("startDate", leaveRequest.getStartDate().toString());
                 element.put("endDate", leaveRequest.getEndDate().toString());
-                element.put("period", String.valueOf(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1));
+                element.put("period", period);
                 element.put("status", leaveRequest.getStatus().getName());
                 element.put("requestDate", leaveRequest.getRequestDate().toString());
                 result.add(element);
@@ -110,7 +120,13 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
         List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
 
         for(LeaveRequest leaveRequest: leaveRequests){
-                HashMap<String, String> element = new HashMap<>();
+                String period = null;
+                if(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getMonths() == 0)
+                    period = String.valueOf(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1);
+                else
+                    period = String.valueOf(Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2);
+
+            HashMap<String, String> element = new HashMap<>();
                 element.put("id", leaveRequest.getId().toString());
                 element.put("leaveRequestType", leaveRequest.getLeaveRequestType().getName());
                 element.put("leaveRequestTypeId", leaveRequest.getLeaveRequestType().getId().toString());
@@ -118,13 +134,14 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                 element.put("user_id", leaveRequest.getUser().getId().toString());
                 element.put("startDate", leaveRequest.getStartDate().toString());
                 element.put("endDate", leaveRequest.getEndDate().toString());
-                element.put("period", String.valueOf(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1));
+                element.put("period", period);
                 element.put("status", leaveRequest.getStatus().getName());
                 element.put("requestDate", leaveRequest.getRequestDate().toString());
                 result.add(element);
         }
         return result;
     }
+
 
     @Override
     public String check(LeaveRequest leaveRequest,LeaveRequestType type, User foundUser) {
@@ -157,8 +174,87 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
 
 
 
+        if (type.getName().equals("Personal")) {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+
+            System.out.println("LEAVEREQUEST USER: " + foundUser.getName());
+            int days = getTotalDays(foundUser, year, "Personal");
+
+            int requestedDays;
+
+            if(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getMonths() == 0)
+                requestedDays = Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1;
+            else
+                requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2;
+
+            if (days == 90)
+                return "You reached the max number of days for Personal leave requests!";
+
+            if(requestedDays + days > 90)
+                return "You request too many days!";
+        }
+
+
+
+        if (type.getName().equals("Marriage")) {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+
+            System.out.println("LEAVEREQUEST USER: " + foundUser.getName());
+            int days = getTotalDays(foundUser, year, "Marriage");
+            int requestedDays;
+
+            if(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getMonths() == 0)
+                requestedDays = Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1;
+            else
+                requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2;
+
+
+            if (days == 3)
+                return "You reached the max number of days for Marriage leave requests!";
+
+            if(requestedDays + days > 3)
+                return "You request too many days!";
+        }
+
+
+
+        if (type.getName().equals("Paternity")) {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+
+            System.out.println("LEAVEREQUEST USER: " + foundUser.getName());
+            int days = getTotalDays(foundUser, year, "Paternity");
+            int requestedDays;
+
+            if(Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getMonths() == 0)
+                requestedDays = Period.between(leaveRequest.getStartDate(),leaveRequest.getEndDate()).getDays() + 1;
+            else
+                requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2;
+
+
+            if (days == 14)
+                return "You reached the max number of days for Paternal leave requests!";
+
+            if(requestedDays + days > 14)
+                return "You request too many days!";
+        }
 
         return "Accepted";
+    }
+
+    @Override
+    public void checkForHoliday(LeaveRequest leaveRequest){
+        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
+        List<Holiday> holidays = holidayRepository.findAll();
+        int result = 0;
+
+        for(LeaveRequest lr : leaveRequests){
+            for(Holiday holiday : holidays)
+                if(holiday.getDate().isAfter(lr.getStartDate()) && holiday.getDate().isBefore(lr.getEndDate()))
+                    result++;
+        }
+
+        User user = leaveRequest.getUser();
+        user.setAvailDays(user.getAvailDays() + result);
     }
 
 }
