@@ -23,9 +23,11 @@ public class Holiday {
 
     @Column(name = "NAME")
     private String name;
+
+
+    @Column(name = "DATE")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    @Column(name = "DATE")
     private LocalDate date;
 
     public Holiday() {
