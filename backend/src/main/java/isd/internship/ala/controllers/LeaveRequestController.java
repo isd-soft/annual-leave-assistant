@@ -191,14 +191,15 @@ public class LeaveRequestController {
                         else
                         requestedDays = Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getMonths() * 30 + Period.between(foundLeaveRequest.getStartDate(), foundLeaveRequest.getEndDate()).getDays() + 2;
 
-                        foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() + requestedDays);
+                        if(foundLeaveRequest.getStatus().getId().equals(1) && isAdmin)
+                            foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() + requestedDays);
                     }
                     foundLeaveRequest.setEndDate(leaveRequest.getEndDate());
                     foundLeaveRequest.setStartDate(leaveRequest.getStartDate());
                 }
 
 
-                if(leaveRequestService.alreadyRequested(foundLeaveRequest, foundLeaveRequest.getUser()) && (foundLeaveRequest.getLeaveRequestType().getId() != 1)){
+                if(leaveRequestService.alreadyRequested(leaveRequest, leaveRequest.getUser()) && (leaveRequest.getLeaveRequestType().getId() != 1)){
                     result.put("message", "These days are already taken!");
                     return ResponseEntity.status(500).body(result);
                 }
@@ -218,7 +219,8 @@ public class LeaveRequestController {
                 else
                     requestedDays = Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getMonths() * 30 + Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 2;
 
-                foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
+                if(foundLeaveRequest.getStatus().getId().equals(1) && isAdmin)
+                    foundLeaveRequest.getUser().setAvailDays(foundLeaveRequest.getUser().getAvailDays() - requestedDays);
 
                 leaveRequestService.create(foundLeaveRequest);
                 result.put("message", "LeaveRequest Data updated");

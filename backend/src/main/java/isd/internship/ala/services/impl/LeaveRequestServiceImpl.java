@@ -57,7 +57,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
             if (leaveRequest.getUser().getId().equals(user_id) &&
                     (leaveRequest.getStartDate().getYear() == leaveRequest.getEndDate().getYear()) &&
                     (leaveRequest.getStartDate().getYear() == year) &&
-                    (Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 1 == 14))
+                    (Period.between(leaveRequest.getStartDate(), leaveRequest.getEndDate()).getDays() + 1 >= 14))
                 return true;
         }
         return false;
@@ -74,7 +74,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                                                                 lr.getStartDate().equals(endDate) ||
                                                                 lr.getEndDate().equals(startDate) ||
                     (startDate.isBefore(lr.getEndDate()) && startDate.isAfter(lr.getStartDate())) ||
-                    (endDate.isBefore(lr.getEndDate()) && endDate   .isAfter(lr.getStartDate()))) ){
+                    (endDate.isBefore(lr.getEndDate()) && endDate.isAfter(lr.getStartDate()))) ){
                 return true;
             }
         }
@@ -164,7 +164,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
                 return "You request too many days, man!";
             }
 
-            if ((requestedDays == 14) || (requestedDays == foundUser.getAvailDays()))
+            if ((requestedDays >= 14) || (requestedDays == foundUser.getAvailDays()))
                 hasFourteenDays = true;
 
             if (!hasFourteenDays && (availDays - requestedDays < 14)) {
