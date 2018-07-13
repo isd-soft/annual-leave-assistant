@@ -30,12 +30,10 @@ public class HolidayServiceImpl implements HolidayService {
     }
 
     @Override
-    public Holiday update(Holiday holiday, Integer id) {
-        Holiday holidayNew = holidayRepository.getOne(id);
-        holidayNew.setName(holiday.getName());
-        holidayRepository.save(holidayNew);
-        return holidayNew;
+    public Holiday update(Integer id, Holiday holiday) {
+        return holidayRepository.save(holiday);
     }
+
 
     @Override
     public void deleteById(Integer id) {

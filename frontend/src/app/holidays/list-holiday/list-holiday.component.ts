@@ -28,13 +28,24 @@ export class ListHolidayComponent implements OnInit {
       });
   }
 
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'ADMIN';
+  }
+
+
   addHoliday() {
     this.router.navigate(['create-holiday']);
   }
 
+  editHoliay(holiday: Holidays) {
+    localStorage.removeItem('holidayId');
+    localStorage.setItem('holidayId', holiday.id.toString());
+    this.router.navigate(['edit-holiday']);
+  }
+
   deleteHoliday(holiday: Holidays): void {
     this.holidayService.deleteHoliday(holiday.id)
-      .subscribe( data => {
+      .subscribe(data => {
         console.log(data);
       }, error1 => console.log(error));
     window.location.reload();

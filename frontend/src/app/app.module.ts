@@ -125,6 +125,10 @@ import { Title } from '@angular/platform-browser';
         component: CreateHolidayComponent
       },
       {
+        path: 'edit-holiday',
+        component: EditHolidayComponent
+      },
+      {
         path: 'list-holidays',
         component: ListHolidayComponent
       }
