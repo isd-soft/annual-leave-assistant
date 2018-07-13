@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface HolidayService {
-    List<Holiday> getAll();
+    List<HashMap<String, String>> getAll();
     Holiday getById(Integer id);
     Holiday create(Holiday holiday);
     Holiday update(Integer id, Holiday holiday);
