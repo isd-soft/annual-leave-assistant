@@ -6,6 +6,8 @@ import {LeaveRequestTypeService} from '../leaveRequestType.service';
 import {LeaveRequestType} from '../leaveRequestType';
 import {error} from 'util';
 import {Observable} from 'rxjs';
+import {MatDialog} from '@angular/material';
+import {DeleteConfirmDialogComponent} from '../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-leave-request-types',
@@ -15,8 +17,9 @@ import {Observable} from 'rxjs';
 export class LeaveRequestTypesComponent implements OnInit {
 
   leaveRequestType: LeaveRequestType[];
+  dialogResult = '';
 
-  constructor(private http: HttpClient, private router: Router, private requestTypeService: LeaveRequestTypeService) {
+  constructor(private http: HttpClient, private router: Router, private requestTypeService: LeaveRequestTypeService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -48,5 +51,22 @@ export class LeaveRequestTypesComponent implements OnInit {
         this.leaveRequestType = this.leaveRequestType.filter(lt => lt !== requestType);
       }, error1 => console.log(error));
     window.location.reload();
+  }
+
+  openDialog(requestType: LeaveRequestType) {
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent,
+      {
+        width: '600px',
+        data: 'You are sure you want to delete this leave request type?'
+      });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      this.dialogResult = result;
+      if (this.dialogResult === 'Confirm') {
+        this.deleteRequestType(requestType);
+      } else if (this.dialogResult === 'Cancel') {
+        dialogRef.close();
+      }
+    });
   }
 }

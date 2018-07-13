@@ -8,6 +8,8 @@ import {environment} from '../../../environments/environment';
 import {Holidays} from '../../models/holidays';
 import {HolidaysService} from '../../holidays.service';
 import {error} from 'util';
+import {DeleteConfirmDialogComponent} from '../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-list-holiday',
@@ -17,14 +19,15 @@ import {error} from 'util';
 export class ListHolidayComponent implements OnInit {
 
   holidays: Holidays[];
+  dialogResult = '';
 
-  constructor(private router: Router, private http: HttpClient, private holidayService: HolidaysService) {
+  constructor(private router: Router, private http: HttpClient, private holidayService: HolidaysService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.holidayService.getHolidays()
       .subscribe(data => {
-        this.holidays = data;
+        this.holidays = data; console.log(data);
       });
   }
 
@@ -49,6 +52,23 @@ export class ListHolidayComponent implements OnInit {
         console.log(data);
       }, error1 => console.log(error));
     window.location.reload();
+  }
+
+  openDialog(holiday: Holidays) {
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent,
+      {
+        width: '600px',
+        data: 'You are sure you want to delete this holiday?'
+      });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      this.dialogResult = result;
+      if (this.dialogResult === 'Confirm') {
+        this.deleteHoliday(holiday);
+      } else if (this.dialogResult === 'Cancel') {
+        dialogRef.close();
+      }
+    });
   }
 
 }

@@ -2,6 +2,7 @@ package isd.internship.ala.controllers;
 
 import isd.internship.ala.models.Holiday;
 import isd.internship.ala.services.HolidayService;
+import isd.internship.ala.services.TokenService;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,14 +19,21 @@ public class HolidayController {
     @Autowired
     private HolidayService holidayService;
 
+    @Autowired
+    private TokenService tokenService;
+
     public HolidayController(HolidayService holidayService) {
 
         this.holidayService = holidayService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Holiday>> getAll() {
-        return new ResponseEntity<>(holidayService.getAll(), HttpStatus.OK);
+    // GET holiday list
+    @GetMapping( produces = "application/json")
+    public ResponseEntity<List<HashMap<String, String>>> getAll(@RequestHeader(value = "Authorization") String header) {
+        if (tokenService.isAdmin(header))
+            return ResponseEntity.status(200).body(holidayService.getAll());
+        else
+            return ResponseEntity.status(403).body(null);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -47,11 +55,6 @@ public class HolidayController {
 
         return new ResponseEntity<>("Holiday has been deleted", HttpStatus.OK);
     }
-
-//    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-//    public void update(@RequestBody Holiday holiday, @PathVariable(name = "id") Integer id) {
-//        holidayService.update(holiday, id);
-//    }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Holiday> update(@PathVariable("id") Integer id, @RequestBody Holiday holiday) {

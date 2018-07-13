@@ -3,9 +3,10 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../user';
 import {Router} from '@angular/router';
 import {UserService} from '../../user.service';
-import {MatTable} from '@angular/material';
+import {MatDialog, MatTable} from '@angular/material';
 import {Observable} from 'rxjs';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {DeleteConfirmDialogComponent} from '../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-list-user',
@@ -15,14 +16,15 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 export class ListUserComponent implements OnInit {
 
   users: User[];
+  dialogResult = '';
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router, private userService: UserService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.userService.getUsers()
       .subscribe(data => {
-        this.users = data;
+        this.users = data;  console.log(data);
       });
   }
 
@@ -49,6 +51,23 @@ export class ListUserComponent implements OnInit {
         this.users = this.users.filter(u => u !== user);
       });
     window.location.reload();
+  }
+
+  openDialog(user: User) {
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent,
+      {
+        width: '600px',
+        data: 'You are sure you want to delete this user ?'
+  });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      this.dialogResult = result;
+      if (this.dialogResult === 'Confirm') {
+        this.deleteUser(user);
+      } else if (this.dialogResult === 'Cancel') {
+        dialogRef.close();
+      }
+    });
   }
 
   deleteAllUsers(): void {

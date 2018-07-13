@@ -34,10 +34,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EditHolidayComponent} from './holidays/edit-holiday/edit-holiday.component';
 
 import {Title} from '@angular/platform-browser';
-import { DeleteConfirmDialogComponent } from './shared/delete-confirm-dialog/delete-confirm-dialog.component';
+import {DeleteConfirmDialogComponent} from './shared/delete-confirm-dialog/delete-confirm-dialog.component';
 
 import {MatCardModule, MatButtonModule, MatDialogModule} from '@angular/material';
-
 
 @NgModule({
   declarations: [

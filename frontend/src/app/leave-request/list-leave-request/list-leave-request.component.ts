@@ -8,6 +8,7 @@ import {LeaveRequestType} from '../../leaveRequestType';
 import {MatDialog} from '@angular/material';
 import {DeleteConfirmDialogComponent} from '../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 
+
 @Component({
   selector: 'app-list-leave-request',
   templateUrl: './list-leave-request.component.html',
