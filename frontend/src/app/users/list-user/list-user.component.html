@@ -29,9 +29,9 @@
       <td>{{user.availDays}}</td>
       <td><button matTooltip="Create leave request for specified user" class="material-icons" (click)="addLeaveRequest(user.id)">add</button></td>
       <td><button matTooltip="Edit user" class="material-icons" (click)="updateUser(user)">edit</button></td>
-      <td><button matTooltip="Delete user" class="material-icons" (click)="deleteUser(user)">delete</button></td>
+      <td><button matTooltip="Delete user" class="material-icons" (click)="openDialog(user)">delete</button></td>
     </tr>
     </tbody>
   </table>
-  <button matTooltip="Delete all users" class="material-icons" (click)="deleteAllUsers()">delete</button>
+  <!--<button matTooltip="Delete all users" class="material-icons" (click)="deleteAllUsers()">delete</button>-->
 </div>

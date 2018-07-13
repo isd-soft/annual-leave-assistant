@@ -17,7 +17,7 @@
       <td>{{holiday.name}}</td>
       <td>{{holiday.date}}</td>
       <td><button matTooltip="Edit holiday" class="material-icons" *ngIf="isAdmin()" (click)="editHoliay(holiday)">edit</button></td>
-      <td><button matTooltip="Delete holiday" class="material-icons" *ngIf="isAdmin()" (click)="deleteHoliday(holiday)">delete</button></td>
+      <td><button matTooltip="Delete holiday" class="material-icons" *ngIf="isAdmin()" (click)="openDialog(holiday)">delete</button></td>
     </tr>
     </tbody>
   </table>
