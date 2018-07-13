@@ -48,11 +48,6 @@ public class HolidayController {
         return new ResponseEntity<>("Holiday has been deleted", HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-//    public void update(@RequestBody Holiday holiday, @PathVariable(name = "id") Integer id) {
-//        holidayService.update(holiday, id);
-//    }
-
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Holiday> update(@PathVariable("id") Integer id, @RequestBody Holiday holiday) {
         holidayService.update(id, holiday);
