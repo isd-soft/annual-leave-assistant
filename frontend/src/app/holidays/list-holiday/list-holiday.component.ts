@@ -27,7 +27,7 @@ export class ListHolidayComponent implements OnInit {
   ngOnInit() {
     this.holidayService.getHolidays()
       .subscribe(data => {
-        this.holidays = data;
+        this.holidays = data; console.log(data);
       });
   }
 
