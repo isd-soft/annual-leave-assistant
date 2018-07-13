@@ -22,8 +22,14 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
 
     @Autowired
     private LeaveRequestRepository leaveRequestRepository;
+
+    @Autowired
     private StatusRepository statusRepository;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
     private HolidayRepository holidayRepository;
 
     @Override
@@ -243,15 +249,12 @@ public class LeaveRequestServiceImpl implements LeaveRequestService, LeaveReques
 
     @Override
     public void checkForHoliday(LeaveRequest leaveRequest){
-        List<LeaveRequest> leaveRequests = leaveRequestRepository.findAll();
         List<Holiday> holidays = holidayRepository.findAll();
         int result = 0;
-
-        for(LeaveRequest lr : leaveRequests){
-            for(Holiday holiday : holidays)
-                if(holiday.getDate().isAfter(lr.getStartDate()) && holiday.getDate().isBefore(lr.getEndDate()))
-                    result++;
-        }
+        for(Holiday holiday : holidays)
+            if((holiday.getDate().isAfter(leaveRequest.getStartDate()) && holiday.getDate().isBefore(leaveRequest.getEndDate())) ||
+                    holiday.getDate().equals(leaveRequest.getStartDate()) || holiday.getDate().equals(leaveRequest.getEndDate()) )
+                result++;
 
         User user = leaveRequest.getUser();
         user.setAvailDays(user.getAvailDays() + result);
