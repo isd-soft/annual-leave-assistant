@@ -32,7 +32,7 @@
 
       <td><button matTooltip="Approve" class="material-icons"  *ngIf="isAdmin() && leaveRequest.status === 'pending'"  (click)="approve(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">check</button></td>
       <td><button matTooltip="Edit leave request" class="material-icons" *ngIf="isAdmin() || leaveRequest.status != 'approved'" (click)="updateLvReq(leaveRequest.id, leaveRequest.user_id, leaveRequest.leaveRequestTypeId, leaveRequest.startDate, leaveRequest.endDate)">edit</button></td>
-      <td><button matTooltip="Delete leave request" class="material-icons" *ngIf="leaveRequest.status != 'approved'" (click)="deleteLvReq(leaveRequest.id)">delete</button></td>
+      <td><button matTooltip="Delete leave request" class="material-icons" *ngIf="leaveRequest.status != 'approved'" (click)="openDialog(leaveRequest.id)">delete</button></td>
       <td><button matTooltip="Download doc" class="material-icons" (click)="download(leaveRequest.id, leaveRequest.user, leaveRequest.leaveRequestType)">cloud_download</button></td>
     </tr>
     </tbody>

@@ -5,6 +5,8 @@ import {environment} from '../../../environments/environment';
 import * as FileSaver from 'file-saver';
 import {User} from '../../user';
 import {LeaveRequestType} from '../../leaveRequestType';
+import {MatDialog} from '@angular/material';
+import {DeleteConfirmDialogComponent} from '../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-list-leave-request',
@@ -18,8 +20,10 @@ export class ListLeaveRequestComponent implements OnInit {
   surname: string;
   user: User[];
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, public dialog: MatDialog) {
   }
+
+  dialogResult = '';
 
   ngOnInit() {
     this.reloadData();
@@ -45,11 +49,27 @@ export class ListLeaveRequestComponent implements OnInit {
     this.router.navigate(['edit-leave-request']);
   }
 
-
   deleteLvReq(id: number) {
     this.http.delete(environment.rootUrl + '/ala/leaveRequests/' + id, {observe: 'response'})
       .toPromise().then(res => console.log(res)).catch(err => console.log(err));
-    window.location.reload();
+      window.location.reload();
+  }
+
+  openDialog(id: number) {
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent,
+      {
+        width: '600px',
+        data: 'You are sure you want to delete this leave request ?'
+      });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      this.dialogResult = result;
+      if (this.dialogResult === 'Confirm') {
+        this.deleteLvReq(id);
+      } else if (this.dialogResult === 'Cancel') {
+        dialogRef.close();
+      }
+    });
   }
 
 
@@ -100,5 +120,6 @@ export class ListLeaveRequestComponent implements OnInit {
           user.toString() + ' ' + requestType.toString() + '.docx');
       });
   }
+
 
 }
