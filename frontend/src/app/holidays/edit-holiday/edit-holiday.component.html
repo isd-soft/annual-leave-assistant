@@ -2,15 +2,15 @@
   <h2 class="text-center">Edit Holidays</h2>
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="date">Date:</label>
-      <input type="date" formControlName="date" placeholder="date" name="date" class="date" id="date">
+      <label class="isd-lbl-login" for="date">Date:</label>
+      <input type="date" formControlName="date" placeholder="date" name="date" class="date isd-lbl-login" id="date">
     </div>
 
     <div class="form-group">
-      <label for="name">Name:</label>
-      <input formControlName="name" placeholder="name" name="name" class="form-control" id="name">
+      <label class="isd-lbl-login" for="name">Name:</label>
+      <input formControlName="name" placeholder="name" name="name" class="form-control isd-lbl-login" id="name">
     </div>
 
-    <button matTooltip="Update" class="material-icons">update</button>
+    <button matTooltip="Save" class="material-icons">save</button>
   </form>
 </div>
