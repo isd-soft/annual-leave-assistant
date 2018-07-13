@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
-import { DataSource , CdkTableModule} from '@angular/cdk/table';
+import {DataSource, CdkTableModule} from '@angular/cdk/table';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
@@ -21,19 +21,23 @@ import {ListUserComponent} from './users/list-user/list-user.component';
 import {EditUserComponent} from './users/edit-user/edit-user.component';
 import {CreateLeaveRequestComponent} from './leave-request/create-leave-request/create-leave-request.component';
 import {ListLeaveRequestComponent} from './leave-request/list-leave-request/list-leave-request.component';
-import { CreateComponent } from './leave-request-types/create/create.component';
-import { EditComponent } from './leave-request-types/edit/edit.component';
-import { EditLeaveRequestComponent } from './leave-request/edit-leave-request/edit-leave-request.component';
+import {CreateComponent} from './leave-request-types/create/create.component';
+import {EditComponent} from './leave-request-types/edit/edit.component';
+import {EditLeaveRequestComponent} from './leave-request/edit-leave-request/edit-leave-request.component';
 import {ListHolidayComponent} from './holidays/list-holiday/list-holiday.component';
 import {CreateHolidayComponent} from './holidays/create-holiday/create-holiday.component';
-import { FilterPipeModule } from 'ngx-filter-pipe';
-import { FilterdataPipe } from './filterdata.pipe';
+import {FilterPipeModule} from 'ngx-filter-pipe';
+import {FilterdataPipe} from './filterdata.pipe';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { EditHolidayComponent } from './holidays/edit-holiday/edit-holiday.component';
+import {EditHolidayComponent} from './holidays/edit-holiday/edit-holiday.component';
 
-import { Title } from '@angular/platform-browser';
+import {Title} from '@angular/platform-browser';
+import { DeleteConfirmDialogComponent } from './shared/delete-confirm-dialog/delete-confirm-dialog.component';
+
+import {MatCardModule, MatButtonModule, MatDialogModule} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +59,8 @@ import { Title } from '@angular/platform-browser';
     ListHolidayComponent,
     CreateHolidayComponent,
     FilterdataPipe,
-    EditHolidayComponent
+    EditHolidayComponent,
+    DeleteConfirmDialogComponent,
   ],
   imports: [
     FilterPipeModule,
@@ -65,6 +70,9 @@ import { Title } from '@angular/platform-browser';
     FormsModule,
     MatTooltipModule,
     BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule,
     RouterModule.forRoot([
       {
         path: 'edit-leave-request',
@@ -134,8 +142,9 @@ import { Title } from '@angular/platform-browser';
       }
     ])
   ],
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: Interceptors, multi: true}
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptors, multi: true}],
+  entryComponents: [
+    DeleteConfirmDialogComponent
   ],
   bootstrap: [AppComponent]
 })
