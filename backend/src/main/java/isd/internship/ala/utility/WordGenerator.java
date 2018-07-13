@@ -50,7 +50,7 @@ public class WordGenerator {
         Map<String, String> templates = new HashMap<String, String>() {{
             for(int i = 0; i < leaveRequestTypes.size(); i++) {
                 put(leaveRequestTypes.get(i).getName(), splitString[1] + leaveRequestTypes.get(i).getName() + ".docx");
-//                put(leaveRequestTypes.get(i).getName(), "C:\\Users\\EVOL\\Desktop\\concediu" + leaveRequestTypes.get(i).getName() + ".docx");
+                //put(leaveRequestTypes.get(i).getName(), "C:\\Users\\EVOL\\Desktop\\Concediu\\concediu" + leaveRequestTypes.get(i).getName() + ".docx");
             }
         }};
 
