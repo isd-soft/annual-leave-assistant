@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Holidays} from './models/holidays';
+import {environment} from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class HolidaysService {
   constructor(private http: HttpClient) {
   }
 
-  baseUrl = 'http://localhost:8088/ala/holidays';
+  baseUrl = environment.rootUrl +'/ala/holidays';
 
   getHolidays() {
     return this.http.get<Holidays[]>(this.baseUrl);

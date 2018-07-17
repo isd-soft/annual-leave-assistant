@@ -63,7 +63,7 @@ public class WordGenerator {
             XWPFDocument doc = new XWPFDocument(new FileInputStream(templatePath));
             doc = replace(doc, "[$name]", map.get("name").toString());
             doc = replace(doc, "[$surname]", map.get("surname").toString());
-//            doc = replace(doc, "[$position]", map.get("function").toString());
+            doc = replace(doc, "[$position]", map.get("function").toString());
             doc = replace(doc, "[$start]", map.get("start_day").toString());
             doc = replace(doc, "[$end]", map.get("end_day").toString());
             doc = replace(doc, "[$days]", map.get("days").toString());

@@ -1,4 +1,4 @@
-template_path=C:\Users\Miron\Desktop\concediu
+template_path=C:\Users\mharea\Desktop\concediu
 
 
 

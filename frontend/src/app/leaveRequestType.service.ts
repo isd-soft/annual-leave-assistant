@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {LeaveRequestType} from './leaveRequestType';
 import {User} from './user';
+import {environment} from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeaveRequestTypeService {
 
-  private baseUrl = 'http://localhost:8088/ala/leaveRequestTypes';
+  private baseUrl = environment.rootUrl+'/ala/leaveRequestTypes';
 
   constructor(private http: HttpClient) {
   }
